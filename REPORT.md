@@ -56,3 +56,6 @@ A "good" agent is safe, grounded, and operationally useful. It must correctly tr
 - Used Macro F1 instead of Accuracy to penalize the model for guessing the majority class.
 - Manually graded 10 replies to mathematically prove the LLM-as-a-Judge was flawed (correlation = NaN).
 - Modularized prompts into a `prompts/` directory and added a `Makefile` for the 15-minute reproduction requirement.
+- Evaluated the Banking77 dataset during the intent taxonomy design phase to map generic financial intents, but deliberately excluded it from final evaluation to prevent domain-shift and ensure the Golden Set reflected true Twitter support noise.
+- Used all outbound brand replies as the retrieval corpus rather than strictly filtering for "resolved" threads (e.g., where the customer said "thanks"). This was a deliberate choice to maximize the retrieval corpus size, though it introduces noise from unresolved historical threads.
+- Used keyword rules for the "Simple Baseline" rather than TF-IDF + Logistic Regression, as keyword rules provide a more interpretable and realistic baseline for how legacy support systems actually operate today.
