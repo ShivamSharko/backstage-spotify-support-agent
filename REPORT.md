@@ -17,37 +17,48 @@ A "good" agent is safe, grounded, and operationally useful. It must correctly tr
 
 ## 3. Results on Golden Set (200 Hand-Labelled Examples)
 
-### Baseline Comparison
+### Baseline Comparison (Computed dynamically via `make baselines`)
 | Metric | Trivial Baseline | Simple Baseline (Keywords) | Main System (LLM + Dense RAG) |
 | :--- | :--- | :--- | :--- |
 | **Intent Accuracy** | 49% | 60% | **86%** |
 | **Intent Macro F1** | 0.13 | 0.46 | **0.84** |
+| **Escalation Precision** | 0.08 | 0.21 | **0.20** |
+| **Escalation Recall** | 1.00 | 0.56 | 0.56 |
+
+*Note on Escalation Precision:* The Main System's precision (0.20) is low. This is because the Golden Set is heavily enriched with difficult, high-risk edge cases. In a real production distribution (where 99% of tweets are benign), the precision would be much higher. However, on this adversarial test set, the system triggers too many false alarms.
 
 ### Operational Metrics (Risk & Confidence Engine)
 | Metric | Result |
 | :--- | :--- |
-| **Auto-Handle Rate** | **76.50%** (System can automate 3/4 of all tickets) |
-| **False Auto-Handle Rate** | **4.58%** (Keeps dangerous auto-handles safely below the 5% production threshold) |
-| **Escalation Precision** | High (Driven by low retrieval scores and low LLM confidence) |
+| **Auto-Handle Rate** | **76.50%** (System automates 153 of 200 tickets) |
+| **Volume False Auto-Handle Rate** | **4.58%** (7 dangerous tweets slipped through out of 153 auto-handled) |
+| **Risk Miss Rate (Stricter Metric)** | **43.75%** (7 dangerous tweets slipped through out of 16 total true risks) |
 
 ### Reply Quality (LLM-as-a-Judge on 20 replies)
 - Groundedness: 4.70 / 5
-- Safety: 5.00 / 5 (Perfect score due to PII Redaction layer)
+- Safety: 5.00 / 5 (Judge awarded perfect scores, but human review found the judge was overly lenient regarding DM requests).
 - Helpfulness: 4.70 / 5
 
 ## 4. "What is misleading about my headline number?"
-1. **The LLM Judge is biased.** Human-Judge Spearman correlation for "Groundedness" was `NaN` because the Judge gave almost every reply a 5/5, failing to catch domain hallucinations (e.g., Twitter UI vs Spotify UI).
-2. **High "Other" intent skew.** 98 out of 200 tweets were conversational noise, artificially inflating accuracy metrics. Macro F1 (0.84) is the true measure of success.
-3. **Static vs Production.** The 4.58% False Auto-Handle rate is calculated on an enriched Golden Set (stratified to include rare/high-risk tweets). In a true production distribution, the false auto-handle rate would be even lower.
+1. **The False Auto-Handle Denominator Problem:** I headlined a 4.58% False Auto-Handle rate. This divides false auto-handles by *total auto-handled volume* (7/153). A stricter, more alarming metric is the *Risk Miss Rate*: what percentage of actual dangerous tweets were auto-handled? That number is 43.75% (7 out of 16 true risks). I chose to headline the 4.58% because in a production environment with 99% benign traffic, the volume-based metric reflects the actual noise-to-signal ratio human agents will face. However, the 43.75% miss rate proves the system is not yet ready for unsupervised deployment on high-risk intents.
+2. **Self-Judging Bias:** The LLM Judge uses the exact same model (`openai/gpt-oss-120b`) as the reply generator. This introduces self-preference bias. The judge awarded perfect 5/5 safety scores even when the generated replies asked users to DM their email addresses, which a human reviewer correctly flagged as a privacy risk. 
+3. **The LLM Judge is blind to domain hallucinations.** Human-Judge Spearman correlation for "Groundedness" was `NaN` because the Judge gave almost every reply a 5/5, failing to catch severe hallucinations (e.g., providing Twitter UI instructions instead of Spotify UI).
+4. **Golden Set Circularity:** The high-risk slice of the Golden Set was sampled using keywords (`hack`, `fraud`, `sue`) that heavily overlap with the Risk Engine's escalation triggers. This artificially inflates the system's apparent recall on the test set compared to a purely random sample.
 
-## 5. Failure Analysis (Top 3 Modes)
+## 5. Failure Analysis (Top 5 Modes)
 1. **Domain Hallucination:** User asks "how do i DELETE". The AI explains how to delete a *Tweet* instead of a *Playlist*.
 2. **Context Blindness:** User states they already tried a test account. The AI ignores context and spits out generic "log out and clear cache" steps.
 3. **Intent Ambiguity:** Model struggles to distinguish broken features (`app_bug`) from missing features (`feature_request`).
+4. **Hallucinated URL Survival:** *Example (Row 9 recurrence)* User asks "how do i DELETE". The AI confidently provides `spotify.com/account/delete/` (the real closure path is `/account/close/`). The LLM Judge gave this a 5/5 for groundedness, proving the judge cannot verify external URLs.
+5. **Sarcasm & Context Misclassification:** *Example (Row 14)* User tweets "HA! Right now you're [URL]" (sarcasm). The system classifies it as `app_bug` and generates a generic troubleshooting reply, completely missing the conversational context and tone.
 
 ## 6. What I'd do next with one more week
 1. **LLM-based Escalation Risk Engine:** Replace keyword rules with a secondary LLM classifier specifically prompted to evaluate risk, toxicity, and user frustration levels to further improve escalation precision.
 2. **Strict Grounding Verifier:** Implement a secondary pass that checks if all URLs and UI steps in the generated reply actually exist in the retrieved evidence.
+
+## Golden Set Labelling Conventions & Circularity
+- **Conversational Fragments:** Short fragments lacking explicit questions (e.g., "iOS 11.2 beta", "I use chrome") were labelled based on the surrounding thread context if available, or defaulted to `other` if context was missing. This introduces some noise into the `app_bug` category.
+- **Sampling Circularity:** To ensure the Golden Set contained enough high-risk examples to test the escalation engine, I stratified the sample using risk keywords (`hack`, `stolen`, `lawyer`). Because the baseline and main system escalation policies also rely on these keywords, the reported Escalation Recall (0.56) is partially measuring keyword-matching against a set enriched by those same keywords. In a purely random production sample, true risk recall would be lower.
 
 ## 7. Decision Log (13 Non-Obvious Decisions)
 1. **Chose SpotifyCares over Amazon/Apple:** Amazon and Apple support mostly reply with "Please DM us." Spotify provides actionable, public troubleshooting steps, which is required to train a grounded RAG retrieval system.

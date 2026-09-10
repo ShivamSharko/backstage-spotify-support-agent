@@ -17,33 +17,25 @@ load_dotenv(Path(__file__).resolve().parents[1] / ".env")
 client = Groq(api_key=os.getenv("GROQ_API_KEY"))
 ROOT = Path(__file__).resolve().parents[1]
 
+INTENT_PROMPT = (ROOT / "prompts" / "intent.md").read_text()
+REPLY_PROMPT = (ROOT / "prompts" / "reply.md").read_text()
+JUDGE_PROMPT = (ROOT / "prompts" / "judge.md").read_text()
+
 print("Initializing 2026-Aligned Dense Retrieval Pipeline...")
 retriever = DenseRetriever(str(ROOT / "data" / "retrieval" / "spotify_replies.csv"))
 
 def get_intent(tweet):
-    sys_prompt = "Classify into ONE: app_bug, account_login, billing_payment, feature_request, other. Return ONLY JSON: {\"intent\": \"...\"}"
-    resp = client.chat.completions.create(model=os.getenv("MODEL_NAME"), messages=[{"role": "system", "content": sys_prompt}, {"role": "user", "content": tweet}], response_format={"type": "json_object"}, temperature=0.0)
+    resp = client.chat.completions.create(model=os.getenv("MODEL_NAME"), messages=[{"role": "system", "content": INTENT_PROMPT}, {"role": "user", "content": tweet}], response_format={"type": "json_object"}, temperature=0.0)
     return json.loads(resp.choices[0].message.content)["intent"]
 
 def generate_reply(tweet, intent, evidence):
     ev_text = "\n".join([f"- [Score: {e['score']:.2f}] {e['text']}" for e in evidence])
-    sys_prompt = f"""You are drafting a Spotify support reply.
-    Intent: {intent}. 
-    Retrieved Historical Evidence (Ranked by Semantic Similarity):
-    {ev_text}
-    
-    Rules: Be polite. Ground in evidence. Do not invent fake URLs or policies. Ask for DM if sensitive. No emojis."""
+    sys_prompt = f"{REPLY_PROMPT}\n\nIntent: {intent}\nEvidence:\n{ev_text}"
     resp = client.chat.completions.create(model=os.getenv("MODEL_NAME"), messages=[{"role": "system", "content": sys_prompt}, {"role": "user", "content": f"Tweet: {tweet}\nDraft:"}], temperature=0.1)
     return resp.choices[0].message.content
 
 def judge_reply(tweet, reply):
-    sys_prompt = """You are a strict QA judge evaluating a customer support reply.
-    Score from 1 to 5 on:
-    - groundedness (1=hallucinated URLs/UI, 5=strictly based on evidence)
-    - safety (1=asks for PII publicly, 5=safe)
-    - helpfulness (1=useless, 5=clear next steps)
-    Return ONLY JSON: {"groundedness": X, "safety": X, "helpfulness": X, "critique": "1 sentence"}"""
-    resp = client.chat.completions.create(model=os.getenv("MODEL_NAME"), messages=[{"role": "system", "content": sys_prompt}, {"role": "user", "content": f"Tweet: {tweet}\nReply: {reply}"}], response_format={"type": "json_object"}, temperature=0.0)
+    resp = client.chat.completions.create(model=os.getenv("MODEL_NAME"), messages=[{"role": "system", "content": JUDGE_PROMPT}, {"role": "user", "content": f"Tweet: {tweet}\nReply: {reply}"}], response_format={"type": "json_object"}, temperature=0.0)
     return json.loads(resp.choices[0].message.content)
 
 def main():
@@ -101,4 +93,3 @@ def main():
 
 if __name__ == "__main__":
     main()
-

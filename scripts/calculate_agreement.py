@@ -5,7 +5,7 @@ ROOT = Path(__file__).resolve().parents[1]
 
 def main():
     # Load the evaluation file and only look at the first 10 rows you graded
-    df = pd.read_csv(ROOT / "eval" / "reply_eval.csv").head(10)
+    df = pd.read_csv(ROOT / "eval" / "reply_eval_advanced.csv").head(10)
     
     metrics = ['groundedness', 'safety', 'helpfulness']
     
@@ -30,9 +30,7 @@ def main():
             print(f"{metric.capitalize():<15} Agreement: Not enough data")
             
     print("="*55)
-    print("\nConclusion: The judge is likely biased towards high scores")
-    print("and fails to catch specific domain hallucinations (like Row 9).")
+    print("\nConclusion: The judge is blind to domain hallucinations and exhibits self-preference bias (same model generated and judged).")
 
 if __name__ == "__main__":
     main()
-
