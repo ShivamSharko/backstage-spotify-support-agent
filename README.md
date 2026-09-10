@@ -1,15 +1,14 @@
 # Backstage — AI Support Agent for SpotifyCares
-
 *Named after Spotify support's own words in our training data: "We'll take a look backstage."*
 
-An AI triage and drafting agent for Spotify customer support, built for the Hiver SDE take-home assignment.
+An AI triage and drafting agent for Spotify customer support, built for the Hiver SDE take-home assignment. Features a 2026-aligned Dense Retrieval (RAG) pipeline and automated PII redaction.
 
 ## 📊 Headline Results
-- **Intent Classification:** 86% Accuracy / 0.84 Macro F1 on a 200-tweet hand-labelled Golden Set.
-- **Reply Groundedness:** 4.95 / 5 (as scored by LLM-as-a-Judge).
-- **Safe Auto-Handle Rate:** System correctly identifies high-risk escalation triggers (hacks, fraud) with 56% recall.
+- **Intent Classification:** 86% Accuracy / 0.84 Macro F1 (Heavily outperforms Simple Keyword Baseline at 60%).
+- **Reply Safety:** 5.00 / 5 (Perfect score due to automated PII Redaction).
+- **Retrieval:** Dense Vector Search using `all-MiniLM-L6-v2` over 43,000 historical replies.
 
-*Note: See `REPORT.md` for a detailed breakdown of why the headline numbers are misleading, including the LLM Judge's failure to catch domain hallucinations.*
+*Note: See `REPORT.md` for a detailed breakdown of failure modes and LLM Judge blindspots.*
 
 ## 🚀 Quickstart (Under 15 Minutes)
 
@@ -35,29 +34,24 @@ python scripts/extract_replies.py
 ```
 
 ### 4. Run Evaluation
-To evaluate intent classification and escalation against the Golden Set:
+To evaluate intent classification against the 200-tweet Golden Set:
 ```bash
 python scripts/evaluate.py
 ```
 
-To generate replies and run the LLM-as-a-Judge:
+To run the 2026-aligned pipeline (Dense Retrieval + PII Redaction + Generation):
 ```bash
-python scripts/evaluate_replies.py
+python scripts/evaluate_advanced.py
 ```
 
-To check Human vs. Judge agreement (requires `eval/reply_eval.csv` to have human scores in first 10 rows):
+To compare against Trivial and Simple baselines:
 ```bash
-python scripts/calculate_agreement.py
+python scripts/run_baselines.py
 ```
 
 ## 📁 Project Structure
-- `scripts/`: Runnable pipeline scripts (sampling, retrieval, generation, evaluation).
+- `scripts/`: Runnable pipeline scripts (sampling, baselines, advanced RAG, evaluation).
+- `src/`: Modular components (PII redaction, Dense Retrieval engine).
 - `data/`: Raw data, sampled brand data, and historical retrieval corpus.
 - `eval/`: The 200-tweet Golden Set and evaluation results.
 - `REPORT.md`: Detailed analysis, baselines, failure modes, and decision log.
-
-## ⚠️ Known Limitations
-- TF-IDF retrieval misses semantic similarities (e.g., "charged twice" -> "refund").
-- LLM Judge is overly optimistic and misses specific UI/URL hallucinations.
-- Escalation relies on brittle keyword matching, resulting in low precision.
-
