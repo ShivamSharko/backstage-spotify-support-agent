@@ -49,13 +49,17 @@ A "good" agent is safe, grounded, and operationally useful. It must correctly tr
 1. **LLM-based Escalation Risk Engine:** Replace keyword rules with a secondary LLM classifier specifically prompted to evaluate risk, toxicity, and user frustration levels to further improve escalation precision.
 2. **Strict Grounding Verifier:** Implement a secondary pass that checks if all URLs and UI steps in the generated reply actually exist in the retrieved evidence.
 
-## 7. Decision Log
-- Chose Dense Retrieval (Sentence-Transformers) over TF-IDF to capture semantic meaning.
-- Added a PII Redaction layer to ensure user privacy before LLM inference, which bumped Safety scores to 5.00/5.
-- Implemented a mathematical Risk & Confidence Engine (evaluating LLM confidence + Retrieval score) rather than brittle keyword rules for escalation.
-- Used Macro F1 instead of Accuracy to penalize the model for guessing the majority class.
-- Manually graded 10 replies to mathematically prove the LLM-as-a-Judge was flawed (correlation = NaN).
-- Modularized prompts into a `prompts/` directory and added a `Makefile` for the 15-minute reproduction requirement.
-- Evaluated the Banking77 dataset during the intent taxonomy design phase to map generic financial intents, but deliberately excluded it from final evaluation to prevent domain-shift and ensure the Golden Set reflected true Twitter support noise.
-- Used all outbound brand replies as the retrieval corpus rather than strictly filtering for "resolved" threads (e.g., where the customer said "thanks"). This was a deliberate choice to maximize the retrieval corpus size, though it introduces noise from unresolved historical threads.
-- Used keyword rules for the "Simple Baseline" rather than TF-IDF + Logistic Regression, as keyword rules provide a more interpretable and realistic baseline for how legacy support systems actually operate today.
+## 7. Decision Log (13 Non-Obvious Decisions)
+1. **Chose SpotifyCares over Amazon/Apple:** Amazon and Apple support mostly reply with "Please DM us." Spotify provides actionable, public troubleshooting steps, which is required to train a grounded RAG retrieval system.
+2. **Used Stratified Sampling for the Golden Set:** Instead of random sampling, I forced the inclusion of 50 high-risk and 50 short/vague tweets to ensure the evaluation caught tail-end failure modes.
+3. **Defined "Safe Auto-Handle Rate" as the Headline Metric:** 86% Intent Accuracy is meaningless if the AI auto-handles a hacked account. I optimized for the percentage of tickets automated while keeping the False Auto-Handle rate strictly below 5%.
+4. **Implemented Pre-LLM PII Redaction:** Instead of trusting the LLM's system prompt to "ignore PII" (which is vulnerable to prompt injection), I wrote a regex layer (`src/pii.py`) to strip emails/URLs before the text ever touches the Groq API.
+5. **Chose Dense Retrieval over TF-IDF:** TF-IDF failed to match "double charged" with "refund" because the words don't overlap. Dense embeddings (`all-MiniLM-L6-v2`) capture semantic meaning.
+6. **Deliberately used "Always Escalate" as the Trivial Baseline:** This established a mathematical floor for safety. It proves that a system that refuses to automate anything is 100% safe but 0% useful.
+7. **Excluded Banking77 from Final Evaluation:** I used it for taxonomy design but excluded it from testing to prevent domain-shift. The Golden Set must reflect true Twitter noise, not clean banking queries.
+8. **Used Groq for the Evaluation Loop:** Chose Groq over OpenAI/Anthropic to allow for rapid, zero-cost iteration while building and testing the LLM-as-a-Judge harness.
+9. **Calculated Human-Judge Agreement (and exposed the Judge's flaws):** Instead of blindly trusting the LLM Judge's 4.95/5 groundedness score, I manually graded 10 rows and mathematically proved (via NaN correlation) that the Judge was blind to domain hallucinations.
+10. **Used Macro-F1 over Accuracy:** With 98 out of 200 tweets being conversational noise ("other"), Accuracy is easily inflated. Macro-F1 penalizes the model if it fails on rare but critical intents like `account_login`.
+11. **Kept Escalation as a Separate Policy Engine:** Instead of asking the LLM to output the escalation decision in the same JSON as the intent, I separated it into a deterministic Risk Engine (`calculate_safe_autohandle.py`) to ensure safety rules are strictly enforced.
+12. **Used Keyword Rules for the Simple Baseline:** While the guide suggested TF-IDF + Logistic Regression, real-world legacy support systems use keyword triggers. Using keywords provides a more realistic business baseline to compare against.
+13. **Did Not Fine-Tune the LLM:** Fine-tuning a model on 43k tweets risks catastrophic forgetting and makes the system a black box. Using Few-Shot Prompting with Dense Retrieval keeps the system auditable and easily updatable.
