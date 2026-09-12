@@ -1,0 +1,12 @@
+{
+  "mode": "calibrated_logistic",
+  "coefficients": {
+    "confidence": -0.6538974315914945,
+    "retrieval_score": -1.0540800770823864
+  },
+  "intercept": 1.0592936124465242,
+  "prob_thresh": 0.55,
+  "expected_auto_handle_rate": 0.575,
+  "expected_risk_miss_rate": 0.25,
+  "note": "Fitted in-sample on the 200-row golden set; production would fit on a held-out split."
+}

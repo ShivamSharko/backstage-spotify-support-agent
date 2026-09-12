@@ -3,6 +3,7 @@ import json
 import sys
 import time
 import re
+import math
 import pandas as pd
 from pathlib import Path
 from dotenv import load_dotenv
@@ -16,7 +17,13 @@ load_dotenv(Path(__file__).resolve().parents[1] / ".env")
 client = Groq(api_key=os.getenv("GROQ_API_KEY"))
 ROOT = Path(__file__).resolve().parents[1]
 
-print("Loading Dense Retriever for Risk Engine...")
+CFG_PATH = ROOT / "configs" / "thresholds.json"
+CFG = json.loads(CFG_PATH.read_text()) if CFG_PATH.exists() else None
+
+RISK_RE = re.compile(r'\b(?:hack\w*|stol\w*|steal\w*|fraud\w*|lawyer\w*|legal\w*|sue|sued|suing|unauthoriz\w*|compromis\w*|phish\w*|scam\w*|threat\w*)\b')
+PROFANITY_RE = re.compile(r'\b(?:fuck|shit|bitch|kill)\w*\b')
+
+print("Loading Dense Retriever for Risk Engine v3...")
 retriever = DenseRetriever(str(ROOT / "data" / "retrieval" / "spotify_replies.csv"))
 
 def get_intent_and_confidence(tweet):
@@ -30,62 +37,76 @@ def get_intent_and_confidence(tweet):
             if attempt == 0: time.sleep(1)
             else: return "other", 0.0
 
-def risk_policy_engine(intent, confidence, retrieval_score, text):
-    if confidence < 0.7: return True, "Low LLM confidence"
-    if retrieval_score < 0.4: return True, "Weak historical evidence"
-    
-    text_lower = text.lower()
-    risk_pattern = r'\b(?:hack\w*|stol\w*|steal\w*|fraud\w*|lawyer\w*|legal\w*|sue|sued|suing|unauthoriz\w*|compromis\w*|phish\w*|scam\w*|threat\w*)\b'
-    has_risk = bool(re.search(risk_pattern, text_lower))
-    has_dead_end = ('cancel' in text_lower) and any(w in text_lower for w in ["can't", "cannot", "unable", "won't"])
-    has_profanity = bool(re.search(r'\b(?:fuck|shit|bitch|kill)\w*\b', text_lower))
-    
-    if has_risk or has_dead_end or has_profanity:
-        return True, "High-risk keyword or dead-end detected"
-    
+def get_llm_risk(tweet):
+    sys_prompt = ("You are a risk assessor for customer support. Flag risk=true ONLY if the message indicates: "
+                  "account compromise/hacking, fraud or unauthorized charges, legal threats, threats of violence or self-harm, "
+                  "or severe abusive hostility. Do NOT flag ordinary frustration, bugs, billing questions, or sarcasm. "
+                  "Return JSON only: {\"risk\": false, \"risk_type\": null} or {\"risk\": true, \"risk_type\": \"...\"}")
+    for attempt in range(2):
+        try:
+            resp = client.chat.completions.create(model=os.getenv("MODEL_NAME"), messages=[{"role": "system", "content": sys_prompt}, {"role": "user", "content": tweet}], response_format={"type": "json_object"}, temperature=0.0)
+            return bool(json.loads(resp.choices[0].message.content).get("risk", False))
+        except Exception:
+            if attempt == 0: time.sleep(1)
+            else: return False
+
+def keyword_flag(text):
+    t = text.lower()
+    if RISK_RE.search(t): return True
+    if ('cancel' in t) and any(w in t for w in ["can't", "cannot", "unable", "won't"]): return True
+    if PROFANITY_RE.search(t): return True
+    return False
+
+def calibrated_prob(confidence, retrieval_score):
+    z = CFG['coefficients']['confidence'] * confidence + CFG['coefficients']['retrieval_score'] * retrieval_score + CFG['intercept']
+    return 1 / (1 + math.exp(-z))
+
+def risk_policy_engine(confidence, retrieval_score, text, llm_risk):
+    if keyword_flag(text): return True, "High-risk keyword or dead-end (deterministic backstop)"
+    if llm_risk: return True, "LLM risk classifier flag"
+    if CFG:
+        p = calibrated_prob(confidence, retrieval_score)
+        if p >= CFG['prob_thresh']: return True, f"Calibrated risk score {p:.2f} >= {CFG['prob_thresh']}"
+    else:
+        if confidence < 0.7: return True, "Low LLM confidence"
+        if retrieval_score < 0.4: return True, "Weak historical evidence"
     return False, "Safe to auto-handle"
 
 def main():
-    df = pd.read_csv(ROOT / "eval" / "golden_set.csv")
-    df = df.dropna(subset=['should_escalate'])
+    df = pd.read_csv(ROOT / "eval" / "golden_set.csv").dropna(subset=['should_escalate'])
     df['should_escalate'] = df['should_escalate'].astype(str).str.lower().str.strip() == 'true'
-    
     results = []
-    print(f"\nEvaluating Risk Engine on {len(df)} tweets...")
-    
+    print(f"\nEvaluating Risk Engine v3 on {len(df)} tweets (2 LLM calls each)...")
     for i, row in df.iterrows():
         text = str(row['text'])
         safe_text = redact_pii(text)
         intent, conf = get_intent_and_confidence(safe_text)
-        evidence = retriever.search(safe_text, top_k=1)
-        ret_score = evidence[0]['score']
-        escalate, reason = risk_policy_engine(intent, conf, ret_score, safe_text)
-        
-        results.append({
-            "text": text, "true_escalate": row['should_escalate'], "pred_escalate": escalate,
-            "intent": intent, "confidence": conf, "retrieval_score": ret_score, "reason": reason
-        })
+        llm_risk = get_llm_risk(safe_text)
+        ret_score = retriever.search(safe_text, top_k=1)[0]['score']
+        escalate, reason = risk_policy_engine(conf, ret_score, safe_text, llm_risk)
+        results.append({"text": text, "true_escalate": row['should_escalate'], "pred_escalate": escalate,
+                        "intent": intent, "confidence": conf, "retrieval_score": ret_score,
+                        "llm_risk": llm_risk, "reason": reason})
         time.sleep(0.2)
-        
+
     res_df = pd.DataFrame(results)
-    auto_handle_count = (~res_df['pred_escalate']).sum()
-    total = len(res_df)
-    auto_handle_rate = auto_handle_count / total
-    
-    false_auto_handles = ((res_df['true_escalate'] == True) & (res_df['pred_escalate'] == False)).sum()
-    false_auto_handle_rate = false_auto_handles / auto_handle_count if auto_handle_count > 0 else 0
-    
-    true_risks = res_df['true_escalate'].sum()
-    risk_miss_rate = false_auto_handles / true_risks if true_risks > 0 else 0
-    
+    auto = ~res_df['pred_escalate']
+    misses = int((auto & res_df['true_escalate']).sum())
+    true_risks = int(res_df['true_escalate'].sum())
+    esc = res_df['pred_escalate']
+    tp = int((esc & res_df['true_escalate']).sum())
+
     print("\n" + "="*60)
-    print("OPERATIONAL METRICS (Risk & Confidence Engine)")
+    print("OPERATIONAL METRICS (Risk Engine v3: calibrated + LLM risk)")
     print("="*60)
-    print(f"Auto-Handle Rate:             {auto_handle_rate:.2%}")
-    print(f"Volume False Auto-Handle:     {false_auto_handle_rate:.2%}")
-    print(f"Risk Miss Rate (Stricter):    {risk_miss_rate:.2%}")
+    print(f"Auto-Handle Rate:           {auto.mean():.2%}")
+    print(f"Volume False Auto-Handle:   {misses / int(auto.sum()):.2%}" if auto.sum() else "n/a")
+    print(f"Risk Miss Rate (stricter):  {misses / true_risks:.2%}" if true_risks else "n/a")
+    print(f"Risk Engine Precision:      {tp / int(esc.sum()):.2f}" if esc.sum() else "n/a")
+    print(f"Risk Engine Recall:         {tp / true_risks:.2f}" if true_risks else "n/a")
     print("="*60)
-    
+    print("\nEscalation reasons:")
+    print(res_df['reason'].value_counts().to_string())
     res_df.to_csv(ROOT / "eval" / "risk_engine_results.csv", index=False)
 
 if __name__ == "__main__":

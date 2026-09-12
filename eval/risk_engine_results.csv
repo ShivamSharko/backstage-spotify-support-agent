@@ -1,220 +1,220 @@
-text,true_escalate,pred_escalate,intent,confidence,retrieval_score,reason
-@SpotifyCares Best response ever! Me @ the use of that song https://t.co/TpgOEZyFhe,False,False,other,0.99,0.7181849479675293,Safe to auto-handle
-"@SpotifyCares Spotify Student + Hulu renews tomorrow, but my Hulu is wanting me to pay up to watch anything today. Obviously, renewing the sub tomorrow, so what gives? Why has the Hulu side of things cut me off?",False,False,billing_payment,0.97,0.6780648231506348,Safe to auto-handle
+text,true_escalate,pred_escalate,intent,confidence,retrieval_score,llm_risk,reason
+@SpotifyCares Best response ever! Me @ the use of that song https://t.co/TpgOEZyFhe,False,False,other,0.96,0.7181849479675293,False,Safe to auto-handle
+"@SpotifyCares Spotify Student + Hulu renews tomorrow, but my Hulu is wanting me to pay up to watch anything today. Obviously, renewing the sub tomorrow, so what gives? Why has the Hulu side of things cut me off?",False,False,billing_payment,0.97,0.6780648231506348,False,Safe to auto-handle
 "@SpotifyCares I just dumped the whole thing. I'd expect its your job to figure this out, isn't it. 
-I'd expect some auto-updater left over garbage coupled with audio cache. But who knows",False,False,app_bug,0.95,0.6515547037124634,Safe to auto-handle
-"@SpotifyCares my band's ""related artists"" section just disappeared :( why tho spotify:artist:0gI3tMeaM9sOpBtXulMbAh",False,False,app_bug,0.97,0.6701760292053223,Safe to auto-handle
-"@SpotifyCares Uh no....that""s not an answer. Give me, and you other customers that have been asking for this for 5 years, the REASON why you don't provide this when every other music streaming service does. Answer?",True,False,feature_request,0.97,0.7565085291862488,Safe to auto-handle
-@SpotifyCares Ummm...so it still says Would instead of Wound. #SecondhandEmbarassment.,False,False,app_bug,0.95,0.5370776653289795,Safe to auto-handle
-"@SpotifyCares They don't have an account so it says their email address is invalid, I invited them to join through my log in via email",False,False,account_login,0.95,0.8217829465866089,Safe to auto-handle
-"@SpotifyCares Yep! And individual songs, are fine just the daily mixes glitches out. i logged into the test account that u guys had me try. No problems",False,False,app_bug,0.96,0.7102386951446533,Safe to auto-handle
-@SpotifyCares I'm new at this how do i DELETE and what's dm,False,False,other,0.9,0.6451632976531982,Safe to auto-handle
-@SpotifyCares But I have done the reset function and it still hasn’t worked 😢 https://t.co/vU6OHkIurZ,False,False,account_login,0.85,0.7341247797012329,Safe to auto-handle
-@SpotifyCares I used to have premium till it started to do that,False,False,billing_payment,0.85,0.8061182498931885,Safe to auto-handle
-@SpotifyCares iOS 11.2 (beta) spotify 8.4.26.793,False,False,app_bug,0.92,0.8179253935813904,Safe to auto-handle
-@115888 @SpotifyCares I’ve been listening to @3400 for four years loop masterpiece “9” every morning why haven’t I got presale code?,False,False,other,0.97,0.7711505889892578,Safe to auto-handle
-@SpotifyCares HA! Right now you're https://t.co/OnTOem70Zr,False,False,app_bug,0.78,0.7170325517654419,Safe to auto-handle
-"@SpotifyCares W/ your follow up to my 2nd tweet, presently there's no issues b/c generally I can cope with no solution (aka forget about it). I just find it sad that it's presented to the users that Spotify never seems to add features, esp. when there's PLENTY of support thrown behind it. +",False,False,feature_request,0.95,0.764604926109314,Safe to auto-handle
+I'd expect some auto-updater left over garbage coupled with audio cache. But who knows",False,False,app_bug,0.95,0.6515547037124634,False,Safe to auto-handle
+"@SpotifyCares my band's ""related artists"" section just disappeared :( why tho spotify:artist:0gI3tMeaM9sOpBtXulMbAh",False,False,app_bug,0.97,0.6701760292053223,False,Safe to auto-handle
+"@SpotifyCares Uh no....that""s not an answer. Give me, and you other customers that have been asking for this for 5 years, the REASON why you don't provide this when every other music streaming service does. Answer?",True,False,feature_request,0.97,0.7565085291862488,False,Safe to auto-handle
+@SpotifyCares Ummm...so it still says Would instead of Wound. #SecondhandEmbarassment.,False,False,app_bug,0.95,0.5370776653289795,False,Safe to auto-handle
+"@SpotifyCares They don't have an account so it says their email address is invalid, I invited them to join through my log in via email",False,False,account_login,0.95,0.8217829465866089,False,Safe to auto-handle
+"@SpotifyCares Yep! And individual songs, are fine just the daily mixes glitches out. i logged into the test account that u guys had me try. No problems",False,False,app_bug,0.96,0.7102386951446533,False,Safe to auto-handle
+@SpotifyCares I'm new at this how do i DELETE and what's dm,False,False,other,0.9,0.6451632976531982,False,Safe to auto-handle
+@SpotifyCares But I have done the reset function and it still hasn’t worked 😢 https://t.co/vU6OHkIurZ,False,True,other,0.0,0.7341247797012329,False,Calibrated risk score 0.57 >= 0.55
+@SpotifyCares I used to have premium till it started to do that,False,True,other,0.0,0.8061182498931885,False,Calibrated risk score 0.55 >= 0.55
+@SpotifyCares iOS 11.2 (beta) spotify 8.4.26.793,False,False,other,0.0,0.8179253935813904,False,Safe to auto-handle
+@115888 @SpotifyCares I’ve been listening to @3400 for four years loop masterpiece “9” every morning why haven’t I got presale code?,False,True,other,0.0,0.7711505889892578,False,Calibrated risk score 0.56 >= 0.55
+@SpotifyCares HA! Right now you're https://t.co/OnTOem70Zr,False,True,other,0.0,0.7170325517654419,False,Calibrated risk score 0.58 >= 0.55
+"@SpotifyCares W/ your follow up to my 2nd tweet, presently there's no issues b/c generally I can cope with no solution (aka forget about it). I just find it sad that it's presented to the users that Spotify never seems to add features, esp. when there's PLENTY of support thrown behind it. +",False,True,other,0.0,0.764604926109314,False,Calibrated risk score 0.56 >= 0.55
 "@SpotifyCares 
-It won’t let me play songs on mobile😬help please https://t.co/47QoaHN7Y9",False,False,app_bug,0.97,0.7816605567932129,Safe to auto-handle
-@SpotifyCares You should be replying to @187968. He's the one whose music is being uploaded to your site fraudulently.,True,True,other,0.95,0.7566948533058167,High-risk keyword or dead-end detected
-@SpotifyCares 1972mazz is one of them. It doesnt have anything to do with the account. its the application on a macbook,False,False,app_bug,0.96,0.7089918851852417,Safe to auto-handle
-@338880 @SpotifyCares Just do a family bundle with 6 people and all you'll have to pay is £15 per month that's only £2.50 each that's what I'm on and it's cheap just gather up 5 people who would want to join with you.,False,False,other,0.99,0.7454851865768433,Safe to auto-handle
-"@SpotifyCares v1.0.65.320.gac7a8e02 - Thought it might be my internet, but haven't seen anything else having issues.",False,False,app_bug,0.95,0.8620129823684692,Safe to auto-handle
-@SpotifyCares Love it! Good to know and thanks again for your time!,False,False,other,0.97,0.726138710975647,Safe to auto-handle
-"@SpotifyCares I saved the song Gummo by 6ix9ine yesterday and it played, but for some reason it's not playing now. What's going on?",False,False,app_bug,0.97,0.641899824142456,Safe to auto-handle
-@SpotifyCares DM sent,False,False,other,0.9,0.8069871664047241,Safe to auto-handle
-@SpotifyCares I have tried both ways.,False,False,app_bug,0.7,0.7684990763664246,Safe to auto-handle
-"@SpotifyCares No thanks, I don't really want to be suggested Premium.",False,False,feature_request,0.78,0.8022923469543457,Safe to auto-handle
-"@SpotifyCares I’ve been constantly trying to delete songs in my library but they always seem to come back. I’ve tried already the connect/disconnect method that I was first suggested. Also, it was stated that this is “odd” by the support group, even though if you google the...",False,False,app_bug,0.97,0.7643853425979614,Safe to auto-handle
+It won’t let me play songs on mobile😬help please https://t.co/47QoaHN7Y9",False,True,other,0.0,0.7816605567932129,False,Calibrated risk score 0.56 >= 0.55
+@SpotifyCares You should be replying to @187968. He's the one whose music is being uploaded to your site fraudulently.,True,True,other,0.0,0.7566948533058167,False,High-risk keyword or dead-end (deterministic backstop)
+@SpotifyCares 1972mazz is one of them. It doesnt have anything to do with the account. its the application on a macbook,False,True,other,0.0,0.7089918851852417,False,Calibrated risk score 0.58 >= 0.55
+@338880 @SpotifyCares Just do a family bundle with 6 people and all you'll have to pay is £15 per month that's only £2.50 each that's what I'm on and it's cheap just gather up 5 people who would want to join with you.,False,True,other,0.0,0.7454851865768433,False,Calibrated risk score 0.57 >= 0.55
+"@SpotifyCares v1.0.65.320.gac7a8e02 - Thought it might be my internet, but haven't seen anything else having issues.",False,False,other,0.0,0.8620129823684692,False,Safe to auto-handle
+@SpotifyCares Love it! Good to know and thanks again for your time!,False,True,other,0.0,0.726138710975647,False,Calibrated risk score 0.57 >= 0.55
+"@SpotifyCares I saved the song Gummo by 6ix9ine yesterday and it played, but for some reason it's not playing now. What's going on?",False,True,other,0.0,0.641899824142456,False,Calibrated risk score 0.59 >= 0.55
+@SpotifyCares DM sent,False,True,other,0.0,0.8069871664047241,False,Calibrated risk score 0.55 >= 0.55
+@SpotifyCares I have tried both ways.,False,True,other,0.0,0.7684990763664246,False,Calibrated risk score 0.56 >= 0.55
+"@SpotifyCares No thanks, I don't really want to be suggested Premium.",False,True,other,0.0,0.8022923469543457,False,Calibrated risk score 0.55 >= 0.55
+"@SpotifyCares I’ve been constantly trying to delete songs in my library but they always seem to come back. I’ve tried already the connect/disconnect method that I was first suggested. Also, it was stated that this is “odd” by the support group, even though if you google the...",False,True,other,0.0,0.7643853425979614,False,Calibrated risk score 0.56 >= 0.55
 "@SpotifyCares Mystreamcount arenot updated for my songYour BeautifulFace to my aggregater
-as they are saying spotify has notgiven themreport",True,False,app_bug,0.96,0.6684614419937134,Safe to auto-handle
-@218539 @SpotifyCares Problem network je ni 😶,False,False,app_bug,0.9,0.7835140228271484,Safe to auto-handle
-@SpotifyCares ion wanna read your content miss me with that shit,False,True,other,0.96,0.6520465612411499,High-risk keyword or dead-end detected
-@SpotifyCares any way to get play/pause button working again with OSX 10.13?,False,False,app_bug,0.97,0.6438714265823364,Safe to auto-handle
-@SpotifyCares Awesome! Hope to see the update soon! 🙌🏼,False,False,other,0.98,0.7481798529624939,Safe to auto-handle
-@SpotifyCares Sounds great! Just wanted to bring it to someone’s attention in case it wasn’t already discovered.,False,False,other,0.92,0.7541024684906006,Safe to auto-handle
-hey @SpotifyCares y’all double charged my account this month and i can’t figure out how else to resolve this matter. could y’all DM me?,False,False,billing_payment,0.97,0.7452864646911621,Safe to auto-handle
-@SpotifyCares No,False,False,other,0.9,0.7579166889190674,Safe to auto-handle
-"@SpotifyCares I guess spotify cares for only 1 message, i am still waiting your reply",False,False,other,0.97,0.6753339767456055,Safe to auto-handle
-"@SpotifyCares Samsung Galaxy s6, Android 7.0, and Spotify 8.4.24",False,False,app_bug,0.99,0.7977086901664734,Safe to auto-handle
-@115888 @SpotifyCares guys there is a problem with one of your playlists!,False,False,app_bug,0.97,0.8262256383895874,Safe to auto-handle
-@SpotifyCares No. I already tried that...,False,False,app_bug,0.7,0.7526283264160156,Safe to auto-handle
-@115888 @SpotifyCares,False,False,other,0.95,0.8142006993293762,Safe to auto-handle
-"@SpotifyCares okay cool, thank you!",False,False,other,0.97,0.7479676008224487,Safe to auto-handle
-"@SpotifyCares But that thread is from March. It's been 7 months so I'm not ""rest assured"" this is going to be resolved anytime in the near future.",False,False,app_bug,0.85,0.8067066073417664,Safe to auto-handle
-@SpotifyCares Why,False,False,other,0.9,0.7365383505821228,Safe to auto-handle
-@SpotifyCares I upgraded to Premium for Family but it’s saying the address is wrong to add family members. I don’t think I ever got prompted to enter an address?,False,False,app_bug,0.86,0.7112022042274475,Safe to auto-handle
-"@SpotifyCares I'm suddenly unable to log into my account on either desktop or iPhone. When I tried to enter my password, it wasn't recognizing that there was an account associated with my user name.",False,False,account_login,0.97,0.7559407949447632,Safe to auto-handle
-@SpotifyCares My music keeps stuttering/skipping ever since I upgraded to iOS 11... tried reinstalling but it doesn’t fix it,False,False,app_bug,0.97,0.6958395838737488,Safe to auto-handle
-@SpotifyCares I have a US premium account.,False,False,other,0.85,0.7573480606079102,Safe to auto-handle
-@SpotifyCares I'm on macOs 10.12.5 and Chrome 61.0.3163.100,False,False,app_bug,0.85,0.7806593179702759,Safe to auto-handle
-@SpotifyCares How do you copy URI on @115888 ?,False,False,other,0.97,0.7884914875030518,Safe to auto-handle
-"@SpotifyCares 1st in playlist playing song 28, 2nd playing 111th song in playlist , always the same things",False,False,app_bug,0.95,0.7426168322563171,Safe to auto-handle
+as they are saying spotify has notgiven themreport",True,True,other,0.0,0.6684614419937134,False,Calibrated risk score 0.59 >= 0.55
+@218539 @SpotifyCares Problem network je ni 😶,False,True,other,0.0,0.7835140228271484,False,Calibrated risk score 0.56 >= 0.55
+@SpotifyCares ion wanna read your content miss me with that shit,False,True,other,0.0,0.6520465612411499,False,High-risk keyword or dead-end (deterministic backstop)
+@SpotifyCares any way to get play/pause button working again with OSX 10.13?,False,True,other,0.0,0.6438714265823364,False,Calibrated risk score 0.59 >= 0.55
+@SpotifyCares Awesome! Hope to see the update soon! 🙌🏼,False,True,other,0.0,0.7481798529624939,False,Calibrated risk score 0.57 >= 0.55
+@SpotifyCares Sounds great! Just wanted to bring it to someone’s attention in case it wasn’t already discovered.,False,True,other,0.0,0.7541024684906006,False,Calibrated risk score 0.57 >= 0.55
+hey @SpotifyCares y’all double charged my account this month and i can’t figure out how else to resolve this matter. could y’all DM me?,False,True,other,0.0,0.7452864646911621,False,Calibrated risk score 0.57 >= 0.55
+@SpotifyCares No,False,True,other,0.0,0.7579166889190674,False,Calibrated risk score 0.56 >= 0.55
+"@SpotifyCares I guess spotify cares for only 1 message, i am still waiting your reply",False,True,other,0.0,0.6753339767456055,False,Calibrated risk score 0.59 >= 0.55
+"@SpotifyCares Samsung Galaxy s6, Android 7.0, and Spotify 8.4.24",False,True,other,0.0,0.7977086901664734,False,Calibrated risk score 0.55 >= 0.55
+@115888 @SpotifyCares guys there is a problem with one of your playlists!,False,False,other,0.0,0.8262256383895874,False,Safe to auto-handle
+@SpotifyCares No. I already tried that...,False,True,other,0.0,0.7526283264160156,False,Calibrated risk score 0.57 >= 0.55
+@115888 @SpotifyCares,False,False,other,0.95,0.8142006993293762,False,Safe to auto-handle
+"@SpotifyCares okay cool, thank you!",False,True,other,0.0,0.7479676008224487,False,Calibrated risk score 0.57 >= 0.55
+"@SpotifyCares But that thread is from March. It's been 7 months so I'm not ""rest assured"" this is going to be resolved anytime in the near future.",False,True,other,0.0,0.8067066073417664,False,Calibrated risk score 0.55 >= 0.55
+@SpotifyCares Why,False,True,other,0.0,0.7365383505821228,False,Calibrated risk score 0.57 >= 0.55
+@SpotifyCares I upgraded to Premium for Family but it’s saying the address is wrong to add family members. I don’t think I ever got prompted to enter an address?,False,True,other,0.0,0.7112022042274475,False,Calibrated risk score 0.58 >= 0.55
+"@SpotifyCares I'm suddenly unable to log into my account on either desktop or iPhone. When I tried to enter my password, it wasn't recognizing that there was an account associated with my user name.",False,True,other,0.0,0.7559407949447632,False,Calibrated risk score 0.57 >= 0.55
+@SpotifyCares My music keeps stuttering/skipping ever since I upgraded to iOS 11... tried reinstalling but it doesn’t fix it,False,True,other,0.0,0.6958395838737488,False,Calibrated risk score 0.58 >= 0.55
+@SpotifyCares I have a US premium account.,False,True,other,0.0,0.7573480606079102,False,Calibrated risk score 0.56 >= 0.55
+@SpotifyCares I'm on macOs 10.12.5 and Chrome 61.0.3163.100,False,True,other,0.0,0.7806593179702759,False,Calibrated risk score 0.56 >= 0.55
+@SpotifyCares How do you copy URI on @115888 ?,False,True,other,0.0,0.7884914875030518,False,Calibrated risk score 0.56 >= 0.55
+"@SpotifyCares 1st in playlist playing song 28, 2nd playing 111th song in playlist , always the same things",False,True,other,0.0,0.7426168322563171,False,Calibrated risk score 0.57 >= 0.55
 """You can get a family plan for cheaper.""
 ""Will kids lose current lists?""
-""Hmm good Q, maybe @SpotifyCares knows""  #overheardinnyc",False,False,billing_payment,0.92,0.6077156066894531,Safe to auto-handle
-"@SpotifyCares I'm running Spotify 1.0.65.320.gac7a8e02 on macOS Sierra version 10.12.6. Also on a Huawei P9 Lite, Android 7.0, Spotify 8.4.22.857 armV7",False,False,app_bug,0.85,0.726783037185669,Safe to auto-handle
+""Hmm good Q, maybe @SpotifyCares knows""  #overheardinnyc",False,True,other,0.0,0.6077156066894531,False,Calibrated risk score 0.60 >= 0.55
+"@SpotifyCares I'm running Spotify 1.0.65.320.gac7a8e02 on macOS Sierra version 10.12.6. Also on a Huawei P9 Lite, Android 7.0, Spotify 8.4.22.857 armV7",False,True,other,0.0,0.726783037185669,False,Calibrated risk score 0.57 >= 0.55
 "Hey @115888, Could you guys add this brand new Xmas single by @23298 to some of your Christmas/holiday playlists? Xo 🎄☃🎅🏻
 [ To: @SpotifyCares @116130 @117168 @126761 @2069 @191335 @22875 ]
 
-https://t.co/yZInuR6eBi",False,False,feature_request,0.96,0.6874873638153076,Safe to auto-handle
-"@SpotifyCares unfortunately, this didn't work either. :( really missing my spotify during the work day!",False,False,app_bug,0.9,0.7719392776489258,Safe to auto-handle
-@SpotifyCares Did you take away the place on the artists' page that shows which playlists they are featured in? I always found that helpful,False,False,feature_request,0.97,0.8051146268844604,Safe to auto-handle
-"@SpotifyCares then when I go to that account associated with my email, it won’t let me use it as a student 2/2",False,False,account_login,0.85,0.709383487701416,Safe to auto-handle
-"Hi @SpotifyCares - webplayer not working for me. Have tried various browsers, cache deletes etc. Any known issues at present? Thx",False,False,app_bug,0.97,0.7993064522743225,Safe to auto-handle
-@SpotifyCares I signed up for student premium but I'm still receiving ads. Any help?,False,False,billing_payment,0.96,0.6563459634780884,Safe to auto-handle
+https://t.co/yZInuR6eBi",False,True,other,0.0,0.6874873638153076,False,Calibrated risk score 0.58 >= 0.55
+"@SpotifyCares unfortunately, this didn't work either. :( really missing my spotify during the work day!",False,True,other,0.0,0.7719392776489258,False,Calibrated risk score 0.56 >= 0.55
+@SpotifyCares Did you take away the place on the artists' page that shows which playlists they are featured in? I always found that helpful,False,True,other,0.0,0.8051146268844604,False,Calibrated risk score 0.55 >= 0.55
+"@SpotifyCares then when I go to that account associated with my email, it won’t let me use it as a student 2/2",False,True,other,0.0,0.709383487701416,False,Calibrated risk score 0.58 >= 0.55
+"Hi @SpotifyCares - webplayer not working for me. Have tried various browsers, cache deletes etc. Any known issues at present? Thx",False,True,other,0.0,0.7993064522743225,False,Calibrated risk score 0.55 >= 0.55
+@SpotifyCares I signed up for student premium but I'm still receiving ads. Any help?,False,True,other,0.0,0.6563459634780884,False,Calibrated risk score 0.59 >= 0.55
 "@SpotifyCares 
 
 my daily mix keeps stopping for no reason. it’s not my internet connection.
 
-help please. thanks.",False,False,app_bug,0.96,0.697317898273468,Safe to auto-handle
-"@SpotifyCares When playing a playlist on Wi-Fi or mobile data, it refuses to play the radio based off the playlist, I have made sure it's switched on.",False,False,app_bug,0.97,0.7274309396743774,Safe to auto-handle
-@115888 @117168 @SpotifyCares I 'm trying to update my payment options bc I got a new credit card and reregister my premium account and I keep getting the oops your card is having a bad day. please help me!!!,False,False,billing_payment,0.97,0.7306840419769287,Safe to auto-handle
-"Make the JLS discography available in Argentina, I'm getting tired of your broken promithes promithes. @SpotifyCares https://t.co/fD0z1ukXql",False,False,feature_request,0.97,0.6095587015151978,Safe to auto-handle
-"@SpotifyCares Another app updated, no iPhone X full screen support. What the hell are you guys playing at?!?! You’re a massive company, even the small app companies have iPhone X full screen support. You need to up your game right away or I’m going to simply switch to Apple Music. Disgusting!",True,False,feature_request,0.99,0.6673449277877808,Safe to auto-handle
-@115888 @SpotifyCares  what has happened to the layout on the iPhone app.  Is this to do with the zoom view? This is now unusable. https://t.co/BeClKHvKcv,False,False,app_bug,0.97,0.6558372974395752,Safe to auto-handle
-@SpotifyCares This video shows it https://t.co/7qjdKJJeGH,False,False,app_bug,0.95,0.7307677268981934,Safe to auto-handle
-@SpotifyCares Im on an iphone 6+ btw,False,False,app_bug,0.7,0.7389892339706421,Safe to auto-handle
-@SpotifyCares is there a way to listen to Spotify on xbox one without the music coming through the Elgato?? @21330 @XboxSupport,False,False,feature_request,0.95,0.7650972008705139,Safe to auto-handle
-@SpotifyCares I already replied. Thanks!,False,False,other,0.97,0.7708469033241272,Safe to auto-handle
-"@SpotifyCares my acct keeps telling me I can’t download any more songs, so I un-downloaded a bunch but it’s still saying I have no room :(",False,False,app_bug,0.95,0.6730610728263855,Safe to auto-handle
-"@SpotifyCares hello, I want to transfer the ownership for my premium family account but I can't access my previous account. what to do?",False,False,account_login,0.96,0.6701735258102417,Safe to auto-handle
-@SpotifyCares macOS High Sierra 10.13.2 Public Beta (Build 17C79a). Spotify 1.0.68.407.g6864aaaf.,False,False,app_bug,0.92,0.761436939239502,Safe to auto-handle
-@SpotifyCares @115888 @SpotifyCares,False,False,other,0.9,0.8306872248649597,Safe to auto-handle
-@SpotifyCares @688879 It’s getting beyond a joke now. Your developers have had since June to get the app ready. Really is shameful.,True,False,app_bug,0.92,0.772813618183136,Safe to auto-handle
-@SpotifyCares __email__,False,False,other,0.97,0.8229023218154907,Safe to auto-handle
-"@SpotifyCares This only works if you format the SD card as ""portable storage"", which is how I have it on my phone, I opted for int fmt with my new device.",False,False,app_bug,0.95,0.7102025151252747,Safe to auto-handle
-@SpotifyCares Which website should I link the song from?,False,False,other,0.95,0.7522336840629578,Safe to auto-handle
-@SpotifyCares I use chrome.,False,False,other,0.9,0.7565286159515381,Safe to auto-handle
-@SpotifyCares I'll have to have a go tomorrow night,False,False,other,0.95,0.6853328943252563,Safe to auto-handle
-"@SpotifyCares iPhone 7 Plus, iOS 11.0.2",False,False,app_bug,0.85,0.8371219038963318,Safe to auto-handle
+help please. thanks.",False,True,other,0.0,0.697317898273468,False,Calibrated risk score 0.58 >= 0.55
+"@SpotifyCares When playing a playlist on Wi-Fi or mobile data, it refuses to play the radio based off the playlist, I have made sure it's switched on.",False,True,other,0.0,0.7274309396743774,False,Calibrated risk score 0.57 >= 0.55
+@115888 @117168 @SpotifyCares I 'm trying to update my payment options bc I got a new credit card and reregister my premium account and I keep getting the oops your card is having a bad day. please help me!!!,False,True,other,0.0,0.7306840419769287,False,Calibrated risk score 0.57 >= 0.55
+"Make the JLS discography available in Argentina, I'm getting tired of your broken promithes promithes. @SpotifyCares https://t.co/fD0z1ukXql",False,True,other,0.0,0.6095587015151978,False,Calibrated risk score 0.60 >= 0.55
+"@SpotifyCares Another app updated, no iPhone X full screen support. What the hell are you guys playing at?!?! You’re a massive company, even the small app companies have iPhone X full screen support. You need to up your game right away or I’m going to simply switch to Apple Music. Disgusting!",True,True,other,0.0,0.6673449277877808,False,Calibrated risk score 0.59 >= 0.55
+@115888 @SpotifyCares  what has happened to the layout on the iPhone app.  Is this to do with the zoom view? This is now unusable. https://t.co/BeClKHvKcv,False,True,other,0.0,0.6558372974395752,False,Calibrated risk score 0.59 >= 0.55
+@SpotifyCares This video shows it https://t.co/7qjdKJJeGH,False,True,other,0.0,0.7307677268981934,False,Calibrated risk score 0.57 >= 0.55
+@SpotifyCares Im on an iphone 6+ btw,False,True,other,0.0,0.7389892339706421,False,Calibrated risk score 0.57 >= 0.55
+@SpotifyCares is there a way to listen to Spotify on xbox one without the music coming through the Elgato?? @21330 @XboxSupport,False,True,other,0.0,0.7650972008705139,False,Calibrated risk score 0.56 >= 0.55
+@SpotifyCares I already replied. Thanks!,False,True,other,0.0,0.7708469033241272,False,Calibrated risk score 0.56 >= 0.55
+"@SpotifyCares my acct keeps telling me I can’t download any more songs, so I un-downloaded a bunch but it’s still saying I have no room :(",False,True,other,0.0,0.6730610728263855,False,Calibrated risk score 0.59 >= 0.55
+"@SpotifyCares hello, I want to transfer the ownership for my premium family account but I can't access my previous account. what to do?",False,True,other,0.0,0.6701735258102417,False,Calibrated risk score 0.59 >= 0.55
+@SpotifyCares macOS High Sierra 10.13.2 Public Beta (Build 17C79a). Spotify 1.0.68.407.g6864aaaf.,False,True,other,0.0,0.761436939239502,False,Calibrated risk score 0.56 >= 0.55
+@SpotifyCares @115888 @SpotifyCares,False,False,other,0.0,0.8306872248649597,False,Safe to auto-handle
+@SpotifyCares @688879 It’s getting beyond a joke now. Your developers have had since June to get the app ready. Really is shameful.,True,True,other,0.0,0.772813618183136,False,Calibrated risk score 0.56 >= 0.55
+@SpotifyCares __email__,False,False,other,0.0,0.8229023218154907,False,Safe to auto-handle
+"@SpotifyCares This only works if you format the SD card as ""portable storage"", which is how I have it on my phone, I opted for int fmt with my new device.",False,True,other,0.0,0.7102025151252747,False,Calibrated risk score 0.58 >= 0.55
+@SpotifyCares Which website should I link the song from?,False,True,other,0.0,0.7522336840629578,False,Calibrated risk score 0.57 >= 0.55
+@SpotifyCares I use chrome.,False,True,other,0.0,0.7565286159515381,False,Calibrated risk score 0.57 >= 0.55
+@SpotifyCares I'll have to have a go tomorrow night,False,True,other,0.0,0.6853328943252563,False,Calibrated risk score 0.58 >= 0.55
+"@SpotifyCares iPhone 7 Plus, iOS 11.0.2",False,False,other,0.0,0.8371219038963318,False,Safe to auto-handle
 "@SpotifyCares Here you go. Does not show up in search results but it was still in my play history:
-https://t.co/0qgC65wAx9",False,False,app_bug,0.95,0.7766139507293701,Safe to auto-handle
-@SpotifyCares could you get involved with this please? Thinking of going to Apple Music otherwise. https://t.co/fTITdyHp6q cheers.,False,False,feature_request,0.85,0.7638368010520935,Safe to auto-handle
-@SpotifyCares I shall drop you a DM in a bit. Seems to be happening to others though looking online and the Spotify forum thingy!,False,False,app_bug,0.92,0.7889620661735535,Safe to auto-handle
-@SpotifyCares I tried that when I first noticed the other day. It reappeared after a few days. First on Radio page. Each station thumbnail pulsed/flashed https://t.co/5fDCAXnhNj,False,False,app_bug,0.97,0.6429250240325928,Safe to auto-handle
-"@SpotifyCares I have an iPhone 6, with iOS 11.0.2 software. The version of Spotify I have is 8.4.20.535",False,False,other,0.7,0.8387328386306763,Safe to auto-handle
-"@SpotifyCares The sound was coming from the banner ads, which is why I was confused. I'm not sure which version I have now, how would I check?",False,False,app_bug,0.95,0.7598015069961548,Safe to auto-handle
-@SpotifyCares hi! I've been trying to DM you guys about my artist verification. Can someone help me out? Thanks!,False,False,other,0.99,0.8471726775169373,Safe to auto-handle
-@663683 @663680 @118266 @SpotifyCares anak radio sw emang gak cocok make spotify..,False,False,other,0.99,0.7692791819572449,Safe to auto-handle
-@SpotifyCares I want to delete an old account that I no longer have access to through email and forgot the password 😔,False,False,other,0.97,0.6716504096984863,Safe to auto-handle
-"@SpotifyCares It’s all good guys, it’s working now! Thank you for responding anyways👍🏻",False,False,other,0.99,0.7550176382064819,Safe to auto-handle
-@SpotifyCares Thank you! OS - 10.11.6 Spotify version - 1.0.65.320.gac7a8e02,False,False,other,0.9,0.8146945238113403,Safe to auto-handle
-@SpotifyCares @356133 same here 504 Gateway Time-out,False,False,app_bug,0.97,0.7319459915161133,Safe to auto-handle
-"@SpotifyCares My student discount/hulu isn't working even after doing the steps in the FAQ, what's your email?",False,False,billing_payment,0.95,0.7367793321609497,Safe to auto-handle
-what yall doing about this @SpotifyCares https://t.co/lD1ervQbPn,False,False,app_bug,0.9,0.7304509878158569,Safe to auto-handle
-@SpotifyCares Looks ok so far.....,False,False,other,0.95,0.6855759024620056,Safe to auto-handle
-"@SpotifyCares Hey is there a way to change the Family Administrator name (ie, the name who the invite comes from)?",False,False,feature_request,0.97,0.7239655256271362,Safe to auto-handle
-Hey @115888 I want to auto-block edited versions of songs. It's impossible to enjoy @16197 &amp; @16198 edited. @SpotifyCares,False,False,feature_request,0.97,0.6981171369552612,Safe to auto-handle
-@SpotifyCares I hope that this time it will take less than 8 months! 😉 https://t.co/zwzobGJvME,False,False,feature_request,0.7,0.7404943108558655,Safe to auto-handle
-@SpotifyCares Hello. The web player's been on and off all day. https://t.co/Jk9rXvcPIn,False,False,app_bug,0.97,0.7118544578552246,Safe to auto-handle
-@SpotifyCares That fixed it! Thanks a lot and have a nice day/night! https://t.co/iNocKhGgLv,False,False,other,0.97,0.7482727766036987,Safe to auto-handle
-@SpotifyCares so as frustrating as you guys are they did an awesome job at helping Thankyou again 🤷‍♀️🤷‍♀️🤷‍♀️🙌🙌🙌,False,False,other,0.97,0.7239858508110046,Safe to auto-handle
-"Dear @115888 @SpotifyCares I will (and others too) really appreciate it if you can let us download more, will you? Please! https://t.co/PBxbpiGUKj",False,False,feature_request,0.97,0.7619993090629578,Safe to auto-handle
-@SpotifyCares I'm getting an extended delay (~30 secs) when auth'ing my third-party app. Known issue?,False,False,account_login,0.96,0.6952473521232605,Safe to auto-handle
-"@SpotifyCares The contact forms don’t have a category for being hacked. I have sent an email to support via Paypal and have deleted the people from it, changed my Facebook password and cancelled the subscription.",True,True,other,0.95,0.7112237215042114,High-risk keyword or dead-end detected
-"@SpotifyCares hey huys, I seem to have some kind of a strange issue with my account - how can i contact you to explain moth &gt;140 chars?",False,False,other,0.85,0.650010347366333,Safe to auto-handle
-hey @SpotifyCares i canceled my account and my card was still charged. send help pls.,False,False,billing_payment,0.97,0.6995810270309448,Safe to auto-handle
-"@SpotifyCares Hi pls can you r ply to my DM re the family premium account issue, thanks",False,False,account_login,0.85,0.7642785310745239,Safe to auto-handle
-So @SpotifyCares why does Spotify stop skipping songs at some point even tho I'm a premium memeber? I thought I had unlimited skips? And do not ask for my account info(like every other time) you do not need it for this issue it's your system messing up I'm up2date just fix it pls,False,True,other,0.0,0.7479004859924316,Low LLM confidence
-"@SpotifyCares I’m having issues on iOS11 with my iPhone 8 Plus not resuming music after a phone call, or using Siri. I have to force close the app and restart it to get music to resume. Any ideas on what I can do? I’m fully updated on the newest version of the app and reinstalled",False,True,other,0.0,0.6823806762695312,Low LLM confidence
-@502161 Ah no! Hacked? Let us know if you're still having issues with this. cc @SpotifyCares,False,True,other,0.95,0.793444037437439,High-risk keyword or dead-end detected
-"@SpotifyCares I'm being charged for Premium on my phone bill but I don't have any account details to login and cancel, and I also can't use your contact form without login details. Help, stuck in payment loop I can't get out of!",True,True,other,0.0,0.6981709003448486,Low LLM confidence
-@SpotifyCares So I’m currently cancelling my Spotify account and going to @115948,False,True,other,0.0,0.8498090505599976,Low LLM confidence
-@SpotifyCares I can't log into my spotify account to delete and cancel my premium trial,False,True,other,0.0,0.7161701917648315,Low LLM confidence
-@SpotifyCares yo i think i fixed it my dudes. but ya that issue was kinda annoying. maybe look into it. tell ur dude Edwin W thanks for the help,False,True,other,0.0,0.8076318502426147,Low LLM confidence
+https://t.co/0qgC65wAx9",False,True,other,0.0,0.7766139507293701,False,Calibrated risk score 0.56 >= 0.55
+@SpotifyCares could you get involved with this please? Thinking of going to Apple Music otherwise. https://t.co/fTITdyHp6q cheers.,False,True,other,0.0,0.7638368010520935,False,Calibrated risk score 0.56 >= 0.55
+@SpotifyCares I shall drop you a DM in a bit. Seems to be happening to others though looking online and the Spotify forum thingy!,False,True,other,0.0,0.7889620661735535,False,Calibrated risk score 0.56 >= 0.55
+@SpotifyCares I tried that when I first noticed the other day. It reappeared after a few days. First on Radio page. Each station thumbnail pulsed/flashed https://t.co/5fDCAXnhNj,False,True,other,0.0,0.6429250240325928,False,Calibrated risk score 0.59 >= 0.55
+"@SpotifyCares I have an iPhone 6, with iOS 11.0.2 software. The version of Spotify I have is 8.4.20.535",False,False,other,0.0,0.8387328386306763,False,Safe to auto-handle
+"@SpotifyCares The sound was coming from the banner ads, which is why I was confused. I'm not sure which version I have now, how would I check?",False,False,app_bug,0.95,0.7598015069961548,False,Safe to auto-handle
+@SpotifyCares hi! I've been trying to DM you guys about my artist verification. Can someone help me out? Thanks!,False,False,other,0.0,0.8471726775169373,False,Safe to auto-handle
+@663683 @663680 @118266 @SpotifyCares anak radio sw emang gak cocok make spotify..,False,True,other,0.0,0.7692791819572449,False,Calibrated risk score 0.56 >= 0.55
+@SpotifyCares I want to delete an old account that I no longer have access to through email and forgot the password 😔,False,True,other,0.0,0.6716504096984863,False,Calibrated risk score 0.59 >= 0.55
+"@SpotifyCares It’s all good guys, it’s working now! Thank you for responding anyways👍🏻",False,True,other,0.0,0.7550176382064819,False,Calibrated risk score 0.57 >= 0.55
+@SpotifyCares Thank you! OS - 10.11.6 Spotify version - 1.0.65.320.gac7a8e02,False,False,other,0.0,0.8146945238113403,False,Safe to auto-handle
+@SpotifyCares @356133 same here 504 Gateway Time-out,False,True,other,0.0,0.7319459915161133,False,Calibrated risk score 0.57 >= 0.55
+"@SpotifyCares My student discount/hulu isn't working even after doing the steps in the FAQ, what's your email?",False,True,other,0.0,0.7367793321609497,False,Calibrated risk score 0.57 >= 0.55
+what yall doing about this @SpotifyCares https://t.co/lD1ervQbPn,False,True,other,0.0,0.7304509878158569,False,Calibrated risk score 0.57 >= 0.55
+@SpotifyCares Looks ok so far.....,False,True,other,0.0,0.6855759024620056,False,Calibrated risk score 0.58 >= 0.55
+"@SpotifyCares Hey is there a way to change the Family Administrator name (ie, the name who the invite comes from)?",False,True,other,0.0,0.7239655256271362,False,Calibrated risk score 0.57 >= 0.55
+Hey @115888 I want to auto-block edited versions of songs. It's impossible to enjoy @16197 &amp; @16198 edited. @SpotifyCares,False,True,other,0.0,0.6981171369552612,False,Calibrated risk score 0.58 >= 0.55
+@SpotifyCares I hope that this time it will take less than 8 months! 😉 https://t.co/zwzobGJvME,False,True,other,0.0,0.7404943108558655,False,Calibrated risk score 0.57 >= 0.55
+@SpotifyCares Hello. The web player's been on and off all day. https://t.co/Jk9rXvcPIn,False,True,other,0.0,0.7118544578552246,False,Calibrated risk score 0.58 >= 0.55
+@SpotifyCares That fixed it! Thanks a lot and have a nice day/night! https://t.co/iNocKhGgLv,False,True,other,0.0,0.7482727766036987,False,Calibrated risk score 0.57 >= 0.55
+@SpotifyCares so as frustrating as you guys are they did an awesome job at helping Thankyou again 🤷‍♀️🤷‍♀️🤷‍♀️🙌🙌🙌,False,True,other,0.0,0.7239858508110046,False,Calibrated risk score 0.57 >= 0.55
+"Dear @115888 @SpotifyCares I will (and others too) really appreciate it if you can let us download more, will you? Please! https://t.co/PBxbpiGUKj",False,True,other,0.0,0.7619993090629578,False,Calibrated risk score 0.56 >= 0.55
+@SpotifyCares I'm getting an extended delay (~30 secs) when auth'ing my third-party app. Known issue?,False,True,other,0.0,0.6952473521232605,False,Calibrated risk score 0.58 >= 0.55
+"@SpotifyCares The contact forms don’t have a category for being hacked. I have sent an email to support via Paypal and have deleted the people from it, changed my Facebook password and cancelled the subscription.",True,True,other,0.0,0.7112237215042114,False,High-risk keyword or dead-end (deterministic backstop)
+"@SpotifyCares hey huys, I seem to have some kind of a strange issue with my account - how can i contact you to explain moth &gt;140 chars?",False,True,other,0.0,0.650010347366333,False,Calibrated risk score 0.59 >= 0.55
+hey @SpotifyCares i canceled my account and my card was still charged. send help pls.,False,True,other,0.0,0.6995810270309448,False,Calibrated risk score 0.58 >= 0.55
+"@SpotifyCares Hi pls can you r ply to my DM re the family premium account issue, thanks",False,True,other,0.0,0.7642785310745239,False,Calibrated risk score 0.56 >= 0.55
+So @SpotifyCares why does Spotify stop skipping songs at some point even tho I'm a premium memeber? I thought I had unlimited skips? And do not ask for my account info(like every other time) you do not need it for this issue it's your system messing up I'm up2date just fix it pls,False,True,other,0.0,0.7479004859924316,False,Calibrated risk score 0.57 >= 0.55
+"@SpotifyCares I’m having issues on iOS11 with my iPhone 8 Plus not resuming music after a phone call, or using Siri. I have to force close the app and restart it to get music to resume. Any ideas on what I can do? I’m fully updated on the newest version of the app and reinstalled",False,True,other,0.0,0.6823806762695312,False,Calibrated risk score 0.58 >= 0.55
+@502161 Ah no! Hacked? Let us know if you're still having issues with this. cc @SpotifyCares,False,True,other,0.0,0.793444037437439,False,High-risk keyword or dead-end (deterministic backstop)
+"@SpotifyCares I'm being charged for Premium on my phone bill but I don't have any account details to login and cancel, and I also can't use your contact form without login details. Help, stuck in payment loop I can't get out of!",True,True,other,0.0,0.6981709003448486,False,High-risk keyword or dead-end (deterministic backstop)
+@SpotifyCares So I’m currently cancelling my Spotify account and going to @115948,False,False,other,0.0,0.8498090505599976,False,Safe to auto-handle
+@SpotifyCares I can't log into my spotify account to delete and cancel my premium trial,False,True,other,0.0,0.7161701917648315,False,High-risk keyword or dead-end (deterministic backstop)
+@SpotifyCares yo i think i fixed it my dudes. but ya that issue was kinda annoying. maybe look into it. tell ur dude Edwin W thanks for the help,False,True,other,0.0,0.8076318502426147,False,Calibrated risk score 0.55 >= 0.55
 "@SpotifyCares Sure. Both my macbook pro and mac desktop experience the same issue with that. 
 
-High Sierra 10.13.1",False,True,other,0.0,0.7784868478775024,Low LLM confidence
-@SpotifyCares I'm having issues  getting premium for students,False,True,other,0.0,0.7031720280647278,Low LLM confidence
-@SpotifyCares I've had my premium account hacked and have been contacted by someone with the email address: __email__' asking for a copy of my earliest Spotify email receipt or a bank statement. Is this legit?,True,True,other,0.0,0.7030593752861023,Low LLM confidence
-@SpotifyCares DMed you about a username issue :),False,True,other,0.0,0.8355230689048767,Low LLM confidence
+High Sierra 10.13.1",False,True,other,0.0,0.7784868478775024,False,Calibrated risk score 0.56 >= 0.55
+@SpotifyCares I'm having issues  getting premium for students,False,True,other,0.0,0.7031720280647278,False,Calibrated risk score 0.58 >= 0.55
+@SpotifyCares I've had my premium account hacked and have been contacted by someone with the email address: __email__' asking for a copy of my earliest Spotify email receipt or a bank statement. Is this legit?,True,True,other,0.0,0.7030593752861023,False,High-risk keyword or dead-end (deterministic backstop)
+@SpotifyCares DMed you about a username issue :),False,False,other,0.0,0.8355230689048767,False,Safe to auto-handle
 "@SpotifyCares From the Chrome console. 
-Though I’ve had similar issues in Firefox too. https://t.co/WkaGOR8PWL",False,True,other,0.0,0.7491270303726196,Low LLM confidence
-"@SpotifyCares I just don't get why you closed my ticket as a ""duplicate"" when its a different showstopper issue. That and amazon refusing my 1 star review",False,True,other,0.0,0.591588020324707,Low LLM confidence
-"@SpotifyCares How do I cancel my subscription from a closed facebook that is now permanently deleted and I don't have access to the spotify? It is still withdrawing money from my credit card, my bank can't stop the payment.",True,True,other,0.0,0.7243902683258057,Low LLM confidence
-"I am trying to renew my premium using the new 3 months deal. It says the only ineligible people are those who canceled after 10/20/17, and I canceled well before that around August. Please fix this I would love to have premium @SpotifyCares",False,True,other,0.0,0.6598714590072632,Low LLM confidence
-@SpotifyCares Already did waiting for response. Seems my account was terminated by the hackers while I was waiting. Hopefully they can recover something.,True,True,other,0.0,0.7982857823371887,Low LLM confidence
+Though I’ve had similar issues in Firefox too. https://t.co/WkaGOR8PWL",False,True,other,0.0,0.7491270303726196,False,Calibrated risk score 0.57 >= 0.55
+"@SpotifyCares I just don't get why you closed my ticket as a ""duplicate"" when its a different showstopper issue. That and amazon refusing my 1 star review",False,True,other,0.0,0.591588020324707,False,Calibrated risk score 0.61 >= 0.55
+"@SpotifyCares How do I cancel my subscription from a closed facebook that is now permanently deleted and I don't have access to the spotify? It is still withdrawing money from my credit card, my bank can't stop the payment.",True,True,other,0.0,0.7243902683258057,False,High-risk keyword or dead-end (deterministic backstop)
+"I am trying to renew my premium using the new 3 months deal. It says the only ineligible people are those who canceled after 10/20/17, and I canceled well before that around August. Please fix this I would love to have premium @SpotifyCares",False,True,other,0.0,0.6598714590072632,False,Calibrated risk score 0.59 >= 0.55
+@SpotifyCares Already did waiting for response. Seems my account was terminated by the hackers while I was waiting. Hopefully they can recover something.,True,True,other,0.0,0.7982857823371887,False,High-risk keyword or dead-end (deterministic backstop)
 "People are hacking ur premium accounts,but u,@115888 , don't even care!
-Even @SpotifyCares ,doesn't care!",True,True,other,0.0,0.6832362413406372,Low LLM confidence
-@SpotifyCares I have been experiencing a lot of connectivity issues with Chromecast lately. Did a recent update botch something?,False,True,other,0.0,0.7913283109664917,Low LLM confidence
-@SpotifyCares how do we cancel an account that we cant login to?,False,True,other,0.0,0.7655296325683594,Low LLM confidence
-"@SpotifyCares Hey, I'm currently buying premium per month, but want the yearly subscription offer you're doing. Do I need to cancel my subscription then resubscribe to do this?",False,True,other,0.0,0.7581455707550049,Low LLM confidence
+Even @SpotifyCares ,doesn't care!",True,True,other,0.0,0.6832362413406372,False,High-risk keyword or dead-end (deterministic backstop)
+@SpotifyCares I have been experiencing a lot of connectivity issues with Chromecast lately. Did a recent update botch something?,False,False,app_bug,0.96,0.7913283109664917,False,Safe to auto-handle
+@SpotifyCares how do we cancel an account that we cant login to?,False,True,other,0.0,0.7655296325683594,False,Calibrated risk score 0.56 >= 0.55
+"@SpotifyCares Hey, I'm currently buying premium per month, but want the yearly subscription offer you're doing. Do I need to cancel my subscription then resubscribe to do this?",False,True,other,0.0,0.7581455707550049,False,Calibrated risk score 0.56 >= 0.55
 "@SpotifyCares Had issues since iOS 11, currently running 11.1.1 with Spotify version 8.4.26.793. The bottom menu comes and goes randomly. 
 
-Doesn’t always do it",False,True,other,0.0,0.7411496043205261,Low LLM confidence
-@SpotifyCares I've got a new phone but forgot my password for my account to sign in but it's also linked to my old email address that got hacked what can I do ?,True,True,other,0.0,0.6940080523490906,Low LLM confidence
-"Anyone else having issues w new @115858 iOS &amp; @115888 syncing with Bluetooth/car, not showing on lock screen? @AppleSupport @SpotifyCares",False,True,other,0.0,0.6736751794815063,Low LLM confidence
-"@SpotifyCares my student discount expired, if I renew for the $4.99 plan with Hulu will it cancel my other membership ? Or charge twice?",False,True,other,0.0,0.6424806118011475,Low LLM confidence
-@SpotifyCares Was able to use chat based support to rectify the issue. Completely different experience!,False,True,other,0.0,0.7901473045349121,Low LLM confidence
-"@SpotifyCares Look - I love you guys, but your online chat ""help"" is HORRIBLE. Issue unresolved. Is a call that hard?",False,True,other,0.0,0.6975295543670654,Low LLM confidence
-"@SpotifyCares. I'm having issues with signing into my account, through my old email, that account doesn't exist as I have not been able to access my emails and I do not know my password I have the premium subscription, and I don't wish to be charged when I cannot use the product.",False,True,other,0.0,0.7694235444068909,Low LLM confidence
-"@SpotifyCares It was probably a bug or some cache issues, I got it to work now, thanks!",False,True,other,0.0,0.8325747847557068,Low LLM confidence
-@SpotifyCares I have no access to my email or Facebook I created an account with and I need to fix this. Cancel it and make a new one?,False,True,other,0.0,0.7620425224304199,Low LLM confidence
-"Tried to contact Spotify multiple times about the issue I'm having, to no avail. I keep getting ""Error Code: 3"" when I try to log in with my Facebook account, and it is saying it doesn't recognize my account when I have definitely signed up before. @SpotifyCares Can you help?",False,True,other,0.0,0.7673883438110352,Low LLM confidence
-@SpotifyCares Yep . Same issue,False,True,other,0.0,0.8072445392608643,Low LLM confidence
-@SpotifyCares having some issues,False,True,other,0.0,0.8082614541053772,Low LLM confidence
-"@SpotifyCares Thank you so much for resolving this issue! Much better, great work @115888 !",False,True,other,0.0,0.8473604917526245,Low LLM confidence
-"still having this issue and I know I'm not alone. Any ideas, @SpotifyCares ? I was in a meeting yesterday and OutKast unpaused randomly",False,True,other,0.0,0.6382929086685181,Low LLM confidence
-"@SpotifyCares are you having issues? Search just brings me to a blank page. Doesn't work on wifi or mobile. Running iOS 10.3.3. Started today, wasn't an issue yesterday. https://t.co/3vEsXpwtWQ",False,True,other,0.0,0.7171404361724854,Low LLM confidence
-"@SpotifyCares Hi, my account has been hacked - email address and password changed. I need to revert this back ASAP. I received the email about the change 1 hour ago",True,True,other,0.0,0.75124591588974,Low LLM confidence
-@SpotifyCares That's what I'm have been doing: trying to reinstall. It doesn't help! I suspect one of the latest windows updates could be the issue.,False,True,other,0.0,0.8829605579376221,Low LLM confidence
-"@SpotifyCares Hi, it looks like my premium account has been hacked. Can you help? I am unable to login and am concerned about security and data protection. Cheers.",True,True,other,0.0,0.7319409847259521,Low LLM confidence
-@SpotifyCares I am billed $10.60/month via credit card but I don't have a spotify account that I can login to cancel.,True,True,other,0.0,0.7455929517745972,Low LLM confidence
-@SpotifyCares Well I’ve already downloaded my playlists now so there’s not really any point for me now to troubleshoot this issue but thanks anyways,False,True,other,0.0,0.8163634538650513,Low LLM confidence
-@SpotifyCares What can I do to resolve this issue only way I can listen to music at work please please please help me out,False,True,other,0.0,0.7342889308929443,Low LLM confidence
-"Hi @SpotifyCares, my apps (ipad/desktop) change songs on its own! I've seen ""Web Player Firefox"" on Spotify Connect. Change password and disconnect devices but still have the issue for 10 minutes. Now it seems to be fixed (no more ""Web Player Firefox""). Have I been hacked ?",True,True,other,0.0,0.7087290287017822,Low LLM confidence
-"@SpotifyCares I have forced closed the app, checked for updates and reinstalled. Same issue",False,True,other,0.0,0.8759617805480957,Low LLM confidence
-@SpotifyCares Yes they are up to date. I just have an issue when I'm listening to a playlist sometimes it will pause the song. And the only way to fix it is to start the song again,False,True,other,0.0,0.6805244088172913,Low LLM confidence
-"@SpotifyCares Haha, no issues. Love the time capsule",False,True,other,0.0,0.6960085034370422,Low LLM confidence
-@SpotifyCares thank you sexy,False,True,other,0.0,0.6570032238960266,Low LLM confidence
-@SpotifyCares On an iPhone 6s,False,True,other,0.0,0.7118215560913086,Low LLM confidence
-@SpotifyCares 8.4.20.535,False,True,other,0.0,0.8002210855484009,Low LLM confidence
-@SpotifyCares Thank you! 💙,False,True,other,0.0,0.7376688718795776,Low LLM confidence
-@SpotifyCares thanks,False,False,other,0.96,0.7671741843223572,Safe to auto-handle
-@SpotifyCares thanks! :),False,True,other,0.0,0.7602755427360535,Low LLM confidence
-@SpotifyCares Tried. Same ☹️,False,True,other,0.0,0.7762254476547241,Low LLM confidence
-@SpotifyCares @115888,False,True,other,0.0,0.8572853803634644,Low LLM confidence
-@SpotifyCares Yes!,False,True,other,0.0,0.74419105052948,Low LLM confidence
-@SpotifyCares I will dm you!,False,True,other,0.0,0.8048214912414551,Low LLM confidence
-you suck @SpotifyCares,False,True,other,0.0,0.6716089844703674,Low LLM confidence
-@SpotifyCares ❤️❤️❤️,False,True,other,0.0,0.7543160915374756,Low LLM confidence
-@SpotifyCares Thanks!,False,True,other,0.0,0.7653920650482178,Low LLM confidence
-@SpotifyCares 😡,False,True,other,0.0,0.7543160915374756,Low LLM confidence
-@SpotifyCares No,False,True,other,0.0,0.7579166889190674,Low LLM confidence
-@SpotifyCares Ok thks guys!!!,False,True,other,0.0,0.7433016896247864,Low LLM confidence
-@116130 @SpotifyCares,False,True,other,0.0,0.8440662622451782,Low LLM confidence
-"@SpotifyCares Thanks, will do",False,True,other,0.0,0.7822878956794739,Low LLM confidence
-@SpotifyCares Sure thing !,False,True,other,0.0,0.773384690284729,Low LLM confidence
-@SpotifyCares,False,True,other,0.0,0.7574071884155273,Low LLM confidence
-@SpotifyCares Thank you!!,False,True,other,0.0,0.7453221082687378,Low LLM confidence
-@SpotifyCares Great! Thanks!,False,True,other,0.0,0.7574371099472046,Low LLM confidence
-@SpotifyCares thankyou sir,False,True,other,0.0,0.7474950551986694,Low LLM confidence
-@751181 @SpotifyCares,False,True,other,0.0,0.8446578979492188,Low LLM confidence
-@SpotifyCares I've tried that,False,True,other,0.0,0.775460958480835,Low LLM confidence
-@SpotifyCares 😭😭😭,False,True,other,0.0,0.7543160915374756,Low LLM confidence
-@SpotifyCares Sent you a DM.,False,False,other,0.9,0.7994208335876465,Safe to auto-handle
-@SpotifyCares I did,False,True,other,0.0,0.7325473427772522,Low LLM confidence
-@108393 Hi @SpotifyCares,False,True,other,0.0,0.8376811742782593,Low LLM confidence
-@SpotifyCares Thanks guys:),False,True,other,0.0,0.7603070735931396,Low LLM confidence
-@SpotifyCares Android 6.0.1,False,True,other,0.0,0.789687991142273,Low LLM confidence
-@SpotifyCares DM sent.,False,True,other,0.0,0.7895075678825378,Low LLM confidence
-@SpotifyCares 810mb now.,False,True,other,0.0,0.6907320618629456,Low LLM confidence
-@SpotifyCares I did,False,True,other,0.0,0.7325473427772522,Low LLM confidence
-@SpotifyCares thank you!!!,False,True,other,0.0,0.7479357719421387,Low LLM confidence
-@SpotifyCares thank you!,False,True,other,0.0,0.748377799987793,Low LLM confidence
-@SpotifyCares Awesome thanks!,False,True,other,0.0,0.7553468346595764,Low LLM confidence
-@SpotifyCares Super thanks!,False,True,other,0.0,0.7419711351394653,Low LLM confidence
-@SpotifyCares Thank you,False,True,other,0.0,0.7631107568740845,Low LLM confidence
-@SpotifyCares Done,False,True,other,0.0,0.7508858442306519,Low LLM confidence
-@SpotifyCares Sweet shall do,False,True,other,0.0,0.6829417943954468,Low LLM confidence
-@SpotifyCares Why???,False,True,other,0.0,0.728242039680481,Low LLM confidence
-@SpotifyCares When I should,False,True,other,0.0,0.7323189377784729,Low LLM confidence
-@SpotifyCares Hello?,False,True,other,0.0,0.7768205404281616,Low LLM confidence
-@SpotifyCares thank you!!!,False,True,other,0.0,0.7479357719421387,Low LLM confidence
-"@SpotifyCares Boston, MA, USA",False,True,other,0.0,0.7579406499862671,Low LLM confidence
-@SpotifyCares Thank you!,False,True,other,0.0,0.748377799987793,Low LLM confidence
-@SpotifyCares Bet.,False,True,other,0.0,0.6395772695541382,Low LLM confidence
-@SpotifyCares thank you!! 🌟,False,True,other,0.0,0.7364552021026611,Low LLM confidence
-@SpotifyCares ...,False,True,other,0.0,0.7551783323287964,Low LLM confidence
+Doesn’t always do it",False,True,other,0.0,0.7411496043205261,False,Calibrated risk score 0.57 >= 0.55
+@SpotifyCares I've got a new phone but forgot my password for my account to sign in but it's also linked to my old email address that got hacked what can I do ?,True,True,other,0.0,0.6940080523490906,False,High-risk keyword or dead-end (deterministic backstop)
+"Anyone else having issues w new @115858 iOS &amp; @115888 syncing with Bluetooth/car, not showing on lock screen? @AppleSupport @SpotifyCares",False,True,other,0.0,0.6736751794815063,False,Calibrated risk score 0.59 >= 0.55
+"@SpotifyCares my student discount expired, if I renew for the $4.99 plan with Hulu will it cancel my other membership ? Or charge twice?",False,True,other,0.0,0.6424806118011475,False,Calibrated risk score 0.59 >= 0.55
+@SpotifyCares Was able to use chat based support to rectify the issue. Completely different experience!,False,True,other,0.0,0.7901473045349121,False,Calibrated risk score 0.56 >= 0.55
+"@SpotifyCares Look - I love you guys, but your online chat ""help"" is HORRIBLE. Issue unresolved. Is a call that hard?",False,True,other,0.0,0.6975295543670654,False,Calibrated risk score 0.58 >= 0.55
+"@SpotifyCares. I'm having issues with signing into my account, through my old email, that account doesn't exist as I have not been able to access my emails and I do not know my password I have the premium subscription, and I don't wish to be charged when I cannot use the product.",False,True,other,0.0,0.7694235444068909,False,Calibrated risk score 0.56 >= 0.55
+"@SpotifyCares It was probably a bug or some cache issues, I got it to work now, thanks!",False,False,other,0.0,0.8325747847557068,False,Safe to auto-handle
+@SpotifyCares I have no access to my email or Facebook I created an account with and I need to fix this. Cancel it and make a new one?,False,True,other,0.0,0.7620425224304199,False,Calibrated risk score 0.56 >= 0.55
+"Tried to contact Spotify multiple times about the issue I'm having, to no avail. I keep getting ""Error Code: 3"" when I try to log in with my Facebook account, and it is saying it doesn't recognize my account when I have definitely signed up before. @SpotifyCares Can you help?",False,True,other,0.0,0.7673883438110352,False,Calibrated risk score 0.56 >= 0.55
+@SpotifyCares Yep . Same issue,False,True,other,0.0,0.8072445392608643,False,Calibrated risk score 0.55 >= 0.55
+@SpotifyCares having some issues,False,True,other,0.0,0.8082614541053772,False,Calibrated risk score 0.55 >= 0.55
+"@SpotifyCares Thank you so much for resolving this issue! Much better, great work @115888 !",False,False,other,0.0,0.8473604917526245,False,Safe to auto-handle
+"still having this issue and I know I'm not alone. Any ideas, @SpotifyCares ? I was in a meeting yesterday and OutKast unpaused randomly",False,True,other,0.0,0.6382929086685181,False,Calibrated risk score 0.60 >= 0.55
+"@SpotifyCares are you having issues? Search just brings me to a blank page. Doesn't work on wifi or mobile. Running iOS 10.3.3. Started today, wasn't an issue yesterday. https://t.co/3vEsXpwtWQ",False,True,other,0.0,0.7171404361724854,False,Calibrated risk score 0.58 >= 0.55
+"@SpotifyCares Hi, my account has been hacked - email address and password changed. I need to revert this back ASAP. I received the email about the change 1 hour ago",True,True,other,0.0,0.75124591588974,False,High-risk keyword or dead-end (deterministic backstop)
+@SpotifyCares That's what I'm have been doing: trying to reinstall. It doesn't help! I suspect one of the latest windows updates could be the issue.,False,False,other,0.0,0.8829605579376221,False,Safe to auto-handle
+"@SpotifyCares Hi, it looks like my premium account has been hacked. Can you help? I am unable to login and am concerned about security and data protection. Cheers.",True,True,other,0.0,0.7319409847259521,False,High-risk keyword or dead-end (deterministic backstop)
+@SpotifyCares I am billed $10.60/month via credit card but I don't have a spotify account that I can login to cancel.,True,True,other,0.0,0.7455929517745972,False,Calibrated risk score 0.57 >= 0.55
+@SpotifyCares Well I’ve already downloaded my playlists now so there’s not really any point for me now to troubleshoot this issue but thanks anyways,False,False,other,0.0,0.8163634538650513,False,Safe to auto-handle
+@SpotifyCares What can I do to resolve this issue only way I can listen to music at work please please please help me out,False,True,other,0.0,0.7342889308929443,False,Calibrated risk score 0.57 >= 0.55
+"Hi @SpotifyCares, my apps (ipad/desktop) change songs on its own! I've seen ""Web Player Firefox"" on Spotify Connect. Change password and disconnect devices but still have the issue for 10 minutes. Now it seems to be fixed (no more ""Web Player Firefox""). Have I been hacked ?",True,True,other,0.0,0.7087290287017822,False,High-risk keyword or dead-end (deterministic backstop)
+"@SpotifyCares I have forced closed the app, checked for updates and reinstalled. Same issue",False,False,other,0.0,0.8759617805480957,False,Safe to auto-handle
+@SpotifyCares Yes they are up to date. I just have an issue when I'm listening to a playlist sometimes it will pause the song. And the only way to fix it is to start the song again,False,True,other,0.0,0.6805244088172913,False,Calibrated risk score 0.58 >= 0.55
+"@SpotifyCares Haha, no issues. Love the time capsule",False,False,other,0.99,0.6960085034370422,False,Safe to auto-handle
+@SpotifyCares thank you sexy,False,True,other,0.0,0.6570032238960266,False,Calibrated risk score 0.59 >= 0.55
+@SpotifyCares On an iPhone 6s,False,True,other,0.0,0.7118215560913086,False,Calibrated risk score 0.58 >= 0.55
+@SpotifyCares 8.4.20.535,False,True,other,0.0,0.8002210855484009,False,Calibrated risk score 0.55 >= 0.55
+@SpotifyCares Thank you! 💙,False,True,other,0.0,0.7376688718795776,False,Calibrated risk score 0.57 >= 0.55
+@SpotifyCares thanks,False,True,other,0.0,0.7671741843223572,False,Calibrated risk score 0.56 >= 0.55
+@SpotifyCares thanks! :),False,True,other,0.0,0.7602755427360535,False,Calibrated risk score 0.56 >= 0.55
+@SpotifyCares Tried. Same ☹️,False,True,other,0.0,0.7762254476547241,False,Calibrated risk score 0.56 >= 0.55
+@SpotifyCares @115888,False,False,other,0.0,0.8572853803634644,False,Safe to auto-handle
+@SpotifyCares Yes!,False,True,other,0.0,0.74419105052948,False,Calibrated risk score 0.57 >= 0.55
+@SpotifyCares I will dm you!,False,True,other,0.0,0.8048214912414551,False,Calibrated risk score 0.55 >= 0.55
+you suck @SpotifyCares,False,True,other,0.0,0.6716089844703674,False,Calibrated risk score 0.59 >= 0.55
+@SpotifyCares ❤️❤️❤️,False,True,other,0.0,0.7543160915374756,False,Calibrated risk score 0.57 >= 0.55
+@SpotifyCares Thanks!,False,True,other,0.0,0.7653920650482178,False,Calibrated risk score 0.56 >= 0.55
+@SpotifyCares 😡,False,True,other,0.0,0.7543160915374756,False,Calibrated risk score 0.57 >= 0.55
+@SpotifyCares No,False,True,other,0.0,0.7579166889190674,False,Calibrated risk score 0.56 >= 0.55
+@SpotifyCares Ok thks guys!!!,False,True,other,0.0,0.7433016896247864,False,Calibrated risk score 0.57 >= 0.55
+@116130 @SpotifyCares,False,False,other,0.0,0.8440662622451782,False,Safe to auto-handle
+"@SpotifyCares Thanks, will do",False,True,other,0.0,0.7822878956794739,False,Calibrated risk score 0.56 >= 0.55
+@SpotifyCares Sure thing !,False,False,other,0.96,0.773384690284729,False,Safe to auto-handle
+@SpotifyCares,False,True,other,0.0,0.7574071884155273,False,Calibrated risk score 0.56 >= 0.55
+@SpotifyCares Thank you!!,False,True,other,0.0,0.7453221082687378,False,Calibrated risk score 0.57 >= 0.55
+@SpotifyCares Great! Thanks!,False,True,other,0.0,0.7574371099472046,False,Calibrated risk score 0.56 >= 0.55
+@SpotifyCares thankyou sir,False,True,other,0.0,0.7474950551986694,False,Calibrated risk score 0.57 >= 0.55
+@751181 @SpotifyCares,False,False,other,0.0,0.8446578979492188,False,Safe to auto-handle
+@SpotifyCares I've tried that,False,True,other,0.0,0.775460958480835,False,Calibrated risk score 0.56 >= 0.55
+@SpotifyCares 😭😭😭,False,True,other,0.0,0.7543160915374756,False,Calibrated risk score 0.57 >= 0.55
+@SpotifyCares Sent you a DM.,False,True,other,0.0,0.7994208335876465,False,Calibrated risk score 0.55 >= 0.55
+@SpotifyCares I did,False,True,other,0.0,0.7325473427772522,False,Calibrated risk score 0.57 >= 0.55
+@108393 Hi @SpotifyCares,False,False,other,0.0,0.8376811742782593,False,Safe to auto-handle
+@SpotifyCares Thanks guys:),False,True,other,0.0,0.7603070735931396,False,Calibrated risk score 0.56 >= 0.55
+@SpotifyCares Android 6.0.1,False,True,other,0.0,0.789687991142273,False,Calibrated risk score 0.56 >= 0.55
+@SpotifyCares DM sent.,False,True,other,0.0,0.7895075678825378,False,Calibrated risk score 0.56 >= 0.55
+@SpotifyCares 810mb now.,False,True,other,0.0,0.6907320618629456,False,Calibrated risk score 0.58 >= 0.55
+@SpotifyCares I did,False,True,other,0.0,0.7325473427772522,False,Calibrated risk score 0.57 >= 0.55
+@SpotifyCares thank you!!!,False,True,other,0.0,0.7479357719421387,False,Calibrated risk score 0.57 >= 0.55
+@SpotifyCares thank you!,False,True,other,0.0,0.748377799987793,False,Calibrated risk score 0.57 >= 0.55
+@SpotifyCares Awesome thanks!,False,True,other,0.0,0.7553468346595764,False,Calibrated risk score 0.57 >= 0.55
+@SpotifyCares Super thanks!,False,True,other,0.0,0.7419711351394653,False,Calibrated risk score 0.57 >= 0.55
+@SpotifyCares Thank you,False,True,other,0.0,0.7631107568740845,False,Calibrated risk score 0.56 >= 0.55
+@SpotifyCares Done,False,True,other,0.0,0.7508858442306519,False,Calibrated risk score 0.57 >= 0.55
+@SpotifyCares Sweet shall do,False,True,other,0.0,0.6829417943954468,False,Calibrated risk score 0.58 >= 0.55
+@SpotifyCares Why???,False,True,other,0.0,0.728242039680481,False,Calibrated risk score 0.57 >= 0.55
+@SpotifyCares When I should,False,True,other,0.0,0.7323189377784729,False,Calibrated risk score 0.57 >= 0.55
+@SpotifyCares Hello?,False,True,other,0.0,0.7768205404281616,False,Calibrated risk score 0.56 >= 0.55
+@SpotifyCares thank you!!!,False,True,other,0.0,0.7479357719421387,False,Calibrated risk score 0.57 >= 0.55
+"@SpotifyCares Boston, MA, USA",False,True,other,0.0,0.7579406499862671,False,Calibrated risk score 0.56 >= 0.55
+@SpotifyCares Thank you!,False,False,other,0.99,0.748377799987793,False,Safe to auto-handle
+@SpotifyCares Bet.,False,False,other,0.95,0.6395772695541382,False,Safe to auto-handle
+@SpotifyCares thank you!! 🌟,False,True,other,0.0,0.7364552021026611,False,Calibrated risk score 0.57 >= 0.55
+@SpotifyCares ...,False,True,other,0.0,0.7551783323287964,False,Calibrated risk score 0.57 >= 0.55
