@@ -1,5 +1,5 @@
 tweet_id,text,true_intent,should_escalate,notes,pred_intent,pred_escalate,confidence
-1301944,@SpotifyCares Best response ever! Me @ the use of that song https://t.co/TpgOEZyFhe,other,False,Positive comment praising a reply; not an actual support request,other,False,0.95
+1301944,@SpotifyCares Best response ever! Me @ the use of that song https://t.co/TpgOEZyFhe,other,False,Positive comment praising a reply; not an actual support request,other,False,0.96
 1380867,"@SpotifyCares Spotify Student + Hulu renews tomorrow, but my Hulu is wanting me to pay up to watch anything today. Obviously, renewing the sub tomorrow, so what gives? Why has the Hulu side of things cut me off?",billing_payment,False,Bundle access timing issue: Hulu side of Spotify Student cuts off before renewal registers,billing_payment,False,0.96
 1790160,"@SpotifyCares I just dumped the whole thing. I'd expect its your job to figure this out, isn't it. 
 I'd expect some auto-updater left over garbage coupled with audio cache. But who knows",app_bug,False,Snarky/dismissive tone about leftover auto-updater and cache junk; frustrated but not furious enough to escalate,app_bug,False,0.94
@@ -8,24 +8,24 @@ I'd expect some auto-updater left over garbage coupled with audio cache. But who
 1244355,@SpotifyCares Ummm...so it still says Would instead of Wound. #SecondhandEmbarassment.,app_bug,False,UI copy typo ('Would' instead of 'Wound'),app_bug,False,0.93
 1049686,"@SpotifyCares They don't have an account so it says their email address is invalid, I invited them to join through my log in via email",account_login,False,Inviting a family member fails because the invitee has no account / invalid email,account_login,False,0.94
 1124160,"@SpotifyCares Yep! And individual songs, are fine just the daily mixes glitches out. i logged into the test account that u guys had me try. No problems",app_bug,False,"Reply in a troubleshooting thread -- daily mix glitches on a test account, individual songs fine",app_bug,False,0.93
-9358,@SpotifyCares I'm new at this how do i DELETE and what's dm,other,False,"Very vague: unclear what 'DELETE' refers to (account, song, playlist?), also asks what a DM is",other,False,0.78
-967401,@SpotifyCares But I have done the reset function and it still hasn’t worked 😢 https://t.co/vU6OHkIurZ,other,False,Vague 'reset function' -- could mean password reset (account_login) or an in-app reset (app_bug),account_login,False,0.86
+9358,@SpotifyCares I'm new at this how do i DELETE and what's dm,other,False,"Very vague: unclear what 'DELETE' refers to (account, song, playlist?), also asks what a DM is",other,False,0.86
+967401,@SpotifyCares But I have done the reset function and it still hasn’t worked 😢 https://t.co/vU6OHkIurZ,other,False,Vague 'reset function' -- could mean password reset (account_login) or an in-app reset (app_bug),account_login,False,0.92
 244331,@SpotifyCares I used to have premium till it started to do that,other,False,No context for what 'that' refers to; premium mentioned but issue itself unclear,app_bug,False,0.66
 1427798,@SpotifyCares iOS 11.2 (beta) spotify 8.4.26.793,app_bug,False,"Just OS/app version info, likely part of a bug thread",app_bug,False,0.78
 61516,@115888 @SpotifyCares I’ve been listening to @3400 for four years loop masterpiece “9” every morning why haven’t I got presale code?,other,False,About a concert presale code -- not a Spotify app/account/billing issue,feature_request,False,0.78
-1579277,@SpotifyCares HA! Right now you're https://t.co/OnTOem70Zr,other,False,Sarcastic reply with a link; no visible text to judge underlying issue,app_bug,False,0.71
-2383568,"@SpotifyCares W/ your follow up to my 2nd tweet, presently there's no issues b/c generally I can cope with no solution (aka forget about it). I just find it sad that it's presented to the users that Spotify never seems to add features, esp. when there's PLENTY of support thrown behind it. +",feature_request,False,"Frustrated about missing features but explicitly says they've 'coped' with it -- resigned, not furious",feature_request,True,0.93
+1579277,@SpotifyCares HA! Right now you're https://t.co/OnTOem70Zr,other,False,Sarcastic reply with a link; no visible text to judge underlying issue,app_bug,False,0.66
+2383568,"@SpotifyCares W/ your follow up to my 2nd tweet, presently there's no issues b/c generally I can cope with no solution (aka forget about it). I just find it sad that it's presented to the users that Spotify never seems to add features, esp. when there's PLENTY of support thrown behind it. +",feature_request,False,"Frustrated about missing features but explicitly says they've 'coped' with it -- resigned, not furious",feature_request,False,0.93
 1756658,"@SpotifyCares 
-It won’t let me play songs on mobile😬help please https://t.co/47QoaHN7Y9",app_bug,False,Can't play songs on mobile,app_bug,False,0.96
+It won’t let me play songs on mobile😬help please https://t.co/47QoaHN7Y9",app_bug,False,Can't play songs on mobile,app_bug,False,0.97
 301658,@SpotifyCares You should be replying to @187968. He's the one whose music is being uploaded to your site fraudulently.,other,True,"Alleges a third party's music was uploaded fraudulently -- a copyright/fraud claim needing human review, doesn't fit the given categories",other,True,0.95
-48130,@SpotifyCares 1972mazz is one of them. It doesnt have anything to do with the account. its the application on a macbook,app_bug,False,"Clarifies the problem is the macOS app, not the account",app_bug,False,0.93
-2407009,@338880 @SpotifyCares Just do a family bundle with 6 people and all you'll have to pay is £15 per month that's only £2.50 each that's what I'm on and it's cheap just gather up 5 people who would want to join with you.,other,False,One user advising another on family-plan pricing -- not actually addressed to support as a request,other,False,0.97
-712183,"@SpotifyCares v1.0.65.320.gac7a8e02 - Thought it might be my internet, but haven't seen anything else having issues.",app_bug,False,"Version info + ruling out their internet as the cause, part of a bug thread",app_bug,True,0.93
+48130,@SpotifyCares 1972mazz is one of them. It doesnt have anything to do with the account. its the application on a macbook,app_bug,False,"Clarifies the problem is the macOS app, not the account",app_bug,False,0.92
+2407009,@338880 @SpotifyCares Just do a family bundle with 6 people and all you'll have to pay is £15 per month that's only £2.50 each that's what I'm on and it's cheap just gather up 5 people who would want to join with you.,other,False,One user advising another on family-plan pricing -- not actually addressed to support as a request,feature_request,False,0.92
+712183,"@SpotifyCares v1.0.65.320.gac7a8e02 - Thought it might be my internet, but haven't seen anything else having issues.",app_bug,False,"Version info + ruling out their internet as the cause, part of a bug thread",app_bug,False,0.93
 1790414,@SpotifyCares Love it! Good to know and thanks again for your time!,other,False,"Positive closing remark, thread resolved",other,False,0.97
 1516286,"@SpotifyCares I saved the song Gummo by 6ix9ine yesterday and it played, but for some reason it's not playing now. What's going on?",app_bug,False,A previously-playable saved song stopped playing,app_bug,False,0.96
-1824347,@SpotifyCares DM sent,other,False,"Just confirms a DM was sent, no other content",other,False,0.71
+1824347,@SpotifyCares DM sent,other,False,"Just confirms a DM was sent, no other content",other,False,0.85
 1450221,@SpotifyCares I have tried both ways.,other,False,No context for what 'both ways' refers to,account_login,False,0.45
-1853568,"@SpotifyCares No thanks, I don't really want to be suggested Premium.",other,False,"Declining a Premium upsell suggestion, not a support request",feature_request,False,0.88
+1853568,"@SpotifyCares No thanks, I don't really want to be suggested Premium.",other,False,"Declining a Premium upsell suggestion, not a support request",feature_request,False,0.85
 468339,"@SpotifyCares I’ve been constantly trying to delete songs in my library but they always seem to come back. I’ve tried already the connect/disconnect method that I was first suggested. Also, it was stated that this is “odd” by the support group, even though if you google the...",app_bug,False,Deleted songs keep reappearing in library; suggested fix already tried,app_bug,False,0.96
 1995570,"@SpotifyCares Mystreamcount arenot updated for my songYour BeautifulFace to my aggregater
 as they are saying spotify has notgiven themreport",other,True,"Garbled text about stream counts not reaching an aggregator -- looks like an artist/royalty-reporting dispute involving money owed, doesn't cleanly fit any category",app_bug,False,0.93
@@ -33,37 +33,37 @@ as they are saying spotify has notgiven themreport",other,True,"Garbled text abo
 1883964,@SpotifyCares ion wanna read your content miss me with that shit,other,False,"Hostile, dismissive language but no specific issue described",other,True,0.92
 2834979,@SpotifyCares any way to get play/pause button working again with OSX 10.13?,app_bug,False,Play/pause media key stopped working on macOS,app_bug,False,0.97
 2507490,@SpotifyCares Awesome! Hope to see the update soon! 🙌🏼,other,False,"Positive, anticipating a future update; no specific ask in this tweet",other,False,0.97
-1993460,@SpotifyCares Sounds great! Just wanted to bring it to someone’s attention in case it wasn’t already discovered.,other,False,Vague closing remark about flagging something; no detail in this tweet,other,False,0.95
+1993460,@SpotifyCares Sounds great! Just wanted to bring it to someone’s attention in case it wasn’t already discovered.,other,False,Vague closing remark about flagging something; no detail in this tweet,other,False,0.92
 2251358,hey @SpotifyCares y’all double charged my account this month and i can’t figure out how else to resolve this matter. could y’all DM me?,billing_payment,False,"Double-charged, asks for a DM -- a standard billing dispute, calm tone",billing_payment,False,0.97
-2714235,@SpotifyCares No,other,False,"Single-word reply, no context",other,False,0.85
-2479188,"@SpotifyCares I guess spotify cares for only 1 message, i am still waiting your reply",other,False,"Frustrated about no reply, but original issue unknown",other,False,0.86
-1269705,"@SpotifyCares Samsung Galaxy s6, Android 7.0, and Spotify 8.4.24",app_bug,False,"Device/version info, part of a bug thread",other,False,0.73
+2714235,@SpotifyCares No,other,False,"Single-word reply, no context",other,False,0.6
+2479188,"@SpotifyCares I guess spotify cares for only 1 message, i am still waiting your reply",other,False,"Frustrated about no reply, but original issue unknown",other,False,0.92
+1269705,"@SpotifyCares Samsung Galaxy s6, Android 7.0, and Spotify 8.4.24",app_bug,False,"Device/version info, part of a bug thread",other,False,0.62
 1641065,@115888 @SpotifyCares guys there is a problem with one of your playlists!,app_bug,False,"Reports a playlist problem, no further detail",app_bug,False,0.92
-723048,@SpotifyCares No. I already tried that...,other,False,No context for what was already tried,app_bug,False,0.55
-1906842,@115888 @SpotifyCares,other,False,"Just mentions, no message text",other,False,0.45
+723048,@SpotifyCares No. I already tried that...,other,False,No context for what was already tried,account_login,False,0.65
+1906842,@115888 @SpotifyCares,other,False,"Just mentions, no message text",other,False,0.78
 2338258,"@SpotifyCares okay cool, thank you!",other,False,"Closing remark, thread resolved",other,False,0.97
 337531,"@SpotifyCares But that thread is from March. It's been 7 months so I'm not ""rest assured"" this is going to be resolved anytime in the near future.",feature_request,False,Sarcastic about a 7-month-old unresolved thread; frustrated but not explicitly furious,app_bug,False,0.86
-351223,@SpotifyCares Why,other,False,"Single word, no context",other,False,0.78
-2355331,@SpotifyCares I upgraded to Premium for Family but it’s saying the address is wrong to add family members. I don’t think I ever got prompted to enter an address?,billing_payment,False,Premium Family signup blocked by an address-validation error,app_bug,False,0.92
+351223,@SpotifyCares Why,other,False,"Single word, no context",other,False,0.4
+2355331,@SpotifyCares I upgraded to Premium for Family but it’s saying the address is wrong to add family members. I don’t think I ever got prompted to enter an address?,billing_payment,False,Premium Family signup blocked by an address-validation error,app_bug,False,0.86
 488777,"@SpotifyCares I'm suddenly unable to log into my account on either desktop or iPhone. When I tried to enter my password, it wasn't recognizing that there was an account associated with my user name.",account_login,False,Can't log in on desktop or iPhone; password not recognized,account_login,False,0.97
 1148117,@SpotifyCares My music keeps stuttering/skipping ever since I upgraded to iOS 11... tried reinstalling but it doesn’t fix it,app_bug,False,Stuttering/skipping since iOS 11 upgrade; reinstall didn't fix it,app_bug,False,0.96
 2902825,@SpotifyCares I have a US premium account.,other,False,"Context-less statement, likely part of a longer thread",other,False,0.85
-867588,@SpotifyCares I'm on macOs 10.12.5 and Chrome 61.0.3163.100,app_bug,False,"OS/browser version info, part of a bug thread",app_bug,False,0.62
+867588,@SpotifyCares I'm on macOs 10.12.5 and Chrome 61.0.3163.100,app_bug,False,"OS/browser version info, part of a bug thread",other,False,0.82
 2504270,@SpotifyCares How do you copy URI on @115888 ?,other,False,"How-to question about copying a URI -- not a bug, billing, or feature ask",other,False,0.96
 187640,"@SpotifyCares 1st in playlist playing song 28, 2nd playing 111th song in playlist , always the same things",app_bug,False,Playlist consistently plays the wrong track position,app_bug,False,0.92
 442003,"""You can get a family plan for cheaper.""
 ""Will kids lose current lists?""
-""Hmm good Q, maybe @SpotifyCares knows""  #overheardinnyc",other,False,"'Overheard' style tweet quoting a conversation about family plans, not a direct support request",feature_request,False,0.65
-797689,"@SpotifyCares I'm running Spotify 1.0.65.320.gac7a8e02 on macOS Sierra version 10.12.6. Also on a Huawei P9 Lite, Android 7.0, Spotify 8.4.22.857 armV7",app_bug,False,"Device/version info across two devices, part of a bug thread",other,False,0.82
+""Hmm good Q, maybe @SpotifyCares knows""  #overheardinnyc",other,False,"'Overheard' style tweet quoting a conversation about family plans, not a direct support request",billing_payment,False,0.65
+797689,"@SpotifyCares I'm running Spotify 1.0.65.320.gac7a8e02 on macOS Sierra version 10.12.6. Also on a Huawei P9 Lite, Android 7.0, Spotify 8.4.22.857 armV7",app_bug,False,"Device/version info across two devices, part of a bug thread",other,False,0.71
 528375,"Hey @115888, Could you guys add this brand new Xmas single by @23298 to some of your Christmas/holiday playlists? Xo 🎄☃🎅🏻
 [ To: @SpotifyCares @116130 @117168 @126761 @2069 @191335 @22875 ]
 
 https://t.co/yZInuR6eBi",other,False,Promotional ask to add an artist's single to holiday playlists -- not a product feature request,feature_request,False,0.97
-698862,"@SpotifyCares unfortunately, this didn't work either. :( really missing my spotify during the work day!",app_bug,False,A suggested fix didn't work; frustrated but not furious,app_bug,False,0.78
-1805582,@SpotifyCares Did you take away the place on the artists' page that shows which playlists they are featured in? I always found that helpful,feature_request,False,Asks whether a previously available artist-page feature was removed -- ambiguous between bug report and feature request,feature_request,False,0.92
+698862,"@SpotifyCares unfortunately, this didn't work either. :( really missing my spotify during the work day!",app_bug,False,A suggested fix didn't work; frustrated but not furious,app_bug,False,0.88
+1805582,@SpotifyCares Did you take away the place on the artists' page that shows which playlists they are featured in? I always found that helpful,feature_request,False,Asks whether a previously available artist-page feature was removed -- ambiguous between bug report and feature request,feature_request,False,0.96
 2080863,"@SpotifyCares then when I go to that account associated with my email, it won’t let me use it as a student 2/2",account_login,False,"Student verification tied to a specific account; message marked '2/2', so half the context is in a missing prior tweet",account_login,False,0.78
-1261987,"Hi @SpotifyCares - webplayer not working for me. Have tried various browsers, cache deletes etc. Any known issues at present? Thx",app_bug,False,Web player not working across multiple browsers,app_bug,True,0.96
-1870176,@SpotifyCares I signed up for student premium but I'm still receiving ads. Any help?,billing_payment,False,Student premium not removing ads as expected,billing_payment,False,0.92
+1261987,"Hi @SpotifyCares - webplayer not working for me. Have tried various browsers, cache deletes etc. Any known issues at present? Thx",app_bug,False,Web player not working across multiple browsers,app_bug,False,0.96
+1870176,@SpotifyCares I signed up for student premium but I'm still receiving ads. Any help?,billing_payment,False,Student premium not removing ads as expected,billing_payment,False,0.93
 860922,"@SpotifyCares 
 
 my daily mix keeps stopping for no reason. it’s not my internet connection.
@@ -75,27 +75,27 @@ help please. thanks.",app_bug,False,"Daily mix stops randomly, rules out interne
 2138977,"@SpotifyCares Another app updated, no iPhone X full screen support. What the hell are you guys playing at?!?! You’re a massive company, even the small app companies have iPhone X full screen support. You need to up your game right away or I’m going to simply switch to Apple Music. Disgusting!",feature_request,True,"Very angry ('What the hell', 'Disgusting!') and explicitly threatens to switch to Apple Music",app_bug,False,0.96
 2859016,@115888 @SpotifyCares  what has happened to the layout on the iPhone app.  Is this to do with the zoom view? This is now unusable. https://t.co/BeClKHvKcv,app_bug,False,"iPhone layout broken/'unusable' after an update, possibly zoom-view related",app_bug,False,0.96
 567969,@SpotifyCares This video shows it https://t.co/7qjdKJJeGH,app_bug,False,Just a video link ('This video shows it') with no text describing what it demonstrates,app_bug,False,0.78
-887918,@SpotifyCares Im on an iphone 6+ btw,app_bug,False,"Just device info, part of a bug thread",other,False,0.97
-1181057,@SpotifyCares is there a way to listen to Spotify on xbox one without the music coming through the Elgato?? @21330 @XboxSupport,other,False,How-to question about routing Xbox audio away from a capture device -- not clearly a bug or feature request,feature_request,False,0.93
+887918,@SpotifyCares Im on an iphone 6+ btw,app_bug,False,"Just device info, part of a bug thread",other,False,0.85
+1181057,@SpotifyCares is there a way to listen to Spotify on xbox one without the music coming through the Elgato?? @21330 @XboxSupport,other,False,How-to question about routing Xbox audio away from a capture device -- not clearly a bug or feature request,feature_request,False,0.92
 578114,@SpotifyCares I already replied. Thanks!,other,False,"Closing remark, thread resolved",other,False,0.96
-1942605,"@SpotifyCares my acct keeps telling me I can’t download any more songs, so I un-downloaded a bunch but it’s still saying I have no room :(",app_bug,False,Storage shows full even after deleting downloaded songs,app_bug,False,0.92
-2069987,"@SpotifyCares hello, I want to transfer the ownership for my premium family account but I can't access my previous account. what to do?",account_login,False,Wants to transfer Family plan ownership but can't access the old account,account_login,False,0.92
+1942605,"@SpotifyCares my acct keeps telling me I can’t download any more songs, so I un-downloaded a bunch but it’s still saying I have no room :(",app_bug,False,Storage shows full even after deleting downloaded songs,app_bug,False,0.93
+2069987,"@SpotifyCares hello, I want to transfer the ownership for my premium family account but I can't access my previous account. what to do?",account_login,False,Wants to transfer Family plan ownership but can't access the old account,account_login,False,0.96
 566276,@SpotifyCares macOS High Sierra 10.13.2 Public Beta (Build 17C79a). Spotify 1.0.68.407.g6864aaaf.,app_bug,False,"OS/app version info (beta build), part of a bug thread",app_bug,False,0.92
-944371,@SpotifyCares @115888 @SpotifyCares,other,False,"Just mentions, no message text",other,False,0.96
-2391979,@SpotifyCares @688879 It’s getting beyond a joke now. Your developers have had since June to get the app ready. Really is shameful.,app_bug,True,"Strongly worded ('shameful', 'beyond a joke') complaint about a months-long unfixed issue since June -- reputational risk if handled with a generic reply",app_bug,False,0.86
-753972,@SpotifyCares __email__,other,False,"Redacted email placeholder only ('__email__'), no other context -- likely part of a thread sharing contact info",other,False,0.6
-1517203,"@SpotifyCares This only works if you format the SD card as ""portable storage"", which is how I have it on my phone, I opted for int fmt with my new device.",app_bug,False,SD card storage format (portable vs internal) affecting downloads,app_bug,False,0.86
-1725333,@SpotifyCares Which website should I link the song from?,other,False,Asking which website to link a song from -- unclear which feature this relates to,other,False,0.96
-1395871,@SpotifyCares I use chrome.,other,False,"Just states the browser used, likely part of a thread with no visible question here",other,False,0.71
+944371,@SpotifyCares @115888 @SpotifyCares,other,False,"Just mentions, no message text",other,False,0.9
+2391979,@SpotifyCares @688879 It’s getting beyond a joke now. Your developers have had since June to get the app ready. Really is shameful.,app_bug,True,"Strongly worded ('shameful', 'beyond a joke') complaint about a months-long unfixed issue since June -- reputational risk if handled with a generic reply",app_bug,False,0.78
+753972,@SpotifyCares __email__,other,False,"Redacted email placeholder only ('__email__'), no other context -- likely part of a thread sharing contact info",other,False,0.78
+1517203,"@SpotifyCares This only works if you format the SD card as ""portable storage"", which is how I have it on my phone, I opted for int fmt with my new device.",app_bug,False,SD card storage format (portable vs internal) affecting downloads,app_bug,False,0.88
+1725333,@SpotifyCares Which website should I link the song from?,other,False,Asking which website to link a song from -- unclear which feature this relates to,other,False,0.95
+1395871,@SpotifyCares I use chrome.,other,False,"Just states the browser used, likely part of a thread with no visible question here",other,False,0.85
 2439896,@SpotifyCares I'll have to have a go tomorrow night,other,False,"Vague -- 'will have a go tomorrow night', no issue described",other,False,0.86
 2577795,"@SpotifyCares iPhone 7 Plus, iOS 11.0.2",app_bug,False,"Device/OS version info, part of a bug thread",app_bug,False,0.62
 1760771,"@SpotifyCares Here you go. Does not show up in search results but it was still in my play history:
-https://t.co/0qgC65wAx9",app_bug,False,"Song missing from search but present in play history, includes a link",app_bug,False,0.93
+https://t.co/0qgC65wAx9",app_bug,False,"Song missing from search but present in play history, includes a link",app_bug,False,0.92
 2442033,@SpotifyCares could you get involved with this please? Thinking of going to Apple Music otherwise. https://t.co/fTITdyHp6q cheers.,app_bug,False,Politely worded but signals intent to switch to Apple Music if unresolved -- churn risk worth flagging even though tone isn't hostile,app_bug,False,0.78
 1532345,@SpotifyCares I shall drop you a DM in a bit. Seems to be happening to others though looking online and the Spotify forum thingy!,app_bug,False,Will DM about an issue also seen by others online/on the Spotify forum,app_bug,False,0.78
 1869192,@SpotifyCares I tried that when I first noticed the other day. It reappeared after a few days. First on Radio page. Each station thumbnail pulsed/flashed https://t.co/5fDCAXnhNj,app_bug,False,"Recurring UI glitch (flashing radio thumbnails) that resurfaced after a prior fix, includes a link",app_bug,False,0.96
 1471773,"@SpotifyCares I have an iPhone 6, with iOS 11.0.2 software. The version of Spotify I have is 8.4.20.535",app_bug,False,"Device/OS/app version info, part of a bug thread",app_bug,False,0.78
-1943158,"@SpotifyCares The sound was coming from the banner ads, which is why I was confused. I'm not sure which version I have now, how would I check?",app_bug,False,"Clarifies sound was from banner ads, not the app; unsure how to check their app version",app_bug,False,0.78
+1943158,"@SpotifyCares The sound was coming from the banner ads, which is why I was confused. I'm not sure which version I have now, how would I check?",app_bug,False,"Clarifies sound was from banner ads, not the app; unsure how to check their app version",other,False,0.95
 1275676,@SpotifyCares hi! I've been trying to DM you guys about my artist verification. Can someone help me out? Thanks!,other,False,"Asking for help with artist verification via DM -- a creator-tools process question, doesn't cleanly fit the given categories",other,False,0.97
 2283776,@663683 @663680 @118266 @SpotifyCares anak radio sw emang gak cocok make spotify..,other,False,Non-English (Indonesian/Malay slang); appears to say Spotify doesn't suit their taste -- not clearly a support request,other,False,0.92
 1972504,@SpotifyCares I want to delete an old account that I no longer have access to through email and forgot the password 😔,account_login,False,"Wants to delete an old account they can no longer access (forgot password, no email access)",account_login,False,0.92
@@ -103,118 +103,118 @@ https://t.co/0qgC65wAx9",app_bug,False,"Song missing from search but present in 
 323065,@SpotifyCares Thank you! OS - 10.11.6 Spotify version - 1.0.65.320.gac7a8e02,app_bug,False,"Thanks + OS/app version info, part of a resolved bug thread",other,False,0.96
 997196,@SpotifyCares @356133 same here 504 Gateway Time-out,app_bug,False,"Reports a 504 Gateway Timeout error, same as another user",app_bug,False,0.94
 369857,"@SpotifyCares My student discount/hulu isn't working even after doing the steps in the FAQ, what's your email?",billing_payment,False,Student discount/Hulu bundle not activating despite following FAQ steps,billing_payment,False,0.92
-1117796,what yall doing about this @SpotifyCares https://t.co/lD1ervQbPn,other,False,"Vague -- 'what yall doing about this' with a link, no description of the underlying issue",app_bug,False,0.66
+1117796,what yall doing about this @SpotifyCares https://t.co/lD1ervQbPn,other,False,"Vague -- 'what yall doing about this' with a link, no description of the underlying issue",app_bug,False,0.71
 1670459,@SpotifyCares Looks ok so far.....,other,False,"Vague positive update ('Looks ok so far'), no specifics",other,False,0.92
-336728,"@SpotifyCares Hey is there a way to change the Family Administrator name (ie, the name who the invite comes from)?",other,False,"How-to question about changing the Family plan administrator name -- an account-management question, not clearly bug/feature/billing",feature_request,False,0.96
+336728,"@SpotifyCares Hey is there a way to change the Family Administrator name (ie, the name who the invite comes from)?",other,False,"How-to question about changing the Family plan administrator name -- an account-management question, not clearly bug/feature/billing",feature_request,False,0.92
 337084,Hey @115888 I want to auto-block edited versions of songs. It's impossible to enjoy @16197 &amp; @16198 edited. @SpotifyCares,feature_request,False,Wants an option to auto-block explicit/edited song versions,feature_request,False,0.97
-629905,@SpotifyCares I hope that this time it will take less than 8 months! 😉 https://t.co/zwzobGJvME,app_bug,False,"Sarcastic hope a fix takes 'less than 8 months' this time -- implies a long-standing recurring bug, includes a link",app_bug,False,0.65
+629905,@SpotifyCares I hope that this time it will take less than 8 months! 😉 https://t.co/zwzobGJvME,app_bug,False,"Sarcastic hope a fix takes 'less than 8 months' this time -- implies a long-standing recurring bug, includes a link",app_bug,False,0.55
 1695040,@SpotifyCares Hello. The web player's been on and off all day. https://t.co/Jk9rXvcPIn,app_bug,False,"Web player intermittently down all day, includes a link",app_bug,False,0.96
 315114,@SpotifyCares That fixed it! Thanks a lot and have a nice day/night! https://t.co/iNocKhGgLv,app_bug,False,"Positive -- a suggested fix worked, thread resolved",other,False,0.97
 416823,@SpotifyCares so as frustrating as you guys are they did an awesome job at helping Thankyou again 🤷‍♀️🤷‍♀️🤷‍♀️🙌🙌🙌,other,False,Positive/appreciative closing despite calling support frustrating; no specific issue in this tweet,other,False,0.96
 1703341,"Dear @115888 @SpotifyCares I will (and others too) really appreciate it if you can let us download more, will you? Please! https://t.co/PBxbpiGUKj",feature_request,False,Requesting an increase to the offline-download limit,feature_request,False,0.96
-1167976,@SpotifyCares I'm getting an extended delay (~30 secs) when auth'ing my third-party app. Known issue?,app_bug,False,Third-party app authorization taking ~30 seconds longer than expected,app_bug,True,0.86
-2165554,"@SpotifyCares The contact forms don’t have a category for being hacked. I have sent an email to support via Paypal and have deleted the people from it, changed my Facebook password and cancelled the subscription.",account_login,True,"Account was hacked -- the contact form has no 'hacked' category, so they emailed support via PayPal and cancelled the subscription themselves; a real gap in the self-service flow",account_login,True,0.96
-1904810,"@SpotifyCares hey huys, I seem to have some kind of a strange issue with my account - how can i contact you to explain moth &gt;140 chars?",other,False,"Vague -- mentions a 'strange issue' with their account but gives no detail, just asks how to reach support within the character limit",other,True,0.78
+1167976,@SpotifyCares I'm getting an extended delay (~30 secs) when auth'ing my third-party app. Known issue?,app_bug,False,Third-party app authorization taking ~30 seconds longer than expected,account_login,False,0.92
+2165554,"@SpotifyCares The contact forms don’t have a category for being hacked. I have sent an email to support via Paypal and have deleted the people from it, changed my Facebook password and cancelled the subscription.",account_login,True,"Account was hacked -- the contact form has no 'hacked' category, so they emailed support via PayPal and cancelled the subscription themselves; a real gap in the self-service flow",account_login,True,0.92
+1904810,"@SpotifyCares hey huys, I seem to have some kind of a strange issue with my account - how can i contact you to explain moth &gt;140 chars?",other,False,"Vague -- mentions a 'strange issue' with their account but gives no detail, just asks how to reach support within the character limit",other,False,0.78
 1789309,hey @SpotifyCares i canceled my account and my card was still charged. send help pls.,billing_payment,False,Charged after already cancelling the account,billing_payment,False,0.97
-2963360,"@SpotifyCares Hi pls can you r ply to my DM re the family premium account issue, thanks",account_login,False,"Family Premium account issue mentioned, asks for a DM reply -- no detail on the issue itself",other,True,0.78
-2516187,So @SpotifyCares why does Spotify stop skipping songs at some point even tho I'm a premium memeber? I thought I had unlimited skips? And do not ask for my account info(like every other time) you do not need it for this issue it's your system messing up I'm up2date just fix it pls,app_bug,False,Annoyed that 'unlimited skips' (a premium perk) isn't working; preemptively insists support skip the usual account-info request -- borderline tone but not overtly furious,app_bug,True,0.93
-2135066,"@SpotifyCares I’m having issues on iOS11 with my iPhone 8 Plus not resuming music after a phone call, or using Siri. I have to force close the app and restart it to get music to resume. Any ideas on what I can do? I’m fully updated on the newest version of the app and reinstalled",app_bug,False,"Music doesn't resume after phone calls or Siri use on iOS 11, needs a force-restart each time",app_bug,True,0.97
+2963360,"@SpotifyCares Hi pls can you r ply to my DM re the family premium account issue, thanks",account_login,False,"Family Premium account issue mentioned, asks for a DM reply -- no detail on the issue itself",other,False,0.78
+2516187,So @SpotifyCares why does Spotify stop skipping songs at some point even tho I'm a premium memeber? I thought I had unlimited skips? And do not ask for my account info(like every other time) you do not need it for this issue it's your system messing up I'm up2date just fix it pls,app_bug,False,Annoyed that 'unlimited skips' (a premium perk) isn't working; preemptively insists support skip the usual account-info request -- borderline tone but not overtly furious,app_bug,False,0.93
+2135066,"@SpotifyCares I’m having issues on iOS11 with my iPhone 8 Plus not resuming music after a phone call, or using Siri. I have to force close the app and restart it to get music to resume. Any ideas on what I can do? I’m fully updated on the newest version of the app and reinstalled",app_bug,False,"Music doesn't resume after phone calls or Siri use on iOS 11, needs a force-restart each time",app_bug,False,0.97
 1642854,@502161 Ah no! Hacked? Let us know if you're still having issues with this. cc @SpotifyCares,other,False,"Third-party reply asking another user if they were hacked, cc'ing SpotifyCares -- ambiguous whether this is even a genuine support request or just community chatter",account_login,True,0.92
-2941503,"@SpotifyCares I'm being charged for Premium on my phone bill but I don't have any account details to login and cancel, and I also can't use your contact form without login details. Help, stuck in payment loop I can't get out of!",billing_payment,True,Charged via phone bill for Premium but has no login details to cancel and can't use the contact form without logging in -- stuck in a self-service dead end with ongoing charges,billing_payment,False,0.97
+2941503,"@SpotifyCares I'm being charged for Premium on my phone bill but I don't have any account details to login and cancel, and I also can't use your contact form without login details. Help, stuck in payment loop I can't get out of!",billing_payment,True,Charged via phone bill for Premium but has no login details to cancel and can't use the contact form without logging in -- stuck in a self-service dead end with ongoing charges,billing_payment,True,0.97
 1867068,@SpotifyCares So I’m currently cancelling my Spotify account and going to @115948,other,False,Announces cancelling and switching to another service; no specific issue described to act on,other,False,0.92
-1833289,@SpotifyCares I can't log into my spotify account to delete and cancel my premium trial,account_login,False,Can't log in to cancel a premium trial before it converts to paid,account_login,False,0.92
-962778,@SpotifyCares yo i think i fixed it my dudes. but ya that issue was kinda annoying. maybe look into it. tell ur dude Edwin W thanks for the help,app_bug,False,Says they fixed the issue themselves; casual tone thanking a specific support rep by name,other,True,0.96
+1833289,@SpotifyCares I can't log into my spotify account to delete and cancel my premium trial,account_login,False,Can't log in to cancel a premium trial before it converts to paid,account_login,True,0.93
+962778,@SpotifyCares yo i think i fixed it my dudes. but ya that issue was kinda annoying. maybe look into it. tell ur dude Edwin W thanks for the help,app_bug,False,Says they fixed the issue themselves; casual tone thanking a specific support rep by name,app_bug,False,0.78
 160527,"@SpotifyCares Sure. Both my macbook pro and mac desktop experience the same issue with that. 
 
-High Sierra 10.13.1",app_bug,False,Same layout/display issue reproduced across two Macs on the same macOS version,app_bug,True,0.96
-2756263,@SpotifyCares I'm having issues  getting premium for students,billing_payment,False,"Vague -- 'issues getting premium for students', no detail on what's failing",billing_payment,True,0.92
-2198223,@SpotifyCares I've had my premium account hacked and have been contacted by someone with the email address: __email__' asking for a copy of my earliest Spotify email receipt or a bank statement. Is this legit?,account_login,True,"Hacked premium account, and now being contacted by a stranger asking for a copy of their original receipt or a bank statement -- looks like a phishing attempt following the breach",account_login,True,0.97
-249713,@SpotifyCares DMed you about a username issue :),account_login,False,"DMed about a username issue, no detail given here",account_login,True,0.92
+High Sierra 10.13.1",app_bug,False,Same layout/display issue reproduced across two Macs on the same macOS version,app_bug,False,0.92
+2756263,@SpotifyCares I'm having issues  getting premium for students,billing_payment,False,"Vague -- 'issues getting premium for students', no detail on what's failing",billing_payment,False,0.92
+2198223,@SpotifyCares I've had my premium account hacked and have been contacted by someone with the email address: __email__' asking for a copy of my earliest Spotify email receipt or a bank statement. Is this legit?,account_login,True,"Hacked premium account, and now being contacted by a stranger asking for a copy of their original receipt or a bank statement -- looks like a phishing attempt following the breach",account_login,True,0.96
+249713,@SpotifyCares DMed you about a username issue :),account_login,False,"DMed about a username issue, no detail given here",account_login,False,0.92
 58933,"@SpotifyCares From the Chrome console. 
-Though I’ve had similar issues in Firefox too. https://t.co/WkaGOR8PWL",app_bug,False,"Console error from Chrome, also seen in Firefox, includes a link -- likely a web player bug",app_bug,True,0.95
-761831,"@SpotifyCares I just don't get why you closed my ticket as a ""duplicate"" when its a different showstopper issue. That and amazon refusing my 1 star review",other,False,Complains their ticket was wrongly closed as a duplicate of a different 'showstopper' bug; also brings up an unrelated Amazon review issue -- mixes two unrelated topics,app_bug,True,0.88
-2844617,"@SpotifyCares How do I cancel my subscription from a closed facebook that is now permanently deleted and I don't have access to the spotify? It is still withdrawing money from my credit card, my bank can't stop the payment.",billing_payment,True,"Can't cancel because the linked Facebook account is deleted, and the bank can't stop the recurring charge either -- genuine dead end, ongoing financial harm",billing_payment,False,0.97
+Though I’ve had similar issues in Firefox too. https://t.co/WkaGOR8PWL",app_bug,False,"Console error from Chrome, also seen in Firefox, includes a link -- likely a web player bug",app_bug,False,0.95
+761831,"@SpotifyCares I just don't get why you closed my ticket as a ""duplicate"" when its a different showstopper issue. That and amazon refusing my 1 star review",other,False,Complains their ticket was wrongly closed as a duplicate of a different 'showstopper' bug; also brings up an unrelated Amazon review issue -- mixes two unrelated topics,app_bug,False,0.92
+2844617,"@SpotifyCares How do I cancel my subscription from a closed facebook that is now permanently deleted and I don't have access to the spotify? It is still withdrawing money from my credit card, my bank can't stop the payment.",billing_payment,True,"Can't cancel because the linked Facebook account is deleted, and the bank can't stop the recurring charge either -- genuine dead end, ongoing financial harm",billing_payment,True,0.96
 2759257,"I am trying to renew my premium using the new 3 months deal. It says the only ineligible people are those who canceled after 10/20/17, and I canceled well before that around August. Please fix this I would love to have premium @SpotifyCares",billing_payment,False,Believes they qualify for a renewal deal based on their cancellation date but the system disagrees; wants it corrected,billing_payment,False,0.97
 2523569,@SpotifyCares Already did waiting for response. Seems my account was terminated by the hackers while I was waiting. Hopefully they can recover something.,account_login,True,Account reportedly terminated by hackers while waiting for a response -- security incident,account_login,True,0.96
 1855922,"People are hacking ur premium accounts,but u,@115888 , don't even care!
-Even @SpotifyCares ,doesn't care!",account_login,True,General claim that accounts are being hacked and support 'doesn't care' -- hacking topic plus an angry accusation of indifference,account_login,True,0.88
-2854458,@SpotifyCares I have been experiencing a lot of connectivity issues with Chromecast lately. Did a recent update botch something?,app_bug,False,"Chromecast connectivity issues, possibly tied to a recent update",app_bug,True,0.92
+Even @SpotifyCares ,doesn't care!",account_login,True,General claim that accounts are being hacked and support 'doesn't care' -- hacking topic plus an angry accusation of indifference,account_login,True,0.92
+2854458,@SpotifyCares I have been experiencing a lot of connectivity issues with Chromecast lately. Did a recent update botch something?,app_bug,False,"Chromecast connectivity issues, possibly tied to a recent update",app_bug,False,0.92
 1961603,@SpotifyCares how do we cancel an account that we cant login to?,account_login,False,Wants to cancel an account they can't log into,account_login,False,0.96
 554118,"@SpotifyCares Hey, I'm currently buying premium per month, but want the yearly subscription offer you're doing. Do I need to cancel my subscription then resubscribe to do this?",billing_payment,False,Asking whether switching from monthly to an annual offer requires cancelling and resubscribing first,billing_payment,False,0.97
 2251414,"@SpotifyCares Had issues since iOS 11, currently running 11.1.1 with Spotify version 8.4.26.793. The bottom menu comes and goes randomly. 
 
-Doesn’t always do it",app_bug,False,Bottom menu bar intermittently disappears since iOS 11,app_bug,True,0.97
+Doesn’t always do it",app_bug,False,Bottom menu bar intermittently disappears since iOS 11,app_bug,False,0.96
 2969643,@SpotifyCares I've got a new phone but forgot my password for my account to sign in but it's also linked to my old email address that got hacked what can I do ?,account_login,True,"New phone, forgotten password, and the account's recovery email was itself hacked -- a compounded account-recovery/security issue",account_login,True,0.97
-430772,"Anyone else having issues w new @115858 iOS &amp; @115888 syncing with Bluetooth/car, not showing on lock screen? @AppleSupport @SpotifyCares",app_bug,False,"Bluetooth/car sync and lock-screen display issue after an iOS update, also tags Apple Support",app_bug,True,0.96
+430772,"Anyone else having issues w new @115858 iOS &amp; @115888 syncing with Bluetooth/car, not showing on lock screen? @AppleSupport @SpotifyCares",app_bug,False,"Bluetooth/car sync and lock-screen display issue after an iOS update, also tags Apple Support",app_bug,False,0.96
 2033890,"@SpotifyCares my student discount expired, if I renew for the $4.99 plan with Hulu will it cancel my other membership ? Or charge twice?",billing_payment,False,Asking whether renewing an expired student discount alongside an existing Hulu bundle will double-charge or cancel the other membership,billing_payment,False,0.97
-903707,@SpotifyCares Was able to use chat based support to rectify the issue. Completely different experience!,other,False,"Positive -- chat support resolved the issue, no specifics on what it was",other,True,0.97
-1339967,"@SpotifyCares Look - I love you guys, but your online chat ""help"" is HORRIBLE. Issue unresolved. Is a call that hard?",other,False,"Frustrated that chat support ('HORRIBLE') didn't resolve their issue, wants a phone-call option; strongly worded but about support-channel quality rather than a specific unresolved harm",feature_request,True,0.86
-2141715,"@SpotifyCares. I'm having issues with signing into my account, through my old email, that account doesn't exist as I have not been able to access my emails and I do not know my password I have the premium subscription, and I don't wish to be charged when I cannot use the product.",account_login,False,"Can't sign in via old email (no access), doesn't know password, has an active premium sub they can't use, and doesn't want to be charged for it -- several issues bundled together",account_login,True,0.93
-187519,"@SpotifyCares It was probably a bug or some cache issues, I got it to work now, thanks!",app_bug,False,"Resolved itself, likely a cache issue; thread closed positively",app_bug,True,0.97
+903707,@SpotifyCares Was able to use chat based support to rectify the issue. Completely different experience!,other,False,"Positive -- chat support resolved the issue, no specifics on what it was",other,False,0.96
+1339967,"@SpotifyCares Look - I love you guys, but your online chat ""help"" is HORRIBLE. Issue unresolved. Is a call that hard?",other,False,"Frustrated that chat support ('HORRIBLE') didn't resolve their issue, wants a phone-call option; strongly worded but about support-channel quality rather than a specific unresolved harm",feature_request,False,0.86
+2141715,"@SpotifyCares. I'm having issues with signing into my account, through my old email, that account doesn't exist as I have not been able to access my emails and I do not know my password I have the premium subscription, and I don't wish to be charged when I cannot use the product.",account_login,False,"Can't sign in via old email (no access), doesn't know password, has an active premium sub they can't use, and doesn't want to be charged for it -- several issues bundled together",account_login,False,0.96
+187519,"@SpotifyCares It was probably a bug or some cache issues, I got it to work now, thanks!",app_bug,False,"Resolved itself, likely a cache issue; thread closed positively",app_bug,False,0.97
 337862,@SpotifyCares I have no access to my email or Facebook I created an account with and I need to fix this. Cancel it and make a new one?,account_login,False,No access to the email or Facebook used to create the account; wants it cancelled and to start fresh,account_login,False,0.96
-2632595,"Tried to contact Spotify multiple times about the issue I'm having, to no avail. I keep getting ""Error Code: 3"" when I try to log in with my Facebook account, and it is saying it doesn't recognize my account when I have definitely signed up before. @SpotifyCares Can you help?",account_login,False,"Recurring 'Error Code: 3' logging in via Facebook despite having signed up before, tried multiple times with no resolution",account_login,True,0.97
-1295650,@SpotifyCares Yep . Same issue,other,False,'Same issue' with no context on what the issue is,app_bug,True,0.66
-2789397,@SpotifyCares having some issues,other,False,Extremely vague -- 'having some issues' with zero detail,app_bug,True,0.6
-653112,"@SpotifyCares Thank you so much for resolving this issue! Much better, great work @115888 !",other,False,"Positive closing, no specifics on the resolved issue",other,True,0.97
-2621368,"still having this issue and I know I'm not alone. Any ideas, @SpotifyCares ? I was in a meeting yesterday and OutKast unpaused randomly",app_bug,False,Song randomly unpaused itself during a meeting; says others have the same issue,app_bug,True,0.93
-2916518,"@SpotifyCares are you having issues? Search just brings me to a blank page. Doesn't work on wifi or mobile. Running iOS 10.3.3. Started today, wasn't an issue yesterday. https://t.co/3vEsXpwtWQ",app_bug,False,"Search returns a blank page, broken on both wifi and mobile, started suddenly that day",app_bug,True,0.97
+2632595,"Tried to contact Spotify multiple times about the issue I'm having, to no avail. I keep getting ""Error Code: 3"" when I try to log in with my Facebook account, and it is saying it doesn't recognize my account when I have definitely signed up before. @SpotifyCares Can you help?",account_login,False,"Recurring 'Error Code: 3' logging in via Facebook despite having signed up before, tried multiple times with no resolution",account_login,False,0.97
+1295650,@SpotifyCares Yep . Same issue,other,False,'Same issue' with no context on what the issue is,app_bug,False,0.73
+2789397,@SpotifyCares having some issues,other,False,Extremely vague -- 'having some issues' with zero detail,app_bug,False,0.62
+653112,"@SpotifyCares Thank you so much for resolving this issue! Much better, great work @115888 !",other,False,"Positive closing, no specifics on the resolved issue",other,False,0.97
+2621368,"still having this issue and I know I'm not alone. Any ideas, @SpotifyCares ? I was in a meeting yesterday and OutKast unpaused randomly",app_bug,False,Song randomly unpaused itself during a meeting; says others have the same issue,app_bug,False,0.93
+2916518,"@SpotifyCares are you having issues? Search just brings me to a blank page. Doesn't work on wifi or mobile. Running iOS 10.3.3. Started today, wasn't an issue yesterday. https://t.co/3vEsXpwtWQ",app_bug,False,"Search returns a blank page, broken on both wifi and mobile, started suddenly that day",app_bug,False,0.97
 2818182,"@SpotifyCares Hi, my account has been hacked - email address and password changed. I need to revert this back ASAP. I received the email about the change 1 hour ago",account_login,True,"Explicitly hacked -- email and password changed without consent an hour ago, wants it reverted ASAP",account_login,True,0.97
-2412695,@SpotifyCares That's what I'm have been doing: trying to reinstall. It doesn't help! I suspect one of the latest windows updates could be the issue.,app_bug,False,Reinstalling didn't fix the issue; suspects a recent Windows update,app_bug,True,0.94
+2412695,@SpotifyCares That's what I'm have been doing: trying to reinstall. It doesn't help! I suspect one of the latest windows updates could be the issue.,app_bug,False,Reinstalling didn't fix the issue; suspects a recent Windows update,app_bug,False,0.96
 2492569,"@SpotifyCares Hi, it looks like my premium account has been hacked. Can you help? I am unable to login and am concerned about security and data protection. Cheers.",account_login,True,"Explicitly says premium account has been hacked, locked out, concerned about data protection",account_login,True,0.97
 926943,@SpotifyCares I am billed $10.60/month via credit card but I don't have a spotify account that I can login to cancel.,billing_payment,True,Being billed $10.60/month with no account to log into and cancel -- ongoing charge with no self-service path,billing_payment,False,0.97
-1403685,@SpotifyCares Well I’ve already downloaded my playlists now so there’s not really any point for me now to troubleshoot this issue but thanks anyways,other,False,Gave up troubleshooting since they already got what they needed (downloaded playlists); underlying bug no longer urgent to them,app_bug,True,0.78
-2526454,@SpotifyCares What can I do to resolve this issue only way I can listen to music at work please please please help me out,other,False,"Very vague -- 'this issue' unspecified, just repeated pleas for help",app_bug,True,0.86
-2939724,"Hi @SpotifyCares, my apps (ipad/desktop) change songs on its own! I've seen ""Web Player Firefox"" on Spotify Connect. Change password and disconnect devices but still have the issue for 10 minutes. Now it seems to be fixed (no more ""Web Player Firefox""). Have I been hacked ?",account_login,True,Apps changing songs on their own plus an unfamiliar 'Web Player Firefox' device on Spotify Connect -- explicitly asks whether they've been hacked,app_bug,True,0.94
-1273783,"@SpotifyCares I have forced closed the app, checked for updates and reinstalled. Same issue",app_bug,False,"Force-closed, updated, and reinstalled the app -- issue persists",app_bug,True,0.96
-485521,@SpotifyCares Yes they are up to date. I just have an issue when I'm listening to a playlist sometimes it will pause the song. And the only way to fix it is to start the song again,app_bug,False,"Playlist playback randomly pauses, has to manually restart the song",app_bug,True,0.96
-2487401,"@SpotifyCares Haha, no issues. Love the time capsule",other,False,"Positive comment about a feature ('time capsule'), no issue reported",other,True,0.97
+1403685,@SpotifyCares Well I’ve already downloaded my playlists now so there’s not really any point for me now to troubleshoot this issue but thanks anyways,other,False,Gave up troubleshooting since they already got what they needed (downloaded playlists); underlying bug no longer urgent to them,app_bug,False,0.78
+2526454,@SpotifyCares What can I do to resolve this issue only way I can listen to music at work please please please help me out,other,False,"Very vague -- 'this issue' unspecified, just repeated pleas for help",feature_request,False,0.68
+2939724,"Hi @SpotifyCares, my apps (ipad/desktop) change songs on its own! I've seen ""Web Player Firefox"" on Spotify Connect. Change password and disconnect devices but still have the issue for 10 minutes. Now it seems to be fixed (no more ""Web Player Firefox""). Have I been hacked ?",account_login,True,Apps changing songs on their own plus an unfamiliar 'Web Player Firefox' device on Spotify Connect -- explicitly asks whether they've been hacked,app_bug,True,0.96
+1273783,"@SpotifyCares I have forced closed the app, checked for updates and reinstalled. Same issue",app_bug,False,"Force-closed, updated, and reinstalled the app -- issue persists",app_bug,False,0.96
+485521,@SpotifyCares Yes they are up to date. I just have an issue when I'm listening to a playlist sometimes it will pause the song. And the only way to fix it is to start the song again,app_bug,False,"Playlist playback randomly pauses, has to manually restart the song",app_bug,False,0.94
+2487401,"@SpotifyCares Haha, no issues. Love the time capsule",other,False,"Positive comment about a feature ('time capsule'), no issue reported",other,False,0.97
 1258734,@SpotifyCares thank you sexy,other,False,"Odd/flirtatious closing comment, no support content",other,False,0.96
-1848989,@SpotifyCares On an iPhone 6s,app_bug,False,"Just device info, part of a bug thread",other,False,0.78
-2038564,@SpotifyCares 8.4.20.535,app_bug,False,"Just an app version number, part of a bug thread",app_bug,False,0.6
+1848989,@SpotifyCares On an iPhone 6s,app_bug,False,"Just device info, part of a bug thread",app_bug,False,0.62
+2038564,@SpotifyCares 8.4.20.535,app_bug,False,"Just an app version number, part of a bug thread",app_bug,False,0.62
 666341,@SpotifyCares Thank you! 💙,other,False,Closing thanks,other,False,0.99
 1825056,@SpotifyCares thanks,other,False,Closing thanks,other,False,0.98
 1960558,@SpotifyCares thanks! :),other,False,Closing thanks,other,False,0.96
 1203977,@SpotifyCares Tried. Same ☹️,other,False,"Tried a suggested fix, same result -- no detail on the original issue",app_bug,False,0.78
 648662,@SpotifyCares @115888,other,False,"Just mentions, no message text",other,False,0.3
-1648668,@SpotifyCares Yes!,other,False,"Single-word reply, no context",other,False,0.92
+1648668,@SpotifyCares Yes!,other,False,"Single-word reply, no context",other,False,0.85
 2950148,@SpotifyCares I will dm you!,other,False,Closing remark,other,False,0.96
-1963481,you suck @SpotifyCares,other,False,Hostile one-line insult with zero detail on any actual issue,other,False,0.88
+1963481,you suck @SpotifyCares,other,False,Hostile one-line insult with zero detail on any actual issue,other,False,0.92
 1075669,@SpotifyCares ❤️❤️❤️,other,False,"Emoji only, no text",other,False,0.96
-1769710,@SpotifyCares Thanks!,other,False,Closing thanks,other,False,0.99
-2135068,@SpotifyCares 😡,other,False,"Angry emoji only, no text -- impossible to know the underlying issue",other,False,0.9
+1769710,@SpotifyCares Thanks!,other,False,Closing thanks,other,False,0.97
+2135068,@SpotifyCares 😡,other,False,"Angry emoji only, no text -- impossible to know the underlying issue",other,False,0.92
 1169127,@SpotifyCares No,other,False,"Single word, no context",other,False,0.9
 621412,@SpotifyCares Ok thks guys!!!,other,False,Closing thanks,other,False,0.97
 1784124,@116130 @SpotifyCares,other,False,"Just mentions, no message text",other,False,0.6
-664572,"@SpotifyCares Thanks, will do",other,False,Closing remark,other,False,0.96
-292404,@SpotifyCares Sure thing !,other,False,Closing remark,other,False,0.92
+664572,"@SpotifyCares Thanks, will do",other,False,Closing remark,other,False,0.97
+292404,@SpotifyCares Sure thing !,other,False,Closing remark,other,False,0.95
 2792192,@SpotifyCares,other,False,"Just a mention, no message text at all",other,False,0.45
-1110991,@SpotifyCares Thank you!!,other,False,Closing thanks,other,False,0.98
+1110991,@SpotifyCares Thank you!!,other,False,Closing thanks,other,False,0.99
 573220,@SpotifyCares Great! Thanks!,other,False,Closing thanks,other,False,0.97
 2479208,@SpotifyCares thankyou sir,other,False,Closing thanks,other,False,0.99
 2666300,@751181 @SpotifyCares,other,False,"Just mentions, no message text",other,False,0.62
-438397,@SpotifyCares I've tried that,other,False,No context for what was tried,other,False,0.71
-848523,@SpotifyCares 😭😭😭,other,False,"Emoji only, no text",other,False,0.78
-1638033,@SpotifyCares Sent you a DM.,other,False,Closing remark,other,False,0.73
-2762993,@SpotifyCares I did,other,False,No context for what 'I did' refers to,other,False,0.4
+438397,@SpotifyCares I've tried that,other,False,No context for what was tried,app_bug,False,0.62
+848523,@SpotifyCares 😭😭😭,other,False,"Emoji only, no text",other,False,0.92
+1638033,@SpotifyCares Sent you a DM.,other,False,Closing remark,other,False,0.86
+2762993,@SpotifyCares I did,other,False,No context for what 'I did' refers to,other,False,0.45
 2846494,@108393 Hi @SpotifyCares,other,False,Just a greeting/mention,other,False,0.9
-64335,@SpotifyCares Thanks guys:),other,False,Closing thanks,other,False,0.96
-1261920,@SpotifyCares Android 6.0.1,app_bug,False,"Just device/OS info, part of a bug thread",app_bug,False,0.6
-450862,@SpotifyCares DM sent.,other,False,Closing remark,other,False,0.78
-2198071,@SpotifyCares 810mb now.,app_bug,False,"Storage size info, likely part of a download/storage bug thread",app_bug,False,0.73
-1293218,@SpotifyCares I did,other,False,No context for what 'I did' refers to,other,False,0.4
+64335,@SpotifyCares Thanks guys:),other,False,Closing thanks,other,False,0.99
+1261920,@SpotifyCares Android 6.0.1,app_bug,False,"Just device/OS info, part of a bug thread",app_bug,False,0.73
+450862,@SpotifyCares DM sent.,other,False,Closing remark,other,False,0.96
+2198071,@SpotifyCares 810mb now.,app_bug,False,"Storage size info, likely part of a download/storage bug thread",app_bug,False,0.78
+1293218,@SpotifyCares I did,other,False,No context for what 'I did' refers to,other,False,0.42
 2035225,@SpotifyCares thank you!!!,other,False,Closing thanks,other,False,0.98
 2505244,@SpotifyCares thank you!,other,False,Closing thanks,other,False,0.98
-1267820,@SpotifyCares Awesome thanks!,other,False,Closing thanks,other,False,0.96
-671391,@SpotifyCares Super thanks!,other,False,Closing thanks,other,False,0.98
+1267820,@SpotifyCares Awesome thanks!,other,False,Closing thanks,other,False,0.98
+671391,@SpotifyCares Super thanks!,other,False,Closing thanks,other,False,0.96
 2792144,@SpotifyCares Thank you,other,False,Closing thanks,other,False,0.99
-374602,@SpotifyCares Done,other,False,"Single word, no context",other,False,0.85
+374602,@SpotifyCares Done,other,False,"Single word, no context",other,False,0.8
 2766499,@SpotifyCares Sweet shall do,other,False,Closing remark,other,False,0.92
-2896736,@SpotifyCares Why???,other,False,Vague 'Why???' with no context,other,False,0.6
-2970783,@SpotifyCares When I should,other,False,"Incomplete/garbled text, unclear meaning",other,False,0.45
-199131,@SpotifyCares Hello?,other,False,"Just 'Hello?', likely waiting on a reply, no detail",other,False,0.92
+2896736,@SpotifyCares Why???,other,False,Vague 'Why???' with no context,other,False,0.62
+2970783,@SpotifyCares When I should,other,False,"Incomplete/garbled text, unclear meaning",other,False,0.42
+199131,@SpotifyCares Hello?,other,False,"Just 'Hello?', likely waiting on a reply, no detail",other,False,0.93
 2692968,@SpotifyCares thank you!!!,other,False,Closing thanks,other,False,0.98
-1858043,"@SpotifyCares Boston, MA, USA",other,False,"Just a location, likely answering an earlier question -- original context missing",other,False,0.85
+1858043,"@SpotifyCares Boston, MA, USA",other,False,"Just a location, likely answering an earlier question -- original context missing",other,False,0.92
 1436765,@SpotifyCares Thank you!,other,False,Closing thanks,other,False,0.98
-2218991,@SpotifyCares Bet.,other,False,"Slang agreement, no support content",other,False,0.62
+2218991,@SpotifyCares Bet.,other,False,"Slang agreement, no support content",other,False,0.85
 2520938,@SpotifyCares thank you!! 🌟,other,False,Closing thanks,other,False,0.98
 1938328,@SpotifyCares ...,other,False,"Ellipsis only, no content",other,False,0.3

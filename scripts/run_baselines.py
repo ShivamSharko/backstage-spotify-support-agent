@@ -1,4 +1,5 @@
 import pandas as pd
+import re
 from pathlib import Path
 from sklearn.metrics import accuracy_score, f1_score, precision_score, recall_score
 
@@ -17,7 +18,10 @@ def simple_intent(text):
 
 def simple_escalation(text):
     t = str(text).lower()
-    return any(w in t for w in ['hack', 'stolen', 'fraud', 'lawyer', 'sue', 'unauthorized'])
+    risk_pattern = r'\b(?:hack\w*|stol\w*|steal\w*|fraud\w*|lawyer\w*|legal\w*|sue|sued|suing|unauthoriz\w*|compromis\w*|phish\w*|scam\w*|threat\w*)\b'
+    has_risk = bool(re.search(risk_pattern, t))
+    has_dead_end = ('cancel' in t) and any(w in t for w in ["can't", "cannot", "unable", "won't"])
+    return has_risk or has_dead_end
 
 def main():
     df = pd.read_csv(ROOT / "eval" / "golden_set.csv").dropna(subset=['true_intent', 'should_escalate'])
@@ -32,15 +36,17 @@ def main():
 
     preds_path = ROOT / "eval" / "intent_predictions.csv"
     if not preds_path.exists():
-        print("ERROR: Run 'python scripts/evaluate.py' first to generate predictions.")
+        print("ERROR: Run 'python scripts/evaluate.py' first.")
         return
 
     preds_df = pd.read_csv(preds_path)
+    assert len(df) == len(preds_df), "Mismatch in row count. Re-run evaluate.py."
+    
     m_ints = preds_df['pred_intent'].tolist()
     m_esc = preds_df['pred_escalate'].tolist()
 
     print("\n" + "="*75)
-    print("SYSTEM COMPARISON TABLE (Computed dynamically from saved predictions)")
+    print("SYSTEM COMPARISON TABLE")
     print("="*75)
     print(f"{'Metric':<25} | {'Trivial':<15} | {'Simple (Keywords)':<15} | {'Main System (LLM)':<15}")
     print("-" * 75)

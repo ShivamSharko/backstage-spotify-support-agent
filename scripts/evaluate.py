@@ -1,11 +1,12 @@
 import os
 import json
 import time
+import re
 import pandas as pd
 from pathlib import Path
 from dotenv import load_dotenv
 from groq import Groq
-from sklearn.metrics import classification_report, f1_score, accuracy_score, precision_score, recall_score
+from sklearn.metrics import f1_score, accuracy_score, precision_score, recall_score
 
 load_dotenv(Path(__file__).resolve().parents[1] / ".env")
 client = Groq(api_key=os.getenv("GROQ_API_KEY"))
@@ -14,23 +15,30 @@ ROOT = Path(__file__).resolve().parents[1]
 INTENT_PROMPT = (ROOT / "prompts" / "intent.md").read_text()
 
 def get_intent(tweet):
-    try:
-        response = client.chat.completions.create(
-            model=os.getenv("MODEL_NAME"),
-            messages=[{"role": "system", "content": INTENT_PROMPT}, {"role": "user", "content": tweet}],
-            response_format={"type": "json_object"},
-            temperature=0.0
-        )
-        parsed = json.loads(response.choices[0].message.content)
-        return parsed.get("intent", "error"), float(parsed.get("confidence", 0.5))
-    except Exception:
-        return "error", 0.0
+    for attempt in range(2):
+        try:
+            response = client.chat.completions.create(
+                model=os.getenv("MODEL_NAME"),
+                messages=[{"role": "system", "content": INTENT_PROMPT}, {"role": "user", "content": tweet}],
+                response_format={"type": "json_object"},
+                temperature=0.0
+            )
+            parsed = json.loads(response.choices[0].message.content)
+            return parsed.get("intent", "error"), float(parsed.get("confidence", 0.5))
+        except Exception:
+            if attempt == 0: time.sleep(1)
+            else: return "error", 0.0
 
 def predict_escalation(tweet, intent):
     text_lower = str(tweet).lower()
-    if intent == 'account_login' and any(k in text_lower for k in ['hack', 'stolen', 'phish', 'unauthorized', 'compromised']): return True
-    if any(k in text_lower for k in ['lawyer', 'sue', 'legal', 'fraud', 'scam']): return True
-    if any(k in text_lower for k in ['fuck', 'shit', 'bitch']): return True
+    # FIX: \w* allows suffixes (hack\w* matches hacked/hacking) while \b prevents "issue"
+    risk_pattern = r'\b(?:hack\w*|stol\w*|steal\w*|fraud\w*|lawyer\w*|legal\w*|sue|sued|suing|unauthoriz\w*|compromis\w*|phish\w*|scam\w*|threat\w*)\b'
+    has_risk = bool(re.search(risk_pattern, text_lower))
+    has_dead_end = ('cancel' in text_lower) and any(w in text_lower for w in ["can't", "cannot", "unable", "won't"])
+    has_profanity = bool(re.search(r'\b(?:fuck|shit|bitch|kill)\w*\b', text_lower))
+    
+    if intent == 'account_login' and has_risk: return True
+    if has_risk or has_dead_end or has_profanity: return True
     return False
 
 def main():
@@ -55,9 +63,9 @@ def main():
     df.to_csv(ROOT / "eval" / "intent_predictions.csv", index=False)
     
     print("\nINTENT METRICS:")
-    print(f"Accuracy: {accuracy_score(df['true_intent'], df['pred_intent']):.2f}")
+    print(f"Accuracy: {accuracy_score(df['true_intent'], df['pred_intent']):.2%}")
     print(f"Macro F1: {f1_score(df['true_intent'], df['pred_intent'], average='macro', zero_division=0):.2f}")
-    print("\nESCALATION METRICS:")
+    print("\nESCALATION METRICS (Rule-Based Baseline):")
     print(f"Precision: {precision_score(df['should_escalate'], df['pred_escalate'], zero_division=0):.2f}")
     print(f"Recall: {recall_score(df['should_escalate'], df['pred_escalate'], zero_division=0):.2f}")
 

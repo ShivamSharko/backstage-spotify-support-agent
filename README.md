@@ -1,17 +1,17 @@
 # Backstage — AI Support Agent for SpotifyCares
 *Named after Spotify support's own words in our training data: "We'll take a look backstage."*
 
-An AI triage and drafting agent for Spotify customer support, built for the Hiver SDE take-home assignment. Features a 2026-aligned Dense Retrieval (RAG) pipeline, automated PII redaction, and a mathematical Risk & Confidence Engine for safe automation.
+An AI triage and drafting agent for Spotify customer support, built for the Hiver SDE take-home assignment. Features a Dense Retrieval (RAG) pipeline, pre-LLM PII redaction, and a deterministic Risk & Confidence Engine for safe automation.
 
-## 📊 Headline Results
-- **Safe Auto-Handle Rate:** 76.50% of tickets can be automated, with a **4.58% False Auto-Handle Rate** (safely below the 5% production threshold).
-- **Intent Classification:** 86% Accuracy / 0.84 Macro F1 (Heavily outperforms Simple Keyword Baseline at 60%).
-- **Reply Safety:** 5.00 / 5 (Perfect score due to automated PII Redaction).
-- **Retrieval:** Dense Vector Search using `all-MiniLM-L6-v2` over 43,000 historical replies.
+## Headline results (verbatim harness output, single run)
+- Intent classification: **82.00% accuracy / 0.79 Macro F1** (Trivial baseline 49.00% / 0.13; Simple keyword baseline 60.00% / 0.46).
+- Escalation rule layer: **Precision 0.79 / Recall 0.69**.
+- Risk & Confidence Engine: **Auto-Handle 52.00%**, **Volume False Auto-Handle 3.85%**, **Risk Miss 25.00%** (4 of 16 true risks).
+- Reply quality (LLM judge, 20 replies): Groundedness 4.70/5, Safety 5.00/5, Helpfulness 4.70/5. *The Safety score reflects a lenient same-model judge; a human pass graded DM-based PII asks 4/5. See REPORT.md.*
 
-*Note: See `REPORT.md` for a detailed breakdown of failure modes, Risk Engine math, and LLM Judge blindspots.*
+Reproduce with: `python scripts/evaluate.py`, `python scripts/run_baselines.py`, `python scripts/calculate_safe_autohandle.py`. Intent metrics may shift ~1-2% between runs (LLM variance); per-tweet escalation reasons are logged in `eval/risk_engine_results.csv`.
 
-## 🚀 Quickstart (Under 15 Minutes)
+## Quickstart (Under 15 Minutes)
 
 ### 1. Setup Environment
 ```bash
@@ -29,27 +29,39 @@ MODEL_NAME=openai/gpt-oss-120b
 
 ### 3. Prepare Data & Run Evaluation
 *Ensure the Kaggle dataset (`twcs.csv`) is placed inside `data/raw/twcs/`.*
+```bash
+python scripts/sample_brand.py SpotifyCares
+python scripts/extract_replies.py
+```
 
-To run the 2026-aligned pipeline (Dense RAG + PII Redaction):
+Run the Dense RAG pipeline (PII redaction + retrieval + judge):
 ```bash
 make quick
 ```
-*(Note: On Windows, if `make` is not installed, run `python scripts/evaluate_advanced.py` directly).*
+*(On Windows without make: `python scripts/evaluate_advanced.py`)*
 
-To run the mathematical Risk & Confidence Engine to calculate the Safe Auto-Handle Rate:
+Reproduce the headline table:
 ```bash
+python scripts/evaluate.py
+python scripts/run_baselines.py
 python scripts/calculate_safe_autohandle.py
 ```
 
-To compare against Trivial and Simple baselines:
+Human vs Judge agreement (8 manually graded rows):
 ```bash
-make baselines
+python scripts/calculate_agreement.py
 ```
 
-## 📁 Project Structure
-- `scripts/`: Runnable pipeline scripts (sampling, baselines, advanced RAG, evaluation).
+## Project Structure
+- `scripts/`: Runnable pipeline (sampling, baselines, advanced RAG, risk engine, evaluation).
 - `src/`: Modular components (PII redaction, Dense Retrieval engine).
-- `prompts/`: Version-controlled LLM prompt templates.
+- `prompts/`: Version-controlled LLM prompt templates, loaded at runtime.
 - `data/`: Raw data, sampled brand data, and historical retrieval corpus.
-- `eval/`: The 200-tweet Golden Set and evaluation results.
-- `REPORT.md`: Detailed analysis, baselines, failure modes, and decision log.
+- `eval/`: 200-tweet Golden Set, saved predictions, risk-engine breakdowns, reply evaluations.
+- `REPORT.md`: Full analysis, failure modes, misleading-number disclosures, decision log.
+- `CITATION.md`: Borrowed ideas and papers.
+
+## Known Limitations
+- Dense retrieval can still surface popular generic replies over rare specific resolutions.
+- The LLM judge shares the generator model and is lenient toward hallucinated URLs; human agreement is modest (Safety 0.61, Helpfulness 0.35, Groundedness NaN).
+- Escalation gates (confidence 0.7, retrieval 0.4) are chosen operating points, not calibrated thresholds.
