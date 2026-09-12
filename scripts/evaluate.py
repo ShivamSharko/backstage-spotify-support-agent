@@ -14,20 +14,35 @@ ROOT = Path(__file__).resolve().parents[1]
 
 INTENT_PROMPT = (ROOT / "prompts" / "intent.md").read_text()
 
-def get_intent(tweet):
-    for attempt in range(2):
+def call_with_retry(func, max_retries=5):
+    for i in range(max_retries):
         try:
-            response = client.chat.completions.create(
-                model=os.getenv("MODEL_NAME"),
-                messages=[{"role": "system", "content": INTENT_PROMPT}, {"role": "user", "content": tweet}],
-                response_format={"type": "json_object"},
-                temperature=0.0
-            )
-            parsed = json.loads(response.choices[0].message.content)
-            return parsed.get("intent", "error"), float(parsed.get("confidence", 0.5))
-        except Exception:
-            if attempt == 0: time.sleep(1)
-            else: return "error", 0.0
+            return func()
+        except Exception as e:
+            if "rate limit" in str(e).lower():
+                wait_time = 60 * (i + 1)
+                print(f"  ⚠️ Rate limit hit. Waiting {wait_time}s before retry {i+1}/{max_retries}...")
+                time.sleep(wait_time)
+            else:
+                if i == 0: time.sleep(1)
+                else: raise
+    raise Exception("Max retries exceeded for Groq API.")
+
+def get_intent(tweet):
+    return call_with_retry(lambda: _get_intent_impl(tweet))
+    
+def _get_intent_impl(tweet):
+    try:
+        response = client.chat.completions.create(
+            model=os.getenv("MODEL_NAME"),
+            messages=[{"role": "system", "content": INTENT_PROMPT}, {"role": "user", "content": tweet}],
+            response_format={"type": "json_object"},
+            temperature=0.0
+        )
+        parsed = json.loads(response.choices[0].message.content)
+        return parsed.get("intent", "error"), float(parsed.get("confidence", 0.5))
+    except Exception:
+        return "error", 0.0
 
 def predict_escalation(tweet, intent):
     text_lower = str(tweet).lower()

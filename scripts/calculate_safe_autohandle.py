@@ -26,7 +26,24 @@ PROFANITY_RE = re.compile(r'\b(?:fuck|shit|bitch|kill)\w*\b')
 print("Loading Dense Retriever for Risk Engine v3...")
 retriever = DenseRetriever(str(ROOT / "data" / "retrieval" / "spotify_replies.csv"))
 
+def call_with_retry(func, max_retries=5):
+    for i in range(max_retries):
+        try:
+            return func()
+        except Exception as e:
+            if "rate limit" in str(e).lower():
+                wait_time = 60 * (i + 1)
+                print(f"  ⚠️ Rate limit hit. Waiting {wait_time}s before retry {i+1}/{max_retries}...")
+                time.sleep(wait_time)
+            else:
+                if i == 0: time.sleep(1)
+                else: raise
+    raise Exception("Max retries exceeded for Groq API.")
+
 def get_intent_and_confidence(tweet):
+    return call_with_retry(lambda: _get_intent_and_confidence_impl(tweet))
+    
+def _get_intent_and_confidence_impl(tweet):
     sys_prompt = "Classify into ONE: app_bug, account_login, billing_payment, feature_request, other. Return ONLY JSON: {\"intent\": \"...\", \"confidence\": 0.0}"
     for attempt in range(2):
         try:
