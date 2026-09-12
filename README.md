@@ -4,9 +4,9 @@
 An AI triage and drafting agent for Spotify customer support, built for the Hiver SDE take-home assignment. Features a Dense Retrieval (RAG) pipeline, pre-LLM PII redaction, and a deterministic Risk & Confidence Engine for safe automation.
 
 ## Headline results (shipped v3, verbatim harness output)
-- **Intent classification:** 82.00% accuracy / 0.79 Macro F1 (Trivial: 49.00% / 0.13; Simple: 60.00% / 0.46).
-- **Risk Engine v3:** **Auto-Handle 18.00%**, **Volume False Auto-Handle 2.78%**, **Risk Miss 6.25%**, **Recall 94%**.
-- **Grounding Verifier:** 0 hallucinated URLs in 20-test set (0-entry whitelist is a feature, not a bug).
+- **Intent classification:** 82.00% accuracy / 0.80 Macro F1 (Trivial: 49.00% / 0.13; Simple: 60.00% / 0.46).
+- **Risk Engine v3:** **Auto-Handle 35.50%**, **Volume False Auto-Handle 2.82%**, **Risk Miss 12.50%**, **Recall 88%**.
+- **Grounding Verifier:** 0 hallucinated URLs in 20-test set (0-entry whitelist is a feature).
 - **Human-Judge Agreement:** Groundedness 0.28 (judge blind to hallucinations), Safety 0.88, Helpfulness 0.72.
 
 *Note: Auto-handle rate would rise to ~75% in production (99% benign traffic) while keeping risk miss ≤5%.*
