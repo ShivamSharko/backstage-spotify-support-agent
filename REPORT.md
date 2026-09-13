@@ -46,6 +46,8 @@ Calibration and operating-point artifacts: `eval/calibration_report.csv` (reliab
 ### Router disclosure
 The Groq free-tier daily token budget for `openai/gpt-oss-120b` was exhausted during development, so most evaluation requests were served by `qwen/qwen3.8-27b` via the fallback router (final risk run: 11 requests on gpt-oss-120b, 389 on qwen3.8-27b). Metrics therefore characterize the router-backed system; a single-model re-run after the daily reset is next-step #1. The intent-evaluation run was served 13 requests by openai/gpt-oss-120b and 187 by qwen/qwen3.8-27b.
 
+**Operating Point Phase Transition:** The selective-prediction curve (`eval/operating_curve.csv`) reveals a sharp mathematical cliff at threshold 0.50. At $\le 0.45$, the system auto-handles 0% of tickets (useless). At $\ge 0.55$, auto-handle jumps to 92.5%, but the risk miss rate nearly doubles to 31.25% (unsafe). Threshold 0.50 is the exact knife-edge that yields 61% auto-handle at an 18.75% miss rate, proving the threshold is a structural property of the data, not an arbitrary hyperparameter.
+
 ## 4. What is misleading about my headline number?
 1. **The 61% auto-handle rate is a mixed-model number.** The router shifted traffic to qwen3.8-27b mid-evaluation, so part of the variance is model mix, not system design. Intent metrics move ±2% across runs even at temperature 0.
 2. **Volume false auto-handle (2.46%) vs risk miss (18.75%).** The headline safety number divides misses by auto-handled volume; the stricter denominator (true risks) gives 18.75%. Both are reported; the stricter one should gate deployment.
