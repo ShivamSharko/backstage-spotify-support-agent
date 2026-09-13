@@ -6,7 +6,7 @@ const RE = {
   email: /[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+/g,
   url: /http\S+|www\.\S+/g,
   phone: /\b(?:\+?\d{1,3}[-.\s]?)?\(?\d{3}\)?[-.\s]?\d{3}[-.\s]?\d{4}\b/g,
-  risk: /\b(?:hack\w*|stol\w*|steal\w*|fraud\w*|lawyer\w*|legal\w*|sue|sued|suing|unauthoriz\w*|compromis\w*|phish\w*|scam\w*|threat\w*)\b/i,
+  risk: /\b(?:hack\w*|stol\w*|steal\w*|fraud\w*|lawyer\w*|legal\w*|sue\w*|suing|unauthoriz\w*|compromis\w*|phish\w*|scam\w*|threat\w*|fuck\w*|shit\w*|bitch\w*|kill\w*)\b/i,
 };
 
 function redact(t) { return t.replace(RE.email, "[EMAIL]").replace(RE.url, "[URL]").replace(RE.phone, "[PHONE]"); }

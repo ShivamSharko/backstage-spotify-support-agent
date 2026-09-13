@@ -1,3 +1,4 @@
+import json
 import pandas as pd
 import numpy as np
 from pathlib import Path
@@ -17,6 +18,9 @@ def main():
     print("|---|---|---|---|")
     for row in g.itertuples():
         print(f"| {row.Index} | {row.n} | {row.mean_conf:.2f} | {row.mean_acc:.2f} |")
+    ece = float((g["n"] / len(df) * (g["mean_conf"] - g["mean_acc"]).abs()).sum())
+    buckets = [{"bin": str(r.Index), "n": int(r.n), "mean_conf": round(float(r.mean_conf), 4), "mean_acc": round(float(r.mean_acc), 4)} for r in g.itertuples()]
+    (ROOT / "eval" / "calibration_report.json").write_text(json.dumps({"ece": round(ece, 4), "buckets": buckets}))
     print(f"\nExpected Calibration Error (ECE, 10 bins): {ece:.3f}")
     print("Interpretation: |mean_conf - mean_acc| per bucket; ECE near 0 = calibrated.")
 

@@ -10,6 +10,10 @@ def test_true_risk_flagged():
     assert keyword_flag("I will sue you people")
     assert keyword_flag("this is fraud, report it")
 
+def test_sues_plural_flagged():
+    assert keyword_flag("he sues the company")
+    assert keyword_flag("they are suing spotify")
+
 def test_dead_end_flagged():
     assert keyword_flag("I can't cancel my subscription anywhere")
 

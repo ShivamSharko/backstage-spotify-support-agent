@@ -4,6 +4,3 @@ __pycache__/
 .env
 data/raw/*
 !data/raw/.gitkeep
-
-data/sampled/*.csv
-data/retrieval/*.csv

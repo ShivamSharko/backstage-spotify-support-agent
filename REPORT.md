@@ -10,6 +10,7 @@
 
 ## 2. System Design
 1. **PII redaction** (`src/pii.py`): regex stripping of emails/phones/URLs before every LLM call in all pipelines (intent evaluation, risk engine, drafting, judging).
+4. **Judge receives redacted text**: the LLM judge evaluates the tweet after PII redaction, not the raw tweet. This prevents the judge from seeing emails or phone numbers leaked into the input.
 2. **Intent classifier**: Groq LLM with JSON structured output and verbalized confidence.
 3. **Dense retrieval** (`src/retrieval.py`): all-MiniLM-L6-v2 embeddings over 43,265 historical Spotify replies; cosine similarity top-3 as evidence.
 4. **Grounded drafting**: LLM prompted with intent + evidence; prompts version-controlled in `prompts/`.
@@ -56,6 +57,7 @@ The Groq free-tier daily token budget for `openai/gpt-oss-120b` was exhausted du
 4. **The judge is reliable on safety but blind on groundedness.** Human–judge Spearman agreement on 10 graded rows of the current pipeline: Groundedness 0.20, Safety 0.99, Helpfulness 0.67 (reproduce: grade rows 1–10 of eval/reply_eval_advanced.csv in the human_* columns, then run scripts/calculate_agreement.py). Near-zero groundedness agreement confirms the same-family judge cannot see hallucinated URLs or policy promises — the symbolic grounding verifier, not the judge, is the real guard. The 0.99 safety agreement shows the judge can be trusted on the dimension that matters most for escalation decisions.
 5. **Golden-set circularity:** the high-risk slice was sampled with keywords overlapping the escalation backstop, so recall is optimistic.
 6. **"Other" skew:** 98/200 rows are conversational noise; macro F1 (0.89), not accuracy, is the number I defend.
+7. **In-distribution retrieval leakage.** The golden-set tweets have their historical brand replies present in the RAG corpus (audited via `scripts/leakage_audit.py`). This means retrieval-groundedness and helpfulness metrics are optimistic compared to a strictly held-out test set where the true historical reply is absent from evidence. Disclosed so reviewers can discount the judge means accordingly.
 
 ## 5. Failure analysis (top 5, current system)
 1. **Three missed true risks (18.75%).** The missed rows were (a) an angry feature request, (b) a frustrated app_bug complaint, and (c) a billing/unauthorized-charge issue — none used security or legal vocabulary. Hypothesis: risk here is expressed as frustration and entitlement, not lexicon; the keyword backstop and the LLM risk classifier both key on security/legal words, and the calibrated gate saw high confidence plus adequate retrieval similarity. Notably, the LLM risk classifier added zero independent recall on this set (every llm_risk=True row was already caught by the keyword backstop); it is retained as defense-in-depth for unseen phrasings, and its zero marginal value on this golden set is disclosed here.

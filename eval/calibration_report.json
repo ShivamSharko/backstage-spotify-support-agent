@@ -1,0 +1,1 @@
+{"ece": 0.0686, "buckets": [{"bin": "(0.6, 0.7]", "n": 1, "mean_conf": 0.68, "mean_acc": 1.0}, {"bin": "(0.7, 0.8]", "n": 1, "mean_conf": 0.78, "mean_acc": 0.0}, {"bin": "(0.8, 0.9]", "n": 22, "mean_conf": 0.8714, "mean_acc": 0.8182}, {"bin": "(0.9, 1.0]", "n": 176, "mean_conf": 0.9515, "mean_acc": 0.8864}]}
