@@ -23,8 +23,8 @@ Reproduce: `python scripts/evaluate.py`, `python scripts/run_baselines.py`, `pyt
 ### Baselines vs main system
 | Metric | Trivial | Simple (keywords) | Main (LLM + Dense RAG) |
 |---|---|---|---|
-| Intent accuracy | 49.00% | 60.00% | 84.00% |
-| Intent macro F1 | 0.13 | 0.46 | 0.82 |
+| Intent accuracy | 49.00% | 60.00% | 87.50% |
+| Intent macro F1 | 0.13 | 0.46 | 0.89 |
 | Escalation precision (rule layer) | 0.08 | 0.85 | 0.79 |
 | Escalation recall (rule layer) | 1.00 | 0.69 | 0.69 |
 
@@ -43,15 +43,15 @@ Reproduce: `python scripts/evaluate.py`, `python scripts/run_baselines.py`, `pyt
 Groundedness 4.75/5 · Safety 3.85/5 · Helpfulness 3.85/5 · Grounding-verifier violations: 0.
 
 ### Router disclosure
-The Groq free-tier daily token budget for `openai/gpt-oss-120b` was exhausted during development, so most evaluation requests were served by `qwen/qwen3.8-27b` via the fallback router (final risk run: 11 requests on gpt-oss-120b, 389 on qwen3.8-27b). Metrics therefore characterize the router-backed system; a single-model re-run after the daily reset is next-step #1.
+The Groq free-tier daily token budget for `openai/gpt-oss-120b` was exhausted during development, so most evaluation requests were served by `qwen/qwen3.8-27b` via the fallback router (final risk run: 11 requests on gpt-oss-120b, 389 on qwen3.8-27b). Metrics therefore characterize the router-backed system; a single-model re-run after the daily reset is next-step #1. The intent-evaluation run was served 13 requests by openai/gpt-oss-120b and 187 by qwen/qwen3.8-27b.
 
 ## 4. What is misleading about my headline number?
 1. **The 61% auto-handle rate is a mixed-model number.** The router shifted traffic to qwen3.8-27b mid-evaluation, so part of the variance is model mix, not system design. Intent metrics move ±2% across runs even at temperature 0.
 2. **Volume false auto-handle (2.46%) vs risk miss (18.75%).** The headline safety number divides misses by auto-handled volume; the stricter denominator (true risks) gives 18.75%. Both are reported; the stricter one should gate deployment.
 3. **Verbalized confidence was anti-calibrated.** The fitted logistic model assigned a positive coefficient to confidence (+0.58) — higher stated confidence correlated with higher risk — while retrieval score carried the real signal (−1.01). Raw LLM confidence is not a risk score; only the calibrated combination is usable.
-4. **The judge shares the generator model family and is lenient.** Human–judge Spearman agreement on 10 graded rows of the current pipeline: Groundedness 0.20, Safety 0.99, Helpfulness 0.67 (reproduce: add human_* columns to rows 1–10 of eval/reply_eval_advanced.csv, run scripts/calculate_agreement.py). Earlier iterations measured groundedness agreement as low as 0.28, with the judge scoring hallucinated URLs 5/5.
+4. **The judge is reliable on safety but blind on groundedness.** Human–judge Spearman agreement on 10 graded rows of the current pipeline: Groundedness 0.20, Safety 0.99, Helpfulness 0.67 (reproduce: grade rows 1–10 of eval/reply_eval_advanced.csv in the human_* columns, then run scripts/calculate_agreement.py). Near-zero groundedness agreement confirms the same-family judge cannot see hallucinated URLs or policy promises — the symbolic grounding verifier, not the judge, is the real guard. The 0.99 safety agreement shows the judge can be trusted on the dimension that matters most for escalation decisions.
 5. **Golden-set circularity:** the high-risk slice was sampled with keywords overlapping the escalation backstop, so recall is optimistic.
-6. **"Other" skew:** 98/200 rows are conversational noise; macro F1 (0.82), not accuracy, is the number I defend.
+6. **"Other" skew:** 98/200 rows are conversational noise; macro F1 (0.89), not accuracy, is the number I defend.
 
 ## 5. Failure analysis (top 5, current system)
 1. **Three missed true risks (18.75%).** The missed rows were (a) an angry feature request, (b) a frustrated app_bug complaint, and (c) a billing/unauthorized-charge issue — none used security or legal vocabulary. Hypothesis: risk here is expressed as frustration and entitlement, not lexicon; the keyword backstop and the LLM risk classifier both key on security/legal words, and the calibrated gate saw high confidence plus adequate retrieval similarity. Notably, the LLM risk classifier added zero independent recall on this set (every llm_risk=True row was already caught by the keyword backstop); it is retained as defense-in-depth for unseen phrasings, and its zero marginal value on this golden set is disclosed here.

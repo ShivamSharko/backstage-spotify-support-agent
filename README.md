@@ -4,7 +4,7 @@
 AI triage, grounded reply drafting, and escalation for Spotify customer support. Dense RAG over 43k historical replies, pre-LLM PII redaction, a symbolic grounding verifier, a calibrated risk engine, and a self-healing multi-model fallback router.
 
 ## Headline results (verbatim harness output, single run)
-- Intent: **84.00% accuracy / 0.82 macro F1** (trivial 49.00% / 0.13; simple keywords 60.00% / 0.46).
+- Intent: **87.50% accuracy / 0.89 macro F1** (trivial 49.00% / 0.13; simple keywords 60.00% / 0.46).
 - Risk Engine v3: **auto-handle 61.00%**, **volume false auto-handle 2.46%** (≤5% bar met), **risk miss 18.75%** (3/16), recall 0.81.
 - Grounding verifier: 0 hallucinated URLs survived in the 20-reply test.
 - Judge (20 replies): groundedness 4.75/5, safety 3.85/5, helpfulness 3.85/5.
