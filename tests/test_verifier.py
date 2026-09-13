@@ -1,10 +1,10 @@
 from src.verifier import build_url_whitelist, verify_reply
 
 def test_hallucinated_spotify_path_flagged():
-    wl = build_url_whitelist(["try https://support.spotify.com/close-account/ for help"])
-    check = verify_reply("go to https://spotify.com/account/delete/ now", wl)
+    wl = build_url_whitelist(["try https://support.spotify.com/close-account/premium-help/ for help"])
+    check = verify_reply("go to https://support.spotify.com/close-account/totally-fake-endpoint/", wl)
     assert not check["passed"]
-    assert check["violations"] == ["https://spotify.com/account/delete/"]
+    assert "https://support.spotify.com/close-account/totally-fake-endpoint/" in check["violations"]
 
 def test_known_path_passes():
     wl = build_url_whitelist(["try https://support.spotify.com/close-account/ for help"])

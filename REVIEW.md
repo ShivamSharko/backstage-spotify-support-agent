@@ -11,7 +11,7 @@ Two implementation surfaces exist: the offline evaluation pipeline (Python; sour
 - Escalation keywords: src/policy.py (RISK_RE includes `sue\w*|suing` to catch "sues"/"suing" since "suing" drops the 'e'), pinned by tests/test_policy.py (includes the sue-in-issue regression plus a plural test); mirror the exact regex (including profanity) in RE.risk of web/api/pipeline.js.
 - Reproduce headline numbers: README quickstart sequence; artifacts in eval/*.csv.
 - Judge rubric: prompts/judge.md; human agreement via human_* columns in eval/reply_eval_advanced.csv + scripts/calculate_agreement.py.
-- Offline checks (no API key needed): pytest -q (14 tests).
+- Offline checks (no API key needed): pytest -q (16 tests).
 
 ## Live demo (web/ + Vercel serverless)
 - Endpoint: web/api/pipeline.js — own MODELS fallback list, JS ports of the PII regexes, risk keywords and intent taxonomy; lexical evidence over web/evidence.json; policy = keyword backstop + LLM risk + confidence gate (no calibrated retrieval gate — disclosed in the UI).

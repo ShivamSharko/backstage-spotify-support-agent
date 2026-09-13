@@ -10,7 +10,7 @@ sys.path.insert(0, str(ROOT))
 from src.policy import keyword_flag
 
 def evaluate(df, conf_t, ret_t):
-    esc = (df['confidence'] < conf_t) | (df['retrieval_score'] < ret_t) | df['kw']
+    esc = (df['confidence'] < conf_t) | (df['retrieval_score'] < ret_t) | df['kw'] | df['llm_risk']
     auto = ~esc
     n_auto = int(auto.sum())
     misses = int((auto & df['true_escalate']).sum())
@@ -38,7 +38,7 @@ def main():
 
     best = None
     for t in np.arange(0.05, 0.96, 0.05):
-        esc = (prob >= t) | df['kw']
+        esc = (prob >= t) | df['kw'] | df['llm_risk']
         auto = ~esc
         misses = int((auto & df['true_escalate']).sum())
         true_risks = int(df['true_escalate'].sum())

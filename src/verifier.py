@@ -15,15 +15,9 @@ def build_url_whitelist(texts):
             if not path:
                 bare_hosts.add(host)
             else:
-                base = f"{parsed.scheme}://{host}"
+                base = f"{parsed.scheme}://{host}{path}"
                 paths.add(base)
                 paths.add(base + "/")
-                current = base
-                for part in path.split('/'):
-                    if part:
-                        current += f"/{part}"
-                        paths.add(current)
-                        paths.add(current + "/")
     return {"paths": paths, "bare_hosts": bare_hosts}
 
 def verify_reply(reply, whitelist):
@@ -37,18 +31,11 @@ def verify_reply(reply, whitelist):
         path = parsed.path.rstrip('/')
         base = f"{parsed.scheme}://{host}"
         if not path:
-            if host not in whitelist["bare_hosts"] and base not in whitelist["paths"] and (base + "/") not in whitelist["paths"]:
+            if host not in whitelist["bare_hosts"]:
                 violations.append(url)
         else:
-            current = base
-            found = False
-            for part in path.split('/'):
-                if part:
-                    current += f"/{part}"
-                    if current in whitelist["paths"] or (current + "/") in whitelist["paths"]:
-                        found = True
-                        break
-            if not found:
+            full_url = f"{base}{path}"
+            if full_url not in whitelist["paths"] and (full_url + "/") not in whitelist["paths"]:
                 violations.append(url)
     return {"passed": len(violations) == 0, "violations": violations}
 

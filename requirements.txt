@@ -1,9 +1,7 @@
-pandas>=2.0
-python-dotenv>=1.0
-tqdm>=4.66
+pandas
 scikit-learn
-groq
 sentence-transformers
-torch
+groq
+python-dotenv
+httpx
 pytest
-httpx\nhttpx\n
