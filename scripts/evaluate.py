@@ -10,6 +10,7 @@ from sklearn.metrics import f1_score, accuracy_score, precision_score, recall_sc
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
 from src.pii import redact_pii
+from src.policy import predict_escalation
 from src.router import ModelRouter
 
 load_dotenv(Path(__file__).resolve().parents[1] / ".env")
@@ -24,16 +25,7 @@ def get_intent(tweet):
     parsed = json.loads(response.choices[0].message.content)
     return parsed.get("intent", "error"), float(parsed.get("confidence", 0.5))
 
-def predict_escalation(tweet, intent):
-    text_lower = str(tweet).lower()
-    risk_pattern = r'\b(?:hack\w*|stol\w*|steal\w*|fraud\w*|lawyer\w*|legal\w*|sue|sued|suing|unauthoriz\w*|compromis\w*|phish\w*|scam\w*|threat\w*)\b'
-    has_risk = bool(re.search(risk_pattern, text_lower))
-    has_dead_end = ('cancel' in text_lower) and any(w in text_lower for w in ["can't", "cannot", "unable", "won't"])
-    has_profanity = bool(re.search(r'\b(?:fuck|shit|bitch|kill)\w*\b', text_lower))
-    
-    if intent == 'account_login' and has_risk: return True
-    if has_risk or has_dead_end or has_profanity: return True
-    return False
+
 
 def main():
     eval_path = ROOT / "eval" / "golden_set.csv"

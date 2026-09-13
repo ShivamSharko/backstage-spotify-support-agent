@@ -4,7 +4,7 @@ from urllib.parse import urlparse
 URL_RE = re.compile(r'https?://[^\s]+')
 SHORTENERS = {"t.co", "bit.ly", "goo.gl", "buff.ly", "tinyurl.com"}
 # Twitter's own shortener is trusted (came from brand's historical tweets)
-TRUSTED_HOSTS = {"t.co", "twitter.com", "x.com", "support.spotify.com", "spotify.com"}
+TRUSTED_HOSTS = {"t.co", "twitter.com", "x.com"}
 
 def extract_urls(text):
     return URL_RE.findall(text or "")

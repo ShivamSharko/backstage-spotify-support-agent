@@ -11,6 +11,7 @@ from dotenv import load_dotenv
 sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
 from src.pii import redact_pii
 from src.retrieval import DenseRetriever
+from src.policy import keyword_flag
 from src.router import ModelRouter
 
 load_dotenv(Path(__file__).resolve().parents[1] / ".env")
@@ -20,8 +21,7 @@ ROOT = Path(__file__).resolve().parents[1]
 CFG_PATH = ROOT / "configs" / "thresholds.json"
 CFG = json.loads(CFG_PATH.read_text()) if CFG_PATH.exists() else None
 
-RISK_RE = re.compile(r'\b(?:hack\w*|stol\w*|steal\w*|fraud\w*|lawyer\w*|legal\w*|sue|sued|suing|unauthoriz\w*|compromis\w*|phish\w*|scam\w*|threat\w*)\b')
-PROFANITY_RE = re.compile(r'\b(?:fuck|shit|bitch|kill)\w*\b')
+
 
 def get_intent_and_confidence(tweet):
     sys_prompt = "Classify into ONE: app_bug, account_login, billing_payment, feature_request, other. Return ONLY JSON: {\"intent\": \"...\", \"confidence\": 0.0}"
@@ -39,12 +39,7 @@ def get_llm_risk(tweet):
     resp = router.chat_completion(messages, response_format={"type": "json_object"}, temperature=0.0)
     return bool(json.loads(resp.choices[0].message.content).get("risk", False))
 
-def keyword_flag(text):
-    t = text.lower()
-    if RISK_RE.search(t): return True
-    if ('cancel' in t) and any(w in t for w in ["can't", "cannot", "unable", "won't"]): return True
-    if PROFANITY_RE.search(t): return True
-    return False
+
 
 def calibrated_prob(confidence, retrieval_score):
     z = CFG['coefficients']['confidence'] * confidence + CFG['coefficients']['retrieval_score'] * retrieval_score + CFG['intercept']

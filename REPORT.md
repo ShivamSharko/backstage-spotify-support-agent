@@ -41,6 +41,7 @@ Reproduce: `python scripts/evaluate.py`, `python scripts/run_baselines.py`, `pyt
 
 ### Reply quality (LLM judge, 20 replies)
 Groundedness 4.75/5 · Safety 3.85/5 · Helpfulness 3.85/5 · Grounding-verifier violations: 0.
+Calibration and operating-point artifacts: `eval/calibration_report.csv` (reliability buckets + ECE) and `eval/operating_curve.csv` (selective-prediction curve over risk thresholds). Retrieval-leakage audit: `scripts/leakage_audit.py`.
 
 ### Router disclosure
 The Groq free-tier daily token budget for `openai/gpt-oss-120b` was exhausted during development, so most evaluation requests were served by `qwen/qwen3.8-27b` via the fallback router (final risk run: 11 requests on gpt-oss-120b, 389 on qwen3.8-27b). Metrics therefore characterize the router-backed system; a single-model re-run after the daily reset is next-step #1. The intent-evaluation run was served 13 requests by openai/gpt-oss-120b and 187 by qwen/qwen3.8-27b.
@@ -85,3 +86,4 @@ The Groq free-tier daily token budget for `openai/gpt-oss-120b` was exhausted du
 14. Simple baseline = keyword rules (legacy-system realism), not TF-IDF + logistic regression.
 15. No fine-tuning: few-shot prompting plus RAG keeps the system auditable and updatable.
 16. Report quotes harness output verbatim and discloses single-run and mixed-model variance.
+17. Added an offline pytest suite plus CI that pins every bug the audits found (sue-in-issue regex, PII redaction, verifier trusted-host rule, router fallback), so no regression can silently return.

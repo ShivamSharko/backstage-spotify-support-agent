@@ -37,6 +37,8 @@ python scripts/calculate_agreement.py
 - `eval/`: golden set, predictions, risk-engine breakdowns, reply evaluations.
 - [REPORT.md](REPORT.md): full analysis, failure modes, misleading-number disclosures, decision log.
 - [CITATION.md](CITATION.md): borrowed ideas and papers.
+- `tests/` + `.github/workflows/offline-tests.yml`: offline regression suite (no API key) pinning every bug the audits found.
+- `REVIEW.md`: live-round modification cheat sheet.
 
 ## Known limitations
 - Mixed-model evaluation (router fallback) introduces model-mix variance; single-model re-run pending the daily reset.
