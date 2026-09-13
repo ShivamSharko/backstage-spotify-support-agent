@@ -32,8 +32,9 @@ def generate_reply(tweet, intent, evidence):
     resp = router.chat_completion(messages, temperature=0.1)
     return resp.choices[0].message.content
 
-def judge_reply(tweet, reply):
-    messages = [{"role": "system", "content": JUDGE_PROMPT}, {"role": "user", "content": f"Tweet: {tweet}\nReply: {reply}"}]
+def judge_reply(tweet, reply, evidence):
+    ev = "\n".join("- " + e["text"] for e in evidence)
+    messages = [{"role": "system", "content": JUDGE_PROMPT}, {"role": "user", "content": f"Tweet: {tweet}\nReply: {reply}\nEvidence the reply was allowed to use:\n{ev}"}]
     resp = router.chat_completion(messages, response_format={"type": "json_object"}, temperature=0.0)
     return json.loads(resp.choices[0].message.content)
 
@@ -56,7 +57,7 @@ def main():
         check = verify_reply(reply, whitelist)
         cleaned = sanitize_reply(reply, check['violations']) if check['violations'] else reply
         # FIX: Pass safe_tweet to judge to protect PII
-        scores = judge_reply(safe_tweet, cleaned)
+        scores = judge_reply(safe_tweet, cleaned, evidence)
         results.append({"tweet": original_tweet, "safe_tweet": safe_tweet, "intent": intent,
                         "top_retrieval_score": evidence[0]['score'], "generated_reply": cleaned,
                         "verifier_violations": len(check['violations']), "verifier_urls": "; ".join(check['violations']),

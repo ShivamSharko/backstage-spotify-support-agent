@@ -66,7 +66,7 @@ module.exports = async function handler(req, res) {
   ]);
 
   let intent = "other", confidence = 0.5, llmRisk = false;
-  try { const p = JSON.parse(intentCall.content); intent = p.intent || "other"; confidence = +p.confidence || 0.5; } catch (e) {}
+  try { const p = JSON.parse(intentCall.content); intent = p.intent || "other"; const c = +p.confidence; confidence = Number.isFinite(c) ? c : 0.5; } catch (e) {}
   try { llmRisk = !!JSON.parse(riskCall.content).risk; } catch (e) {}
   if (llmRisk) reasons.push("LLM risk classifier flag");
   if (confidence < 0.7) reasons.push("low intent confidence (< 0.7)");

@@ -2,8 +2,11 @@ import pandas as pd
 import re
 from pathlib import Path
 from sklearn.metrics import accuracy_score, f1_score, precision_score, recall_score
+import sys
 
 ROOT = Path(__file__).resolve().parents[1]
+sys.path.insert(0, str(ROOT))
+from src.policy import keyword_flag
 
 def trivial_intent(text): return "other"
 def trivial_escalation(text): return True
@@ -16,12 +19,7 @@ def simple_intent(text):
     if any(w in t for w in ['add feature', 'lyrics', 'wish', 'suggest', 'how do i']): return 'feature_request'
     return 'other'
 
-def simple_escalation(text):
-    t = str(text).lower()
-    risk_pattern = r'\b(?:hack\w*|stol\w*|steal\w*|fraud\w*|lawyer\w*|legal\w*|sue|sued|suing|unauthoriz\w*|compromis\w*|phish\w*|scam\w*|threat\w*)\b'
-    has_risk = bool(re.search(risk_pattern, t))
-    has_dead_end = ('cancel' in t) and any(w in t for w in ["can't", "cannot", "unable", "won't"])
-    return has_risk or has_dead_end
+
 
 def main():
     df = pd.read_csv(ROOT / "eval" / "golden_set.csv").dropna(subset=['true_intent', 'should_escalate'])
@@ -32,7 +30,7 @@ def main():
     t_ints = [trivial_intent(t) for t in df['text']]
     t_esc = [trivial_escalation(t) for t in df['text']]
     s_ints = [simple_intent(t) for t in df['text']]
-    s_esc = [simple_escalation(t) for t in df['text']]
+    s_esc = [keyword_flag(t) for t in df['text']]
 
     preds_path = ROOT / "eval" / "intent_predictions.csv"
     if not preds_path.exists():

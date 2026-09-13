@@ -1,8 +1,9 @@
+PYTHON ?= python
 .PHONY: setup sample extract eval-intent eval-replies baselines quick
 
 setup:
 	python -m venv .venv
-	pip install -r requirements.txt
+	$(PYTHON) -m pip install -r requirements.txt
 
 sample:
 	python scripts/sample_brand.py SpotifyCares

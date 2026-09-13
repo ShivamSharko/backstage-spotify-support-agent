@@ -12,7 +12,6 @@ def main():
     bins = np.linspace(0, 1, 11)
     df["bin"] = pd.cut(df["confidence"], bins=bins, include_lowest=True)
     g = df.groupby("bin", observed=True).agg(n=("correct", "size"), mean_conf=("confidence", "mean"), mean_acc=("correct", "mean"))
-    ece = float((g["n"] / len(df) * (g["mean_conf"] - g["mean_acc"]).abs()).sum())
     g.to_csv(ROOT / "eval" / "calibration_report.csv")
     print("| confidence bucket | n | mean confidence | mean accuracy |")
     print("|---|---|---|---|")

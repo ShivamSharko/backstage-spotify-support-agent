@@ -1,5 +1,6 @@
 let D = null;
 const $ = s => document.querySelector(s);
+const esc = s => String(s).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 const pct = v => v.toFixed(2) + '%';
 fetch('data/demo.json').then(r => r.json()).then(d => { D = d; render(); });
 
@@ -35,7 +36,7 @@ function setThr(t) {
   document.querySelectorAll('#live .num b').forEach(b => { b.classList.remove('pulse'); void b.offsetWidth; b.classList.add('pulse'); });
   $('#thrlabel').textContent = 'At cut-off ' + t.toFixed(2) + ': the AI automates ' + auto.length + ' of 200 tickets and lets ' + miss + ' of ' + tr + ' dangerous ones through. ' + (shipped ? 'This is the shipped operating point — the knife-edge between a paralysed system (0.45 and below automates nothing) and an unsafe one (0.55 and above misses nearly a third of risks).' : (t < D.headline.prob_thresh ? 'You are in the cautious zone: more tickets go to humans than the shipped policy.' : 'You are in the aggressive zone: automation rises but dangerous tickets slip through faster.'));
 }
-$('#thr').addEventListener('input', e => setThr(parseFloat(e.target.value)));
+$('#thr').addEventListener('input', e => { if (D) setThr(parseFloat(e.target.value)); });
 
 const ta = $('#tweet');
 ta.addEventListener('input', () => { ta.style.height = 'auto'; ta.style.height = Math.min(ta.scrollHeight, 240) + 'px'; });
@@ -51,12 +52,12 @@ $('#run').addEventListener('click', async () => {
     const j = await r.json();
     if (!r.ok) throw new Error(j.error || ('http ' + r.status));
     $('#out').innerHTML =
-      '<div class="stage"><span class="eyebrow">1 · pii redaction</span>' + j.redacted + '</div>' +
-      '<div class="stage"><span class="eyebrow">2 · intent</span>' + j.intent + ' · confidence ' + j.confidence + '</div>' +
-      '<div class="stage"><span class="eyebrow">3 · escalation decision</span><span class="' + (j.escalate ? 'bad' : 'ok') + '">' + (j.escalate ? 'ESCALATE' : 'AUTO-HANDLE') + '</span> — ' + j.reasons.join('; ') + '</div>' +
-      '<div class="stage"><span class="eyebrow">4 · retrieved historical evidence</span>' + (j.evidence.length ? j.evidence.map(e => '<div class="ev">' + e.text.slice(0, 200) + '</div>').join('') : '<div class="ev">no lexical match — a dense-retrieval run would surface semantic neighbours</div>') + '</div>' +
-      '<div class="stage"><span class="eyebrow">5 · drafted reply</span>' + j.reply + '</div>' +
-      '<div class="fine">' + j.note + '<br>models: intent ' + j.models.intent + ' · risk ' + j.models.risk + ' · draft ' + j.models.draft + '</div>';
+      '<div class="stage"><span class="eyebrow">1 · pii redaction</span>' + esc(j.redacted) + '</div>' +
+      '<div class="stage"><span class="eyebrow">2 · intent</span>' + esc(j.intent) + ' · confidence ' + j.confidence + '</div>' +
+      '<div class="stage"><span class="eyebrow">3 · escalation decision</span><span class="' + (j.escalate ? 'bad' : 'ok') + '">' + (j.escalate ? 'ESCALATE' : 'AUTO-HANDLE') + '</span> — ' + esc(j.reasons.join('; ')) + '</div>' +
+      '<div class="stage"><span class="eyebrow">4 · retrieved historical evidence</span>' + (j.evidence.length ? j.evidence.map(e => '<div class="ev">' + esc(e.text.slice(0, 200)) + '</div>').join('') : '<div class="ev">no lexical match — a dense-retrieval run would surface semantic neighbours</div>') + '</div>' +
+      '<div class="stage"><span class="eyebrow">5 · drafted reply</span>' + esc(j.reply) + '</div>' +
+      '<div class="fine">' + esc(j.note) + '<br>models: intent ' + esc(j.models.intent) + ' · risk ' + esc(j.models.risk) + ' · draft ' + esc(j.models.draft) + '</div>';
   } catch (e) {
     $('#out').innerHTML = '<div class="stage"><span class="eyebrow">error</span>' + e.message + ' — the offline numbers above still stand; see REPORT.md.</div>';
   }

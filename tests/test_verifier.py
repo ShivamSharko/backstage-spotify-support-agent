@@ -16,3 +16,7 @@ def test_shortener_trusted():
     check = verify_reply("see https://t.co/zzz", wl)
     assert check["passed"]
 
+def test_bare_host_does_not_whitelist_paths():
+    wl = build_url_whitelist(["visit https://spotify.com for help"])
+    check = verify_reply("go to https://spotify.com/account/delete/", wl)
+    assert not check["passed"]

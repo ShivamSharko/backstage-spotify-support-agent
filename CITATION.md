@@ -17,3 +17,7 @@ This project builds upon several foundational concepts in modern NLP and AI eval
 ## Uncertainty & Safety
 - Kadavath, S., et al. (2022). "Language Models (Mostly) Know What They Know." (Inspiration for using verbalized LLM confidence in our Risk & Confidence Engine).
 
+
+## Libraries
+- Sentence-Transformers (Reimers & Gurevych, 2019) — all-MiniLM-L6-v2 embeddings for dense retrieval.
+- scikit-learn (Pedregosa et al., 2011) — metrics, logistic calibration, Spearman agreement.

@@ -21,3 +21,5 @@ def test_intent_gate():
     assert predict_escalation("my account was hacked", "account_login")
     assert not predict_escalation("no issues here", "app_bug")
 
+def test_dead_end_no_apostrophe():
+    assert keyword_flag("i cant cancel my plan anywhere")

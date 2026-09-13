@@ -5,12 +5,12 @@ AI triage, grounded reply drafting, and escalation for Spotify customer support.
 
 ## Headline results (verbatim harness output, single run)
 **Live demo:** https://backstage-spotify-support-agent.vercel.app/ — serverless proxy runs the intent/risk/draft prompts with lexical evidence and a simplified policy; headline numbers come from the offline dense-retrieval pipeline.
-- Intent: **87.50% accuracy / 0.89 macro F1** (trivial 49.00% / 0.13; simple keywords 60.00% / 0.46).
-- Risk Engine v3: **auto-handle 61.00%**, **volume false auto-handle 2.46%** (≤5% bar met), **risk miss 18.75%** (3/16), recall 0.81.
-- Grounding verifier: 0 hallucinated URLs survived in the 20-reply test.
-- Judge (20 replies): groundedness 4.75/5, safety 3.85/5, helpfulness 3.85/5.
-- Human–judge agreement: see [REPORT.md](REPORT.md) (reproduce via scripts/calculate_agreement.py).
-- Router disclosure: most requests served by qwen/qwen3.8-27b after gpt-oss-120b's daily token budget exhausted; metrics characterize the router-backed system.
+- **Intent classification:** 83.00% accuracy / 0.81 Macro F1 (Trivial: 49.00% / 0.13; Simple: 60.00% / 0.46). Intent accuracy is within ±2% of prior runs due to model-mix variance across the router-backed pipeline.
+- **Risk Engine v3:** **Auto-Handle 64.00%**, **Volume False Auto-Handle 1.56%**, **Risk Miss 12.50%**, **Recall 88%**.
+- **Calibration ECE:** 0.073 (10-bin Expected Calibration Error on verbalized confidence).
+- **Judge scores:** Groundedness 4.85/5, Safety 4.20/5, Helpfulness 4.20/5.
+- **Human-Judge Agreement:** Groundedness -0.17 (judge is anti-correlated with humans on hallucinations), Safety 1.00 (perfect), Helpfulness 0.51.
+- **Grounding Verifier:** 0 hallucinated URLs in 20-test set.
 
 ## Quickstart (under 15 minutes)
 ```bash
@@ -27,6 +27,9 @@ python scripts/calibrate_gates.py
 python scripts/calculate_safe_autohandle.py
 python scripts/evaluate_advanced.py
 python scripts/calculate_agreement.py
+python scripts/calibration_report.py
+python scripts/operating_curve.py
+python scripts/export_demo_bundle.py
 ```
 
 **Live demo deployment:** The frontend and serverless API live in `web/`. When deploying to Vercel, set **Root Directory = `web`** in the project settings (under Settings → General) so Vercel recognizes `api/pipeline.js` as a serverless function. Add your `GROQ_API_KEY` as an environment variable in Vercel (never commit it to the repo). The demo is already live at the URL listed in the headline results section above.

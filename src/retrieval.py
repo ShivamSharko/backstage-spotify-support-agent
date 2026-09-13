@@ -13,14 +13,16 @@ class DenseRetriever:
         print("Encoding 43,000 historical replies into dense vectors...")
         # Convert text to mathematical embeddings
         self.embeddings = self.model.encode(self.df['text'].tolist(), show_progress_bar=True, convert_to_numpy=True)
+        self.embeddings = self.embeddings / np.linalg.norm(self.embeddings, axis=1, keepdims=True)
         print("Dense Retriever Ready!")
 
     def search(self, query: str, top_k: int = 3):
         # Encode the customer query
-        query_embedding = self.model.encode([query])
+        q = self.model.encode([query])
+        q = q / np.linalg.norm(q)
         
         # Calculate Cosine Similarity using dot product (since MiniLM normalizes vectors)
-        scores = np.dot(self.embeddings, query_embedding.T).flatten()
+        scores = (self.embeddings @ q.T).flatten()
         
         # Get top K indices
         top_indices = np.argsort(scores)[-top_k:][::-1]
