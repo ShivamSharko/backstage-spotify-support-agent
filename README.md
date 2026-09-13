@@ -29,6 +29,8 @@ python scripts/evaluate_advanced.py
 python scripts/calculate_agreement.py
 ```
 
+**Live demo deployment:** The frontend and serverless API live in `web/`. When deploying to Vercel, set **Root Directory = `web`** in the project settings (under Settings → General) so Vercel recognizes `api/pipeline.js` as a serverless function. Add your `GROQ_API_KEY` as an environment variable in Vercel (never commit it to the repo). The demo is already live at the URL listed in the headline results section above.
+
 ## Project structure
 - `scripts/`: runnable pipeline (sampling, baselines, calibration, risk engine, RAG eval, agreement).
 - `src/`: modular components (PII redaction, dense retrieval, verifier, model router).

@@ -75,7 +75,7 @@ The Groq free-tier daily token budget for `openai/gpt-oss-120b` was exhausted du
 
 ## 7. Decision log (16)
 1. Chose SpotifyCares for actionable public replies, not "DM us" brands.
-2. Stratified golden sampling (100 random / 50 risk / 50 short-vague) for tail coverage.
+2. Stratified golden sampling (100 random / 50 risk / 50 short-vague) for tail coverage. Labeling protocol: I manually reviewed all 200 rows in Excel, mapping each tweet to one of five intents (`app_bug`, `account_login`, `billing_payment`, `feature_request`, `other`) based on the user's explicit request or complaint topic. For the `should_escalate` flag, I applied human judgment over keyword matches: any ticket expressing account compromise, legal threat, fraud, or cancellation dead-end was marked `true`; conversational noise, praise, or resolvable bugs were marked `false`. Ambiguous cases (e.g., sarcasm phrased as a complaint) were resolved by reading the full thread context when available, prioritizing safety over automation.
 3. Headlined safe auto-handle at ≤5% volume false auto-handle; thresholds are fitted operating points, not cited standards.
 4. Pre-LLM PII redaction for prompt-injection resistance.
 5. Dense retrieval over TF-IDF for semantic matching.
