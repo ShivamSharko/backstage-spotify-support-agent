@@ -24,10 +24,11 @@ function setThr(t) {
   const miss = auto.filter(x => x.true_escalate).length;
   const tr = D.tickets.filter(x => x.true_escalate).length;
   $('#live').innerHTML =
-    num('auto-handle', pct(auto.length / D.tickets.length * 100), '', auto.length + ' of ' + D.tickets.length + ' tickets') +
-    num('volume false auto', auto.length ? pct(miss / auto.length * 100) : '0.00', '', miss + ' dangerous among automated') +
-    num('risk miss', tr ? pct(miss / tr * 100) : '0.00', '', miss + ' of ' + tr + ' true risks');
-  $('#thrlabel').textContent = 'threshold ' + t.toFixed(2) + (Math.abs(t - D.headline.prob_thresh) < 0.005 ? ' — shipped operating point' : '');
+    num('auto-handle', pct(auto.length / D.tickets.length * 100), '', 'of 200 real tickets answered by the AI alone') +
+    num('volume false auto', auto.length ? pct(miss / auto.length * 100) : '0.00', '', 'dangerous tickets per 100 automated (target: 5 or fewer)') +
+    num('risk miss', tr ? pct(miss / tr * 100) : '0.00', '', 'of the ' + tr + ' genuinely dangerous tickets wrongly automated');
+  const shipped = Math.abs(t - D.headline.prob_thresh) < 0.005;
+  $('#thrlabel').textContent = 'At cut-off ' + t.toFixed(2) + ': the AI automates ' + auto.length + ' of 200 tickets and lets ' + miss + ' of ' + tr + ' dangerous ones through. ' + (shipped ? 'This is the shipped operating point — the knife-edge between a paralysed system (0.45 and below automates nothing) and an unsafe one (0.55 and above misses nearly a third of risks).' : 'The shipped operating point is ' + D.headline.prob_thresh.toFixed(2) + '.');
 }
 $('#thr').addEventListener('input', e => setThr(parseFloat(e.target.value)));
 
