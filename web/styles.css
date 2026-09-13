@@ -1,8 +1,8 @@
 *{box-sizing:border-box;margin:0}
 body{background:#b9b2a8;color:#fff;font:400 1rem/1.65 "Inter",system-ui,sans-serif;-webkit-font-smoothing:antialiased;min-height:100vh;overflow-x:hidden}
-.bg{position:fixed;inset:-80px;z-index:0;background:#b9b2a8 url("assets/bg.jpg") center/cover no-repeat;filter:blur(42px) saturate(1.35) brightness(.94);transform:scale(1.12)}
+.bg{position:fixed;inset:-80px;z-index:0;background:#b9b2a8 url("assets/bg.png") center/cover no-repeat;filter:blur(42px) saturate(1.35) brightness(.94);transform:scale(1.12)}
 .bg::after{content:"";position:absolute;inset:0;background:radial-gradient(60% 50% at 18% 28%,rgba(232,80,30,.5),transparent 70%),radial-gradient(50% 40% at 85% 12%,rgba(242,136,75,.42),transparent 70%),linear-gradient(180deg,rgba(233,228,221,.38),rgba(12,10,9,.18) 42%,rgba(22,96,122,.38) 92%)}
-@media (max-width:640px){.bg{background-image:url("assets/bg-mobile.jpg")}}
+@media (max-width:640px){.bg{background-image:url("assets/bg-mobile.png")}}
 .grain{position:fixed;inset:0;z-index:1;opacity:.08;pointer-events:none;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2'/%3E%3C/filter%3E%3Crect width='120' height='120' filter='url(%23n)' opacity='0.6'/%3E%3C/svg%3E")}
 .wrap{position:relative;z-index:2;max-width:62rem;margin:0 auto;padding:5rem 1.5rem 6rem}
 .eyebrow{font-size:.6875rem;letter-spacing:.24em;text-transform:uppercase;color:rgba(255,255,255,.74);font-weight:500;text-shadow:0 1px 10px rgba(0,0,0,.28)}
