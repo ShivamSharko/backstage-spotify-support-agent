@@ -18,8 +18,10 @@ class DenseRetriever:
 
     def search(self, query: str, top_k: int = 3):
         # Encode the customer query
-        q = self.model.encode([query])
-        q = q / np.linalg.norm(q)
+        q = self.model.encode(query)
+        norm = np.linalg.norm(q)
+        if norm > 0:
+            q = q / norm
         
         # Calculate Cosine Similarity using dot product (since MiniLM normalizes vectors)
         scores = (self.embeddings @ q.T).flatten()

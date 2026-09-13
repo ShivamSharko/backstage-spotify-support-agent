@@ -29,7 +29,6 @@ class ModelRouter:
             if response_format:
                 kwargs["response_format"] = response_format
             try:
-                time.sleep(0.1)
                 resp = self.client.chat.completions.create(**kwargs)
                 self.usage[model] += 1
                 return resp

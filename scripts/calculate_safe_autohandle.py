@@ -41,6 +41,7 @@ def get_llm_risk(tweet):
 
 def calibrated_prob(confidence, retrieval_score):
     z = CFG['coefficients']['confidence'] * confidence + CFG['coefficients']['retrieval_score'] * retrieval_score + CFG['intercept']
+    z = max(min(z, 700), -700)
     return 1 / (1 + math.exp(-z))
 
 def risk_policy_engine(confidence, retrieval_score, text, llm_risk):

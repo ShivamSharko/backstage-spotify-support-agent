@@ -2,7 +2,8 @@ import re
 
 def redact_pii(text: str) -> str:
     """Redacts emails, phone numbers, and URLs to protect user privacy before sending to LLM."""
-    if not isinstance(text, str): return text
+    if not isinstance(text, str):
+        return str(text) if text is not None else ""
     # Redact emails
     text = re.sub(r'[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+', '[EMAIL]', text)
     # Redact phone numbers (basic patterns)

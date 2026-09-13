@@ -54,6 +54,6 @@ def verify_reply(reply, whitelist):
 
 def sanitize_reply(reply, violations):
     out = reply
-    for v in violations:
+    for v in sorted(violations, key=len, reverse=True):
         out = out.replace(v, "[URL removed: not in historical whitelist]")
     return out

@@ -56,7 +56,7 @@ module.exports = async function handler(req, res) {
 
   const [intentCall, riskCall] = await Promise.all([
     groq(key, [
-      { role: "system", content: 'Classify into ONE: app_bug, account_login, billing_payment, feature_request, other. Return ONLY JSON: {"intent": "...", "confidence": 0.0}' },
+      { role: "system", content: 'Classify into ONE: app_bug, account_login, billing_payment, feature_request, other. Return ONLY JSON: {"intent": "...", "confidence": 0.0, "rationale": "..."}' },
       { role: "user", content: safe },
     ], true).catch(e => ({ content: '{"intent":"other","confidence":0.5}', model: "fallback:" + e.message })),
     groq(key, [
@@ -74,7 +74,7 @@ module.exports = async function handler(req, res) {
 
   const ev = lexicalTop(safe);
   const draft = await groq(key, [
-    { role: "system", content: "You are drafting a Spotify support reply. Use only facts from the evidence. Do not invent URLs, refunds, timelines or policies. Do not ask for passwords or sensitive PII publicly. Calm, concise, helpful.\nEvidence:\n" + ev.map(e => "- " + e.text).join("\n") },
+    { role: "system", content: "You are drafting a Spotify support reply. Use only facts from the evidence. Do not invent URLs, refunds, timelines or policies. Ask for a DM if the issue requires sensitive account details. Avoid emojis unless the retrieved evidence uses them.\nEvidence:\n" + ev.map(e => "- " + e.text).join("\n") },
     { role: "user", content: "Intent: " + intent + ".\nTweet: " + safe + "\nDraft:" },
   ], false).catch(() => ({ content: "[draft unavailable - model budget exhausted]", model: "none" }));
 

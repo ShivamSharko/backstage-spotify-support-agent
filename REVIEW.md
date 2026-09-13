@@ -8,7 +8,7 @@ Two implementation surfaces exist: the offline evaluation pipeline (Python; sour
 - Add an intent: extend the allowed list in prompts/intent.md (used by evaluate.py and evaluate_advanced.py), AND the inline sys_prompt in scripts/calculate_safe_autohandle.py, AND the JS list in web/api/pipeline.js; label rows in eval/golden_set.csv; re-run evaluate.py and run_baselines.py.
 - Tighten PII rules: regexes in src/pii.py, pinned by tests/test_pii.py; mirror them in the RE map of web/api/pipeline.js for the demo.
 - Grounding rules: trusted hosts + whitelist in src/verifier.py, pinned by tests/test_verifier.py. The demo does not run the verifier — disclosed in the demo footer.
-- Escalation keywords: src/policy.py (RISK_RE now includes `sue\w*` to catch "sues"/"suing"), pinned by tests/test_policy.py (includes the sue-in-issue regression plus a plural test); mirror the exact regex (including profanity) in RE.risk of web/api/pipeline.js.
+- Escalation keywords: src/policy.py (RISK_RE includes `sue\w*|suing` to catch "sues"/"suing" since "suing" drops the 'e'), pinned by tests/test_policy.py (includes the sue-in-issue regression plus a plural test); mirror the exact regex (including profanity) in RE.risk of web/api/pipeline.js.
 - Reproduce headline numbers: README quickstart sequence; artifacts in eval/*.csv.
 - Judge rubric: prompts/judge.md; human agreement via human_* columns in eval/reply_eval_advanced.csv + scripts/calculate_agreement.py.
 - Offline checks (no API key needed): pytest -q (14 tests).

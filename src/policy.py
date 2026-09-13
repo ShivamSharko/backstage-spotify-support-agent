@@ -15,8 +15,5 @@ def keyword_flag(text: str) -> bool:
     return False
 
 def predict_escalation(tweet: str, intent: str) -> bool:
-    has_risk = keyword_flag(tweet)
-    if intent == "account_login" and has_risk:
-        return True
-    return has_risk
+    return keyword_flag(tweet)
 

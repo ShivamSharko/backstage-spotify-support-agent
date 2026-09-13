@@ -34,7 +34,7 @@ function setThr(t) {
   bubble.textContent = t.toFixed(2);
   bubble.className = 'thrval ' + (shipped ? '' : (t < D.headline.prob_thresh ? 'calm' : 'warn'));
   document.querySelectorAll('#live .num b').forEach(b => { b.classList.remove('pulse'); void b.offsetWidth; b.classList.add('pulse'); });
-  $('#thrlabel').textContent = 'At cut-off ' + t.toFixed(2) + ': the AI automates ' + auto.length + ' of 200 tickets and lets ' + miss + ' of ' + tr + ' dangerous ones through. ' + (shipped ? 'This is the shipped operating point — the knife-edge between a paralysed system (0.45 and below automates nothing) and an unsafe one (0.55 and above misses nearly a third of risks).' : (t < D.headline.prob_thresh ? 'You are in the cautious zone: more tickets go to humans than the shipped policy.' : 'You are in the aggressive zone: automation rises but dangerous tickets slip through faster.'));
+  $('#thrlabel').textContent = 'At cut-off ' + t.toFixed(2) + ': the AI automates ' + auto.length + ' of 200 tickets and lets ' + miss + ' of ' + tr + ' dangerous ones through. ' + (shipped ? 'This is the shipped operating point — the knife-edge between a low-volume system (0.45 and below automates <6%) and an unsafe one (0.55 and above misses 31% of risks).' : (t < D.headline.prob_thresh ? 'You are in the cautious zone: more tickets go to humans than the shipped policy.' : 'You are in the aggressive zone: automation rises but dangerous tickets slip through faster.'));
 }
 $('#thr').addEventListener('input', e => { if (D) setThr(parseFloat(e.target.value)); });
 
@@ -59,7 +59,7 @@ $('#run').addEventListener('click', async () => {
       '<div class="stage"><span class="eyebrow">5 · drafted reply</span>' + esc(j.reply) + '</div>' +
       '<div class="fine">' + esc(j.note) + '<br>models: intent ' + esc(j.models.intent) + ' · risk ' + esc(j.models.risk) + ' · draft ' + esc(j.models.draft) + '</div>';
   } catch (e) {
-    $('#out').innerHTML = '<div class="stage"><span class="eyebrow">error</span>' + e.message + ' — the offline numbers above still stand; see REPORT.md.</div>';
+    $('#out').innerHTML = '<div class="stage"><span class="eyebrow">error</span>' + esc(e.message) + ' — the offline numbers above still stand; see REPORT.md.</div>';
   }
   setTimeout(() => { btn.disabled = false; }, 4000);
 });
