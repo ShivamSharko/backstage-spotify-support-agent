@@ -1,6 +1,6 @@
 *{box-sizing:border-box;margin:0}
 body{background:#b9b2a8;color:#fff;font:400 1rem/1.65 "Inter",system-ui,sans-serif;-webkit-font-smoothing:antialiased;min-height:100vh;overflow-x:hidden}
-.bg{position:fixed;inset:-40px;z-index:0;background:#b9b2a8 url("assets/bg.jpg") center/cover no-repeat;filter:blur(6px) saturate(1.12) brightness(.97);transform:scale(1.06)}
+.bg{position:fixed;inset:-40px;z-index:0;background:#b9b2a8 url("assets/bg.png") center/cover no-repeat;filter:blur(6px) saturate(1.12) brightness(.97);transform:scale(1.06)}
 .bg::after{content:"";position:absolute;inset:0;background:radial-gradient(60% 50% at 18% 28%,rgba(232,80,30,.26),transparent 70%),radial-gradient(50% 40% at 85% 12%,rgba(242,136,75,.20),transparent 70%),linear-gradient(180deg,rgba(233,228,221,.20),rgba(12,10,9,.10) 42%,rgba(22,96,122,.20) 92%)}
 @media (max-width:640px){.bg{background-image:url("assets/bg-mobile.png")}}
 .grain{position:fixed;inset:0;z-index:1;opacity:.08;pointer-events:none;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2'/%3E%3C/filter%3E%3Crect width='120' height='120' filter='url(%23n)' opacity='0.6'/%3E%3C/svg%3E")}
