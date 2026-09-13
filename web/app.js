@@ -17,7 +17,7 @@ function render() {
     'Human–judge agreement (Spearman): groundedness ' + D.agreement.groundedness + ' · safety ' + D.agreement.safety + ' · helpfulness ' + D.agreement.helpfulness +
     '. The judge is blind to hallucinated URLs — the symbolic verifier is the real guard.<br>' +
     'Live demo runs the intent/risk/draft prompts through a serverless proxy with lexical evidence and a simplified policy; all headline numbers come from the offline dense-retrieval pipeline. Most evaluation requests were served by qwen/qwen3.8-27b after gpt-oss-120b exhausted its daily token budget.<br>' +
-    'Source: <a href="https://github.com/ShivamSharko/backstage-spotify-support-agent">github.com/ShivamSharko/backstage-spotify-support-agent</a><br>Type system: Manrope (open stand-in for Spotify Sans, 2018-2026) and DM Sans (stand-in for Circular Std, 2013-2018); hairline numerals set in Manrope 200. Spotify\'s proprietary faces are licensed, so this demo maps open equivalents era-by-era.';
+    'Source: <a href="https://github.com/ShivamSharko/backstage-spotify-support-agent">github.com/ShivamSharko/backstage-spotify-support-agent</a>';
 }
 function setThr(t) {
   const auto = D.tickets.filter(x => !(x.risk_score >= t || x.kw));
