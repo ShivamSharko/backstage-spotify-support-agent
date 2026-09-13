@@ -1,0 +1,44 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Backstage — SpotifyCares AI Support Agent</title>
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<div class="blob b1"></div><div class="blob b2"></div><div class="blob b3"></div><div class="grain"></div>
+<main>
+<header class="glass">
+  <h1>Backstage</h1>
+  <div class="tag">SpotifyCares AI support agent · Hiver SDE take-home · live evaluation demo</div>
+</header>
+
+<div class="grid cols4" id="hero"></div>
+<div class="grid cols4" id="metrics" style="margin-top:18px"></div>
+
+<div class="section">Operating-point explorer — drag the threshold</div>
+<div class="glass" id="curvebox">
+  <div class="grid cols3" id="live"></div>
+  <input type="range" id="thr" min="0.05" max="0.95" step="0.01" value="0.50">
+  <svg id="svg" viewBox="0 0 100 42" preserveAspectRatio="none"></svg>
+  <div class="legend"><span><span class="dot" style="background:#ffd76a"></span>auto-handle rate</span><span><span class="dot" style="background:#ff6b6b"></span>risk miss rate</span><span id="thrlabel"></span></div>
+</div>
+
+<div class="section">Ticket gallery — click any ticket</div>
+<div class="chips" id="chips"></div>
+<div class="glass"><div id="list"></div></div>
+<div class="glass" id="detail" style="margin-top:18px"><h3>Select a ticket above to inspect the full decision trail.</h3></div>
+
+<div class="section">Try the safety layer yourself (runs 100% in your browser)</div>
+<div class="glass card">
+  <textarea id="sandbox" placeholder="Type any customer tweet, e.g. 'my account was hacked and I can't cancel my subscription, mail me at me@mail.com'"></textarea>
+  <div class="kv" id="sbout"></div>
+</div>
+
+<footer id="foot"></footer>
+</main>
+<script src="app.js"></script>
+</body>
+</html>
+
