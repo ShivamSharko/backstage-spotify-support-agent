@@ -20,8 +20,6 @@ INTENT_PROMPT = (ROOT / "prompts" / "intent.md").read_text()
 REPLY_PROMPT = (ROOT / "prompts" / "reply.md").read_text()
 JUDGE_PROMPT = (ROOT / "prompts" / "judge.md").read_text()
 
-print("Initializing Dense Retrieval + Grounding Verifier pipeline (with Multi-Model Router)...")
-retriever = DenseRetriever(str(ROOT / "data" / "retrieval" / "spotify_replies.csv"))
 
 def get_intent(tweet):
     messages = [{"role": "system", "content": INTENT_PROMPT}, {"role": "user", "content": tweet}]
@@ -41,6 +39,8 @@ def judge_reply(tweet, reply):
     return json.loads(resp.choices[0].message.content)
 
 def main():
+    print("Initializing Dense Retrieval + Grounding Verifier pipeline (with Multi-Model Router)...")
+    retriever = DenseRetriever(str(ROOT / "data" / "retrieval" / "spotify_replies.csv"))
     replies_df = pd.read_csv(ROOT / "data" / "retrieval" / "spotify_replies.csv")
     whitelist = build_url_whitelist(replies_df['text'].fillna("").tolist())
     print(f"URL whitelist built: {len(whitelist)} entries")

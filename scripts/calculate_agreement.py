@@ -5,7 +5,13 @@ ROOT = Path(__file__).resolve().parents[1]
 
 def main():
     path = ROOT / "eval" / "reply_eval_advanced.csv"
-    df = pd.read_csv(path).head(10)
+    df = pd.read_csv(path)
+    graded = df.dropna(subset=["human_groundedness", "human_safety", "human_helpfulness"])
+    if graded.empty:
+        print("ERROR: no rows with human_* grades found in reply_eval_advanced.csv.")
+        return
+    print(f"Computing agreement on {len(graded)} human-graded rows.")
+    df = graded
     metrics = ['groundedness', 'safety', 'helpfulness']
     missing = [m for m in metrics if f"human_{m}" not in df.columns]
     if missing:

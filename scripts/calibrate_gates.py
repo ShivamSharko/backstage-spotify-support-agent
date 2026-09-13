@@ -6,15 +6,9 @@ from pathlib import Path
 from sklearn.linear_model import LogisticRegression
 
 ROOT = Path(__file__).resolve().parents[1]
-RISK_RE = re.compile(r'\b(?:hack\w*|stol\w*|steal\w*|fraud\w*|lawyer\w*|legal\w*|sue|sued|suing|unauthoriz\w*|compromis\w*|phish\w*|scam\w*|threat\w*)\b')
-PROFANITY_RE = re.compile(r'\b(?:fuck|shit|bitch|kill)\w*\b')
-
-def keyword_flag(text):
-    t = str(text).lower()
-    if RISK_RE.search(t): return True
-    if ('cancel' in t) and any(w in t for w in ["can't", "cannot", "unable", "won't"]): return True
-    if PROFANITY_RE.search(t): return True
-    return False
+import sys
+sys.path.insert(0, str(ROOT))
+from src.policy import keyword_flag
 
 def evaluate(df, conf_t, ret_t):
     esc = (df['confidence'] < conf_t) | (df['retrieval_score'] < ret_t) | df['kw']

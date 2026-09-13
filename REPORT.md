@@ -70,6 +70,7 @@ The Groq free-tier daily token budget for `openai/gpt-oss-120b` was exhausted du
 4. Dedicated risk/toxicity classifier (fine-tuned small model) replacing the keyword backstop.
 5. Production-traffic simulation on 1,000 unenriched tweets (expected ~75% auto-handle at ≤5% risk miss).
 6. Monitoring dashboard: daily risk-miss, false-auto-handle, and judge–human drift.
+7. Header-aware rate-limit backoff: read Groq's x-ratelimit-* response headers for exact reset times, and exploit prompt caching (cached tokens do not count toward free-tier limits) to replace fixed cooldowns in the router with precise, cheaper scheduling.
 
 ## 7. Decision log (16)
 1. Chose SpotifyCares for actionable public replies, not "DM us" brands.
