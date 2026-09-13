@@ -38,6 +38,8 @@ function setThr(t) {
 $('#thr').addEventListener('input', e => setThr(parseFloat(e.target.value)));
 
 $('#run').addEventListener('click', async () => {
+const ta = $('#tweet');
+ta.addEventListener('input', () => { ta.style.height = 'auto'; ta.style.height = Math.min(ta.scrollHeight, 240) + 'px'; });
   const tweet = $('#tweet').value.trim();
   if (!tweet) return;
   const btn = $('#run');
