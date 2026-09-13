@@ -21,6 +21,7 @@ def main():
     c = cfg["coefficients"]
     df = risk.copy()
     z = c["confidence"] * df["confidence"] + c["retrieval_score"] * df["retrieval_score"] + cfg["intercept"]
+    z = np.clip(z, -700, 700)
     df["risk_score"] = 1 / (1 + np.exp(-z))
     df["kw"] = df["text"].apply(keyword_flag)
     df["true_escalate"] = df["true_escalate"].astype(bool)
@@ -33,7 +34,11 @@ def main():
         hc = f"human_{m}"
         if hc in replies.columns:
             sub = replies[[hc, f"judge_{m}"]].dropna()
-            agree[m] = None if len(sub) < 3 else round(float(sub[hc].corr(sub[f"judge_{m}"], method="spearman")), 2)
+            if len(sub) < 3:
+                agree[m] = None
+            else:
+                c = sub[hc].corr(sub[f"judge_{m}"], method="spearman")
+                agree[m] = None if pd.isna(c) else round(float(c), 2)
 
     demo = {
         "headline": {

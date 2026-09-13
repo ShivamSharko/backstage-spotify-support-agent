@@ -17,6 +17,7 @@ def main():
     z = (cfg["coefficients"]["confidence"] * df["confidence"]
          + cfg["coefficients"]["retrieval_score"] * df["retrieval_score"]
          + cfg["intercept"])
+    z = np.clip(z, -700, 700)
     df["risk_score"] = 1 / (1 + np.exp(-z))
     tr = df["true_escalate"].sum()
     rows = []
