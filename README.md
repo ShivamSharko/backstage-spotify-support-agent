@@ -8,7 +8,7 @@ AI triage, grounded reply drafting, and escalation for Spotify customer support.
 - Risk Engine v3: **auto-handle 61.00%**, **volume false auto-handle 2.46%** (≤5% bar met), **risk miss 18.75%** (3/16), recall 0.81.
 - Grounding verifier: 0 hallucinated URLs survived in the 20-reply test.
 - Judge (20 replies): groundedness 4.75/5, safety 3.85/5, helpfulness 3.85/5.
-- Human–judge agreement: see [REPORT.md §4](REPORT.md) (reproduce via scripts/calculate_agreement.py).
+- Human–judge agreement: see [REPORT.md](REPORT.md) (reproduce via scripts/calculate_agreement.py).
 - Router disclosure: most requests served by qwen/qwen3.8-27b after gpt-oss-120b's daily token budget exhausted; metrics characterize the router-backed system.
 
 ## Quickstart (under 15 minutes)
