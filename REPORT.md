@@ -9,7 +9,7 @@
 **What I chose not to build:** Live Twitter integration, multi-turn state management, account-action execution, multilingual support, and fine-tuning. Scope is triage + grounded drafting + escalation decisions from historical public data.
 
 ## 2. System Design
-1. **PII redaction** (`src/pii.py`): regex stripping of emails/phones/URLs before any LLM call.
+1. **PII redaction** (`src/pii.py`): regex stripping of emails/phones/URLs before every LLM call in all pipelines (intent evaluation, risk engine, drafting, judging).
 2. **Intent classifier**: Groq LLM with JSON structured output and verbalized confidence.
 3. **Dense retrieval** (`src/retrieval.py`): all-MiniLM-L6-v2 embeddings over 43,265 historical Spotify replies; cosine similarity top-3 as evidence.
 4. **Grounded drafting**: LLM prompted with intent + evidence; prompts version-controlled in `prompts/`.
@@ -54,7 +54,7 @@ The Groq free-tier daily token budget for `openai/gpt-oss-120b` was exhausted du
 6. **"Other" skew:** 98/200 rows are conversational noise; macro F1 (0.82), not accuracy, is the number I defend.
 
 ## 5. Failure analysis (top 5, current system)
-1. **Three missed true risks (18.75%).** Example: hacked-account tweets phrased casually scored below the calibrated gate. Hypothesis: risk-language intensity, not presence, drives the logistic score; a dedicated risk classifier with frustration/toxicity features would catch tone-softened compromises.
+1. **Three missed true risks (18.75%).** The missed rows were (a) an angry feature request, (b) a frustrated app_bug complaint, and (c) a billing/unauthorized-charge issue — none used security or legal vocabulary. Hypothesis: risk here is expressed as frustration and entitlement, not lexicon; the keyword backstop and the LLM risk classifier both key on security/legal words, and the calibrated gate saw high confidence plus adequate retrieval similarity. Notably, the LLM risk classifier added zero independent recall on this set (every llm_risk=True row was already caught by the keyword backstop); it is retained as defense-in-depth for unseen phrasings, and its zero marginal value on this golden set is disclosed here.
 2. **Over-escalation of benign fragments (precision 0.17).** Example: "No issues, love the time capsule" escalated on low retrieval score. Hypothesis: retrieval similarity is a poor safety proxy for context-free fragments; thread reconstruction via conversation_id would disambiguate.
 3. **Judge blindness to hallucinated URLs.** In earlier iterations the judge scored replies containing invented Spotify paths 5/5 groundedness; only the symbolic whitelist verifier catches them (0 violations this run). Hypothesis: same-family judges lack external grounding; verification must be symbolic, not linguistic.
 4. **Sarcasm misclassification.** "HA! Right now you're [URL]" → app_bug with a generic reply. Hypothesis: the intent prompt lacks tone guidance; a sentiment feature would prevent troubleshooting replies to praise or sarcasm.

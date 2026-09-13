@@ -21,8 +21,8 @@ python scripts/sample_brand.py SpotifyCares
 python scripts/extract_replies.py
 python scripts/evaluate.py
 python scripts/run_baselines.py
-python scripts/calibrate_gates.py
 python scripts/calculate_safe_autohandle.py
+python scripts/calibrate_gates.py
 python scripts/calculate_safe_autohandle.py
 python scripts/evaluate_advanced.py
 python scripts/calculate_agreement.py

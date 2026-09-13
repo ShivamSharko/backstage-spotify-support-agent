@@ -26,7 +26,7 @@ retriever = DenseRetriever(str(ROOT / "data" / "retrieval" / "spotify_replies.cs
 def get_intent(tweet):
     messages = [{"role": "system", "content": INTENT_PROMPT}, {"role": "user", "content": tweet}]
     resp = router.chat_completion(messages, response_format={"type": "json_object"}, temperature=0.0)
-    return json.loads(resp.choices[0].message.content)["intent"]
+    return json.loads(resp.choices[0].message.content).get("intent", "other")
 
 def generate_reply(tweet, intent, evidence):
     ev_text = "\n".join([f"- [Score: {e['score']:.2f}] {e['text']}" for e in evidence])

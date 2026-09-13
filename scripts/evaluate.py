@@ -9,6 +9,7 @@ from dotenv import load_dotenv
 from sklearn.metrics import f1_score, accuracy_score, precision_score, recall_score
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
+from src.pii import redact_pii
 from src.router import ModelRouter
 
 load_dotenv(Path(__file__).resolve().parents[1] / ".env")
@@ -41,7 +42,7 @@ def main():
     
     pred_intents, pred_escs, confs = [], [], []
     for i, row in df.iterrows():
-        tweet = str(row['text'])
+        tweet = redact_pii(str(row['text']))
         print(f"[{i+1}/{len(df)}] Classifying...")
         p_int, conf = get_intent(tweet)
         p_esc = predict_escalation(tweet, p_int)

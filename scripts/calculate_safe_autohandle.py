@@ -23,9 +23,6 @@ CFG = json.loads(CFG_PATH.read_text()) if CFG_PATH.exists() else None
 RISK_RE = re.compile(r'\b(?:hack\w*|stol\w*|steal\w*|fraud\w*|lawyer\w*|legal\w*|sue|sued|suing|unauthoriz\w*|compromis\w*|phish\w*|scam\w*|threat\w*)\b')
 PROFANITY_RE = re.compile(r'\b(?:fuck|shit|bitch|kill)\w*\b')
 
-print("Loading Dense Retriever for Risk Engine v3...")
-retriever = DenseRetriever(str(ROOT / "data" / "retrieval" / "spotify_replies.csv"))
-
 def get_intent_and_confidence(tweet):
     sys_prompt = "Classify into ONE: app_bug, account_login, billing_payment, feature_request, other. Return ONLY JSON: {\"intent\": \"...\", \"confidence\": 0.0}"
     messages = [{"role": "system", "content": sys_prompt}, {"role": "user", "content": tweet}]
@@ -65,6 +62,8 @@ def risk_policy_engine(confidence, retrieval_score, text, llm_risk):
     return False, "Safe to auto-handle"
 
 def main():
+    print("Loading Dense Retriever for Risk Engine v3...")
+    retriever = DenseRetriever(str(ROOT / "data" / "retrieval" / "spotify_replies.csv"))
     df = pd.read_csv(ROOT / "eval" / "golden_set.csv").dropna(subset=['should_escalate'])
     df['should_escalate'] = df['should_escalate'].astype(str).str.lower().str.strip() == 'true'
     results = []
