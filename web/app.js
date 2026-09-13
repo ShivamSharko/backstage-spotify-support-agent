@@ -28,7 +28,12 @@ function setThr(t) {
     num('volume false auto', auto.length ? pct(miss / auto.length * 100) : '0.00', '', 'dangerous tickets per 100 automated (target: 5 or fewer)') +
     num('risk miss', tr ? pct(miss / tr * 100) : '0.00', '', 'of the ' + tr + ' genuinely dangerous tickets wrongly automated');
   const shipped = Math.abs(t - D.headline.prob_thresh) < 0.005;
-  $('#thrlabel').textContent = 'At cut-off ' + t.toFixed(2) + ': the AI automates ' + auto.length + ' of 200 tickets and lets ' + miss + ' of ' + tr + ' dangerous ones through. ' + (shipped ? 'This is the shipped operating point — the knife-edge between a paralysed system (0.45 and below automates nothing) and an unsafe one (0.55 and above misses nearly a third of risks).' : 'The shipped operating point is ' + D.headline.prob_thresh.toFixed(2) + '.');
+  const bubble = $('#thrval');
+  bubble.style.left = (((t - 0.05) / 0.9) * 100) + '%';
+  bubble.textContent = t.toFixed(2);
+  bubble.className = 'thrval ' + (shipped ? '' : (t < D.headline.prob_thresh ? 'calm' : 'warn'));
+  document.querySelectorAll('#live .num b').forEach(b => { b.classList.remove('pulse'); void b.offsetWidth; b.classList.add('pulse'); });
+  $('#thrlabel').textContent = 'At cut-off ' + t.toFixed(2) + ': the AI automates ' + auto.length + ' of 200 tickets and lets ' + miss + ' of ' + tr + ' dangerous ones through. ' + (shipped ? 'This is the shipped operating point — the knife-edge between a paralysed system (0.45 and below automates nothing) and an unsafe one (0.55 and above misses nearly a third of risks).' : (t < D.headline.prob_thresh ? 'You are in the cautious zone: more tickets go to humans than the shipped policy.' : 'You are in the aggressive zone: automation rises but dangerous tickets slip through faster.'));
 }
 $('#thr').addEventListener('input', e => setThr(parseFloat(e.target.value)));
 
