@@ -1,5 +1,4 @@
 import pandas as pd
-from pathlib import Path
 from sentence_transformers import SentenceTransformer
 import numpy as np
 
