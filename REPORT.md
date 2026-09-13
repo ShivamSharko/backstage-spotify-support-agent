@@ -16,6 +16,7 @@
 5. **Grounding verifier** (`src/verifier.py`): URL whitelist derived from historical replies; hallucinated URLs stripped before sending.
 6. **Escalation policy (Risk Engine v3)**: deterministic keyword backstop → LLM risk classifier → calibrated logistic gate over (confidence, retrieval score).
 7. **Multi-model router** (`src/router.py`): fallback across Groq free-tier models on 429/404 with per-model cooldowns; per-run usage logged.
+8. **Public demo (`web/` + Vercel serverless):** the same intent/risk/draft prompts behind a key-safe proxy with a JS port of the PII and keyword layers; demo retrieval is lexical over a 1,500-reply subset and the demo policy omits the calibrated retrieval gate — both differences are disclosed in the demo footer.
 
 ## 3. Results (200-tweet golden set, single run, verbatim harness output)
 Reproduce: `python scripts/evaluate.py`, `python scripts/run_baselines.py`, `python scripts/calibrate_gates.py`, `python scripts/calculate_safe_autohandle.py` (twice), `python scripts/evaluate_advanced.py`.
