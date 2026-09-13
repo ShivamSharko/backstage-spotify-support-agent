@@ -1,0 +1,50 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Backstage — SpotifyCares AI support agent</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@200;300;400;500&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <div class="eyebrow">Hiver SDE take-home · live evaluation demo</div>
+    <h1>Backstage</h1>
+    <p class="lede">A risk-aware support agent for SpotifyCares: grounded drafts, calibrated escalation, and a proof trail for every number on this page.</p>
+    <nav class="eyebrow links">
+      <a href="https://github.com/ShivamSharko/backstage-spotify-support-agent">repository</a>
+      <a href="https://github.com/ShivamSharko/backstage-spotify-support-agent/blob/main/REPORT.md">report</a>
+      <a href="https://github.com/ShivamSharko/backstage-spotify-support-agent/blob/main/REVIEW.md">reviewer cheat-sheet</a>
+    </nav>
+  </header>
+
+  <div class="nums" id="nums"></div>
+
+  <section>
+    <h2>Run the live pipeline on any tweet</h2>
+    <div class="panel">
+      <textarea id="tweet" placeholder="e.g. my account was hacked and I can't cancel my subscription — help"></textarea>
+      <button id="run">Run pipeline</button>
+      <div id="out"></div>
+    </div>
+  </section>
+
+  <section>
+    <h2>Safety ↔ automation trade-off</h2>
+    <div class="panel">
+      <input type="range" id="thr" min="0.05" max="0.95" step="0.01" value="0.50">
+      <div class="nums thin" id="live"></div>
+      <p class="fine" id="thrlabel"></p>
+    </div>
+  </section>
+
+  <footer id="foot"></footer>
+</div>
+<script src="app.js"></script>
+</body>
+</html>
+
