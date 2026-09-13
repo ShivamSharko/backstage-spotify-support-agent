@@ -7,14 +7,14 @@ import math
 import pandas as pd
 from pathlib import Path
 from dotenv import load_dotenv
-from groq import Groq
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
 from src.pii import redact_pii
 from src.retrieval import DenseRetriever
+from src.router import ModelRouter
 
 load_dotenv(Path(__file__).resolve().parents[1] / ".env")
-client = Groq(api_key=os.getenv("GROQ_API_KEY"))
+router = ModelRouter(api_key=os.getenv("GROQ_API_KEY"))
 ROOT = Path(__file__).resolve().parents[1]
 
 CFG_PATH = ROOT / "configs" / "thresholds.json"
@@ -26,46 +26,21 @@ PROFANITY_RE = re.compile(r'\b(?:fuck|shit|bitch|kill)\w*\b')
 print("Loading Dense Retriever for Risk Engine v3...")
 retriever = DenseRetriever(str(ROOT / "data" / "retrieval" / "spotify_replies.csv"))
 
-def call_with_retry(func, max_retries=5):
-    for i in range(max_retries):
-        try:
-            return func()
-        except Exception as e:
-            if "rate limit" in str(e).lower():
-                wait_time = 60 * (i + 1)
-                print(f"  ⚠️ Rate limit hit. Waiting {wait_time}s before retry {i+1}/{max_retries}...")
-                time.sleep(wait_time)
-            else:
-                if i == 0: time.sleep(1)
-                else: raise
-    raise Exception("Max retries exceeded for Groq API.")
-
 def get_intent_and_confidence(tweet):
-    return call_with_retry(lambda: _get_intent_and_confidence_impl(tweet))
-    
-def _get_intent_and_confidence_impl(tweet):
     sys_prompt = "Classify into ONE: app_bug, account_login, billing_payment, feature_request, other. Return ONLY JSON: {\"intent\": \"...\", \"confidence\": 0.0}"
-    for attempt in range(2):
-        try:
-            resp = client.chat.completions.create(model=os.getenv("MODEL_NAME"), messages=[{"role": "system", "content": sys_prompt}, {"role": "user", "content": tweet}], response_format={"type": "json_object"}, temperature=0.0)
-            data = json.loads(resp.choices[0].message.content)
-            return data.get("intent", "other"), float(data.get("confidence", 0.5))
-        except Exception:
-            if attempt == 0: time.sleep(1)
-            else: return "other", 0.0
+    messages = [{"role": "system", "content": sys_prompt}, {"role": "user", "content": tweet}]
+    resp = router.chat_completion(messages, response_format={"type": "json_object"}, temperature=0.0)
+    data = json.loads(resp.choices[0].message.content)
+    return data.get("intent", "other"), float(data.get("confidence", 0.5))
 
 def get_llm_risk(tweet):
     sys_prompt = ("You are a risk assessor for customer support. Flag risk=true ONLY if the message indicates: "
                   "account compromise/hacking, fraud or unauthorized charges, legal threats, threats of violence or self-harm, "
                   "or severe abusive hostility. Do NOT flag ordinary frustration, bugs, billing questions, or sarcasm. "
                   "Return JSON only: {\"risk\": false, \"risk_type\": null} or {\"risk\": true, \"risk_type\": \"...\"}")
-    for attempt in range(2):
-        try:
-            resp = client.chat.completions.create(model=os.getenv("MODEL_NAME"), messages=[{"role": "system", "content": sys_prompt}, {"role": "user", "content": tweet}], response_format={"type": "json_object"}, temperature=0.0)
-            return bool(json.loads(resp.choices[0].message.content).get("risk", False))
-        except Exception:
-            if attempt == 0: time.sleep(1)
-            else: return False
+    messages = [{"role": "system", "content": sys_prompt}, {"role": "user", "content": tweet}]
+    resp = router.chat_completion(messages, response_format={"type": "json_object"}, temperature=0.0)
+    return bool(json.loads(resp.choices[0].message.content).get("risk", False))
 
 def keyword_flag(text):
     t = text.lower()
@@ -93,7 +68,7 @@ def main():
     df = pd.read_csv(ROOT / "eval" / "golden_set.csv").dropna(subset=['should_escalate'])
     df['should_escalate'] = df['should_escalate'].astype(str).str.lower().str.strip() == 'true'
     results = []
-    print(f"\nEvaluating Risk Engine v3 on {len(df)} tweets (2 LLM calls each)...")
+    print(f"\nEvaluating Risk Engine v3 on {len(df)} tweets (with Multi-Model Router)...")
     for i, row in df.iterrows():
         text = str(row['text'])
         safe_text = redact_pii(text)
@@ -104,7 +79,6 @@ def main():
         results.append({"text": text, "true_escalate": row['should_escalate'], "pred_escalate": escalate,
                         "intent": intent, "confidence": conf, "retrieval_score": ret_score,
                         "llm_risk": llm_risk, "reason": reason})
-        time.sleep(0.2)
 
     res_df = pd.DataFrame(results)
     auto = ~res_df['pred_escalate']
@@ -125,6 +99,7 @@ def main():
     print("\nEscalation reasons:")
     print(res_df['reason'].value_counts().to_string())
     res_df.to_csv(ROOT / "eval" / "risk_engine_results.csv", index=False)
+    print("Router model usage:", router.summary())
 
 if __name__ == "__main__":
     main()

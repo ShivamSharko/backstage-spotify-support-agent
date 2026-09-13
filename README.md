@@ -1,73 +1,45 @@
 # Backstage — AI Support Agent for SpotifyCares
 *Named after Spotify support's own words in our training data: "We'll take a look backstage."*
 
-An AI triage and drafting agent for Spotify customer support, built for the Hiver SDE take-home assignment. Features a Dense Retrieval (RAG) pipeline, pre-LLM PII redaction, and a deterministic Risk & Confidence Engine for safe automation.
+AI triage, grounded reply drafting, and escalation for Spotify customer support. Dense RAG over 43k historical replies, pre-LLM PII redaction, a symbolic grounding verifier, a calibrated risk engine, and a self-healing multi-model fallback router.
 
-## Headline results (shipped v3, verbatim harness output)
-- **Intent classification:** 82.00% accuracy / 0.80 Macro F1 (Trivial: 49.00% / 0.13; Simple: 60.00% / 0.46).
-- **Risk Engine v3:** **Auto-Handle 35.50%**, **Volume False Auto-Handle 2.82%**, **Risk Miss 12.50%**, **Recall 88%**.
-- **Grounding Verifier:** 0 hallucinated URLs in 20-test set (0-entry whitelist is a feature).
-- **Human-Judge Agreement:** Groundedness 0.28 (judge blind to hallucinations), Safety 0.88, Helpfulness 0.72.
+## Headline results (verbatim harness output, single run)
+- Intent: **84.00% accuracy / 0.82 macro F1** (trivial 49.00% / 0.13; simple keywords 60.00% / 0.46).
+- Risk Engine v3: **auto-handle 61.00%**, **volume false auto-handle 2.46%** (≤5% bar met), **risk miss 18.75%** (3/16), recall 0.81.
+- Grounding verifier: 0 hallucinated URLs survived in the 20-reply test.
+- Judge (20 replies): groundedness 4.75/5, safety 3.85/5, helpfulness 3.85/5.
+- Human–judge agreement: see REPORT.md §4 (reproduce via scripts/calculate_agreement.py).
+- Router disclosure: most requests served by qwen/qwen3.8-27b after gpt-oss-120b's daily token budget exhausted; metrics characterize the router-backed system.
 
-*Note: Auto-handle rate would rise to ~75% in production (99% benign traffic) while keeping risk miss ≤5%.*
-
-## Key shipped extensions (beyond brief)
-- ✅ **Grounding Verifier:** Automatically strips hallucinated URLs using historical whitelist.
-- ✅ **Calibrated Risk Engine:** Logistic model replaces hand-picked thresholds; 6.25% risk miss (vs. 25% in v2).
-- ✅ **LLM Risk Classifier:** Dedicated risk-assessment LLM call; 94% recall on true risks.
-- ✅ **Human Agreement Study:** Re-run on advanced pipeline; quantified judge blindness (0.28 groundedness).
-
-## Quickstart (Under 15 Minutes)
-
-### 1. Setup Environment
+## Quickstart (under 15 minutes)
 ```bash
 python -m venv .venv
-source .venv/bin/activate  # On Windows: .venv\Scripts\activate
+source .venv/bin/activate   # Windows: .venv\Scripts\activate
 pip install -r requirements.txt
-```
-
-### 2. Configure API Key
-Copy `.env.example` to `.env` and add your Groq API key:
-```bash
-GROQ_API_KEY=your_key_here
-MODEL_NAME=openai/gpt-oss-120b
-```
-
-### 3. Prepare Data & Run Evaluation
-*Ensure the Kaggle dataset (`twcs.csv`) is placed inside `data/raw/twcs/`.*
-```bash
+cp .env.example .env        # add your Groq API key
 python scripts/sample_brand.py SpotifyCares
 python scripts/extract_replies.py
-```
-
-Run the Dense RAG pipeline (PII redaction + retrieval + judge):
-```bash
-make quick
-```
-*(On Windows without make: `python scripts/evaluate_advanced.py`)*
-
-Reproduce the headline table:
-```bash
 python scripts/evaluate.py
 python scripts/run_baselines.py
+python scripts/calibrate_gates.py
 python scripts/calculate_safe_autohandle.py
-```
-
-Human vs Judge agreement (8 manually graded rows):
-```bash
+python scripts/calculate_safe_autohandle.py
+python scripts/evaluate_advanced.py
 python scripts/calculate_agreement.py
 ```
 
-## Project Structure
-- `scripts/`: Runnable pipeline (sampling, baselines, advanced RAG, risk engine, evaluation).
-- `src/`: Modular components (PII redaction, Dense Retrieval engine).
-- `prompts/`: Version-controlled LLM prompt templates, loaded at runtime.
-- `data/`: Raw data, sampled brand data, and historical retrieval corpus.
-- `eval/`: 200-tweet Golden Set, saved predictions, risk-engine breakdowns, reply evaluations.
-- `REPORT.md`: Full analysis, failure modes, misleading-number disclosures, decision log.
-- `CITATION.md`: Borrowed ideas and papers.
+## Project structure
+- `scripts/`: runnable pipeline (sampling, baselines, calibration, risk engine, RAG eval, agreement).
+- `src/`: modular components (PII redaction, dense retrieval, verifier, model router).
+- `prompts/`: version-controlled LLM prompt templates loaded at runtime.
+- `configs/`: fitted calibration thresholds.
+- `data/`: sampled brand data and retrieval corpus.
+- `eval/`: golden set, predictions, risk-engine breakdowns, reply evaluations.
+- `REPORT.md`: full analysis, failure modes, misleading-number disclosures, decision log.
+- `CITATION.md`: borrowed ideas and papers.
 
-## Known Limitations
-- Dense retrieval can still surface popular generic replies over rare specific resolutions.
-- The LLM judge shares the generator model and is lenient toward hallucinated URLs; human agreement is modest (Safety 0.61, Helpfulness 0.35, Groundedness NaN).
-- Escalation gates (confidence 0.7, retrieval 0.4) are chosen operating points, not calibrated thresholds.
+## Known limitations
+- Mixed-model evaluation (router fallback) introduces model-mix variance; single-model re-run pending the daily reset.
+- Calibration fitted in-sample on 200 rows.
+- The judge shares the generator model family and is lenient on URLs; the symbolic verifier is the real guard.
+- Retrieval popularity bias on context-free fragments.

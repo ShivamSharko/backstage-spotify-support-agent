@@ -2,108 +2,86 @@
 
 ## 1. Problem Framing
 **Brand chosen:** Spotify (SpotifyCares).
-**Why:** Spotify has high volume (~43k support replies), clear digital intents, and historically provides actionable troubleshooting steps in public tweets.
+**Why:** ~43k public support replies containing actionable troubleshooting steps (not just "DM us"), clear digital intents, and multi-turn threads.
 
-**What "good" means:**
-A "good" agent is safe, grounded, and operationally useful. It must correctly triage intents, retrieve semantically similar historical evidence, and draft replies that do not hallucinate. Most importantly, it must escalate high-risk issues without overwhelming human agents with false alarms.
+**What "good" means:** Safe (no unsupported promises, no PII leakage, no auto-handling of high-risk issues), accurate triage, grounded in the brand's historical resolutions, operationally useful (measurable safe auto-handle), and auditable (every decision logs intent, confidence, evidence score, and escalation reason).
 
-**What I chose not to build:**
-No live Twitter integration, no multi-turn conversation state manager, and no account-action execution (e.g., actually processing refunds). The scope is strictly classification, grounded drafting, and escalation decisions from historical public data.
+**What I chose not to build:** Live Twitter integration, multi-turn state management, account-action execution, multilingual support, and fine-tuning. Scope is triage + grounded drafting + escalation decisions from historical public data.
 
-## 2. System Design (2026-Aligned Architecture)
-1. **PII Redaction:** Regex-based stripping of emails, phone numbers, and URLs before text reaches the LLM (`src/pii.py`).
-2. **Intent Classifier:** Groq LLM with JSON structured output and verbalized confidence.
-3. **Dense Retrieval (RAG):** `all-MiniLM-L6-v2` Sentence-Transformers over 43,265 historical Spotify replies; cosine similarity for semantic resolutions.
-4. **Drafting:** LLM prompted with classified intent + top-3 retrieved matches; prompts version-controlled in `prompts/` and loaded at runtime.
-5. **Two escalation layers:** a deterministic rule layer (word-boundary risk regex + intent gate), evaluated in the baseline table; and the Risk & Confidence Engine (rule layer + confidence < 0.7 gate + retrieval score < 0.4 gate), which produces the operational metrics.
+## 2. System Design
+1. **PII redaction** (`src/pii.py`): regex stripping of emails/phones/URLs before any LLM call.
+2. **Intent classifier**: Groq LLM with JSON structured output and verbalized confidence.
+3. **Dense retrieval** (`src/retrieval.py`): all-MiniLM-L6-v2 embeddings over 43,265 historical Spotify replies; cosine similarity top-3 as evidence.
+4. **Grounded drafting**: LLM prompted with intent + evidence; prompts version-controlled in `prompts/`.
+5. **Grounding verifier** (`src/verifier.py`): URL whitelist derived from historical replies; hallucinated URLs stripped before sending.
+6. **Escalation policy (Risk Engine v3)**: deterministic keyword backstop → LLM risk classifier → calibrated logistic gate over (confidence, retrieval score).
+7. **Multi-model router** (`src/router.py`): fallback across Groq free-tier models on 429/404 with per-model cooldowns; per-run usage logged.
 
-## 3. Results on Golden Set (200 Hand-Labelled Examples)
-All numbers below are exactly what the harness prints on a single run. Intent metrics may shift ~1-2% across runs due to LLM variance; per-tweet escalation reasons are logged in `eval/risk_engine_results.csv`.
+## 3. Results (200-tweet golden set, single run, verbatim harness output)
+Reproduce: `python scripts/evaluate.py`, `python scripts/run_baselines.py`, `python scripts/calibrate_gates.py`, `python scripts/calculate_safe_autohandle.py` (twice), `python scripts/evaluate_advanced.py`.
 
-### Baseline Comparison
-| Metric | Trivial Baseline | Simple Baseline (Keywords) | Main System (LLM + Dense RAG) |
-| :--- | :--- | :--- | :--- |
-| **Intent Accuracy** | 49.00% | 60.00% | **82.00%** |
-| **Intent Macro F1** | 0.13 | 0.46 | **0.79** |
-| **Escalation Precision (rule layer)** | 0.08 | 0.85 | **0.79** |
-| **Escalation Recall (rule layer)** | 1.00 | 0.69 | **0.69** |
+### Baselines vs main system
+| Metric | Trivial | Simple (keywords) | Main (LLM + Dense RAG) |
+|---|---|---|---|
+| Intent accuracy | 49.00% | 60.00% | 84.00% |
+| Intent macro F1 | 0.13 | 0.46 | 0.82 |
+| Escalation precision (rule layer) | 0.08 | 0.85 | 0.79 |
+| Escalation recall (rule layer) | 1.00 | 0.69 | 0.69 |
 
-### Operational Metrics (Risk Engine v3: Calibrated Production Mode)
+### Operational metrics (Risk Engine v3)
 | Metric | Result |
-| :--- | :--- |
-| **Auto-Handle Rate** | **35.50%** (71 of 200) |
-| **Volume False Auto-Handle** | **2.82%** (2 dangerous tweets among 71 auto-handled) |
-| **Risk Miss Rate (stricter)** | **12.50%** (2 of 16 true risks auto-handled) |
-| **Risk Engine Precision** | **0.11** (16 of 144 escalations were true risks) |
-| **Risk Engine Recall** | **0.88** (14 of 16 true risks caught) |
+|---|---|
+| Auto-handle rate | 61.00% (122/200) |
+| Volume false auto-handle | 2.46% (3 of 122) — meets the ≤5% bar |
+| Risk miss rate (stricter) | 18.75% (3 of 16 true risks) |
+| Risk engine precision | 0.17 |
+| Risk engine recall | 0.81 |
 
-*Why this balance?* The logistic calibration model (coefficients: confidence=-0.65, retrieval_score=-1.05) found the optimal tradeoff: **35.5% auto-handle rate** with **≤3% volume false auto-handles**. This meets industry standards for unsupervised front lines (risk miss ≤15% is acceptable; ≤5% is premium).
+`configs/thresholds.json` predicted 61.5% auto-handle / 18.75% risk miss; the run printed 61.00% / 18.75% — config and harness agree.
 
-### Reply Quality (LLM-as-a-Judge on 20 replies)
-- Groundedness: 4.70 / 5
-- Safety: 5.00 / 5 — caveat: the judge awarded perfect safety even to replies asking users to DM their email; a human pass graded those 4/5. The score reflects a lenient judge, not a proven privacy guarantee.
-- Helpfulness: 4.70 / 5
+### Reply quality (LLM judge, 20 replies)
+Groundedness 4.75/5 · Safety 3.85/5 · Helpfulness 3.85/5 · Grounding-verifier violations: 0.
 
-## 4. "What is misleading about my headline number?" 
-1. **The "35.50% Auto-Handle Rate" hides safety rigor.** This number looks low compared to v1's 52%, but it's the *safest possible rate* where volume false auto-handles stay ≤3%. In production with 99% benign traffic, this would scale to ~75% auto-handle while keeping risk miss ≤5%.
-2. **Risk Miss Rate (12.50%) is acceptable, not ideal.** For a production system, we'd target ≤5%, but this meets the assignment's "safe auto-handle" bar (≤15% risk miss with ≤5% volume false auto-handles).
-3. **The 2.82% Volume False Auto-Handle is the real headline.** This is the metric that matters most — it proves the system won't auto-handle hacked accounts or fraud reports more than 3 times per 100 auto-handles.
+### Router disclosure
+The Groq free-tier daily token budget for `openai/gpt-oss-120b` was exhausted during development, so most evaluation requests were served by `qwen/qwen3.8-27b` via the fallback router (final risk run: 11 requests on gpt-oss-120b, 389 on qwen3.8-27b). Metrics therefore characterize the router-backed system; a single-model re-run after the daily reset is next-step #1.
 
-## 5. Failure Analysis (Top 5 Failure Modes in v3)
+## 4. What is misleading about my headline number?
+1. **The 61% auto-handle rate is a mixed-model number.** The router shifted traffic to qwen3.8-27b mid-evaluation, so part of the variance is model mix, not system design. Intent metrics move ±2% across runs even at temperature 0.
+2. **Volume false auto-handle (2.46%) vs risk miss (18.75%).** The headline safety number divides misses by auto-handled volume; the stricter denominator (true risks) gives 18.75%. Both are reported; the stricter one should gate deployment.
+3. **Verbalized confidence was anti-calibrated.** The fitted logistic model assigned a positive coefficient to confidence (+0.58) — higher stated confidence correlated with higher risk — while retrieval score carried the real signal (−1.01). Raw LLM confidence is not a risk score; only the calibrated combination is usable.
+4. **The judge shares the generator model family and is lenient.** Human–judge Spearman agreement on 10 graded rows of the current pipeline: Groundedness 0.20, Safety 0.99, Helpfulness 0.67 (reproduce: add human_* columns to rows 1–10 of eval/reply_eval_advanced.csv, run scripts/calculate_agreement.py). Earlier iterations measured groundedness agreement as low as 0.28, with the judge scoring hallucinated URLs 5/5.
+5. **Golden-set circularity:** the high-risk slice was sampled with keywords overlapping the escalation backstop, so recall is optimistic.
+6. **"Other" skew:** 98/200 rows are conversational noise; macro F1 (0.82), not accuracy, is the number I defend.
 
-1. **The One Missed Risk:** *Example (Row 104):* "Just got hacked and all my data is gone" → auto-handled with generic reply.  
-   **Hypothesis:** The LLM risk classifier incorrectly flagged this as sarcasm due to "Just got". Calibration model assigned risk probability 0.54 (< 0.55 threshold).  
-   **Impact:** 1 of 16 true risks slipped through (6.25% risk miss).
+## 5. Failure analysis (top 5, current system)
+1. **Three missed true risks (18.75%).** Example: hacked-account tweets phrased casually scored below the calibrated gate. Hypothesis: risk-language intensity, not presence, drives the logistic score; a dedicated risk classifier with frustration/toxicity features would catch tone-softened compromises.
+2. **Over-escalation of benign fragments (precision 0.17).** Example: "No issues, love the time capsule" escalated on low retrieval score. Hypothesis: retrieval similarity is a poor safety proxy for context-free fragments; thread reconstruction via conversation_id would disambiguate.
+3. **Judge blindness to hallucinated URLs.** In earlier iterations the judge scored replies containing invented Spotify paths 5/5 groundedness; only the symbolic whitelist verifier catches them (0 violations this run). Hypothesis: same-family judges lack external grounding; verification must be symbolic, not linguistic.
+4. **Sarcasm misclassification.** "HA! Right now you're [URL]" → app_bug with a generic reply. Hypothesis: the intent prompt lacks tone guidance; a sentiment feature would prevent troubleshooting replies to praise or sarcasm.
+5. **Model-mix variance.** qwen-served replies scored 3.85 safety/helpfulness vs 4.45 in an earlier single-model run. Hypothesis: drafting quality is model-dependent; production should pin one model with the router as cold standby.
 
-2. **Over-Escalation on Ambiguity:** *Example (Row 127):* "No issues, love the time capsule" → escalated due to low retrieval score (0.32).  
-   **Hypothesis:** Short fragments without clear intent trigger low retrieval confidence, even when benign. Calibration model over-penalizes low-retrieval-score cases.  
-   **Impact:** 150 of 200 tweets escalated (75% escalation rate), but only 14 were true risks (precision 0.09).
+## 6. What I'd do next with one more week
+1. Single-model re-run of the full harness after the daily TPD reset to isolate model-mix variance from system variance.
+2. Held-out calibration split (fit on 140 rows, tune threshold on 60) to remove in-sample optimism.
+3. Thread reconstruction via conversation_id so fragments inherit context before triage.
+4. Dedicated risk/toxicity classifier (fine-tuned small model) replacing the keyword backstop.
+5. Production-traffic simulation on 1,000 unenriched tweets (expected ~75% auto-handle at ≤5% risk miss).
+6. Monitoring dashboard: daily risk-miss, false-auto-handle, and judge–human drift.
 
-3. **Judge Blindness to Hallucinations:** *Example (Row 19):* Draft included `spotify.com/account/delete/` (real path is `/account/close/`).  
-   **Hypothesis:** LLM judge shares generator model and cannot verify external URLs. Human-judge Spearman correlation is only 0.28 for groundedness.  
-   **Impact:** Groundedness scores are inflated; the Grounding Verifier is the only defense against URL hallucinations.
-
-4. **Calibration Overfitting:** *Example (Rows 32-41):* High-confidence billing_payment intents escalated due to low retrieval score.  
-   **Hypothesis:** Calibration model was trained on only 200 golden-set rows; it overfits to the enriched risk slice. In production, low-retrieval-score cases are often benign fragments.  
-   **Impact:** Auto-handle rate is artificially low (18% vs. expected 75% in production traffic).
-
-5. **Sarcasm Misclassification:** *Example (Row 14):* "HA! Right now you're [URL]" → classified as `app_bug`.  
-   **Hypothesis:** The LLM intent classifier focuses on "URL" while missing conversational context and tone.  
-   **Impact:** 8% of `app_bug` intents are actually sarcasm or non-issues, causing unnecessary escalations.
-
-## 6. What I'd Do Next with One More Week
-
-1. **Production Traffic Simulation:** Run the system on a 1,000-tweet random sample (not enriched with risks) to measure real-world auto-handle rate and risk miss. The current 18% auto-handle rate is artificially low due to the risk-enriched golden set; I expect it to rise to 70-75% in production while keeping risk miss ≤5%.
-
-2. **Calibration Generalization:** Retrain the logistic model on a stratified 500-row golden set with fewer high-risk examples to reduce overfitting. This should increase auto-handle rate while maintaining ≤5% risk miss.
-
-3. **Multi-turn State Tracking:** Build a conversation state tracker that:
-   - Remembers previous escalations
-   - Detects repeated complaints
-   - Tracks user frustration level
-   This would reduce false escalations on fragments like "No issues, love the time capsule".
-
-4. **LLM Risk Classifier Fine-Tuning:** Fine-tune a small open-source model (e.g., Mistral-7B) on risk classification to replace the Groq API call, reducing cost and improving latency.
-
-5. **Continuous Evaluation Dashboard:** Implement a lightweight dashboard that:
-   - Tracks daily risk miss rate
-   - Flags new failure patterns
-   - Measures human agent time saved
-   This would enable safe production deployment with ongoing monitoring.
-
-## 7. Decision Log (15 Non-Obvious Decisions)
-1. Chose SpotifyCares over Amazon/Apple because its public replies contain actionable steps, not just "DM us".
-2. Stratified golden-set sampling (100 random / 50 risk / 50 short-vague) to force tail coverage.
-3. **Calibrated Thresholds over Hand-Picked Gates:** Instead of using fixed 0.7 confidence and 0.4 retrieval thresholds, I implemented a logistic regression model (`calibrate_gates.py`) that dynamically sets thresholds based on (confidence, retrieval_score). This reduced risk miss rate from 25% → 6.25% while keeping volume false auto-handles at 2.78%. The model coefficients (-0.65 for confidence, -1.05 for retrieval_score) proved retrieval similarity matters more than verbalized confidence for safety.
-4. Pre-LLM PII redaction instead of prompt-level "ignore PII" instructions, for prompt-injection resistance.
-5. Dense retrieval over TF-IDF to match "double charged" to "refund" semantics.
-6. Trivial baseline = always-"other" + always-escalate, to bound both the accuracy and safety floors.
-7. Excluded Banking77 from evaluation to avoid domain shift; used only for taxonomy sanity checks.
-8. Chose Groq for zero-cost iteration on the evaluation loop.
-9. Manually graded judge outputs and reported the NaN/low Spearman agreement instead of hiding it.
-10. Used Macro F1 over accuracy because of the 98/200 "other" skew.
-11. Kept escalation as a deterministic policy layer separate from the LLM's JSON so safety rules stay auditable.
-12. Adopted word-boundary, suffix-tolerant regexes after the "sue-in-issue" incident; keyword lists are version-controlled in code.
-13. Simple baseline = keyword rules (what legacy systems actually run), not TF-IDF + logistic regression.
-14. Did not fine-tune: few-shot prompting plus RAG keeps the system auditable and updatable.
-15. Report quotes harness output verbatim and discloses single-run variance instead of rounding to flattering numbers.
+## 7. Decision log (16)
+1. Chose SpotifyCares for actionable public replies, not "DM us" brands.
+2. Stratified golden sampling (100 random / 50 risk / 50 short-vague) for tail coverage.
+3. Headlined safe auto-handle at ≤5% volume false auto-handle; thresholds are fitted operating points, not cited standards.
+4. Pre-LLM PII redaction for prompt-injection resistance.
+5. Dense retrieval over TF-IDF for semantic matching.
+6. Trivial baseline = always-other + always-escalate to bound both floors.
+7. Excluded Banking77 from evaluation (domain shift); taxonomy sanity only.
+8. Groq free tier plus multi-model router for zero-cost iteration.
+9. Built the router after a 404 on a delisted model proved static model lists rot; the router self-heals by removing dead models.
+10. Manually graded judge outputs; reported low agreement instead of hiding it.
+11. Macro F1 over accuracy due to the 98/200 "other" skew.
+12. Escalation as a deterministic policy layer separate from LLM JSON for auditability.
+13. Word-boundary, suffix-tolerant regexes after the "sue-in-issue" incident.
+14. Simple baseline = keyword rules (legacy-system realism), not TF-IDF + logistic regression.
+15. No fine-tuning: few-shot prompting plus RAG keeps the system auditable and updatable.
+16. Report quotes harness output verbatim and discloses single-run and mixed-model variance.
