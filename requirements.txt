@@ -6,4 +6,4 @@ groq
 sentence-transformers
 torch
 pytest
-httpx
+httpx\nhttpx\n

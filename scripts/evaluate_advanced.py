@@ -43,7 +43,7 @@ def main():
     retriever = DenseRetriever(str(ROOT / "data" / "retrieval" / "spotify_replies.csv"))
     replies_df = pd.read_csv(ROOT / "data" / "retrieval" / "spotify_replies.csv")
     whitelist = build_url_whitelist(replies_df['text'].fillna("").tolist())
-    print(f"URL whitelist built: {len(whitelist)} entries")
+    print(f"URL whitelist built: {len(whitelist['paths']) + len(whitelist['bare_hosts'])} entries")
 
     golden = pd.read_csv(ROOT / "eval" / "golden_set.csv").head(20)
     results = []
@@ -66,7 +66,13 @@ def main():
         print(f"[{i+1}/{len(golden)}] verifier_violations={len(check['violations'])}")
 
     out_df = pd.DataFrame(results)
-    out_df.to_csv(ROOT / "eval" / "reply_eval_advanced.csv", index=False)
+    eval_path = ROOT / "eval" / "reply_eval_advanced.csv"
+    if eval_path.exists():
+        existing = pd.read_csv(eval_path)
+        human_cols = [c for c in existing.columns if c.startswith("human_")]
+        if human_cols and "tweet" in existing.columns:
+            out_df = out_df.merge(existing[["tweet"] + human_cols], on="tweet", how="left")
+    out_df.to_csv(eval_path, index=False)
     print("\nADVANCED PIPELINE RESULTS (with Grounding Verifier)")
     print(f"Verifier violations caught & stripped: {int(out_df['verifier_violations'].sum())}")
     print(f"Average Groundedness: {out_df['judge_groundedness'].mean():.2f} / 5")

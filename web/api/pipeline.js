@@ -52,7 +52,7 @@ module.exports = async function handler(req, res) {
   const safe = redact(tweet);
   const reasons = [];
   if (RE.risk.test(safe)) reasons.push("high-risk keyword (deterministic backstop)");
-  if (/cancel/i.test(safe) && /(can't|cannot|unable|won't)/i.test(safe)) reasons.push("cancellation dead-end");
+  if (/cancel/i.test(safe) && /\b(?:can't|cannot|cant|unable|won't|wont)\b/i.test(safe)) reasons.push("cancellation dead-end");
 
   const [intentCall, riskCall] = await Promise.all([
     groq(key, [

@@ -17,11 +17,15 @@ def main():
     # 2. High Risk 50 tweets (fraud, legal, angry, refunds)
     risk_keywords = ['hack', 'stolen', 'fraud', 'lawyer', 'sue', 'refund', 'cancel', 'scam', 'unauthorized', 'angry']
     risk_mask = customers['text'].str.lower().str.contains('|'.join(risk_keywords), na=False)
-    risk_sample = customers[risk_mask & ~customers['tweet_id'].isin(random_sample['tweet_id'])].sample(min(50, risk_mask.sum()), random_state=42)
+    available_risk = customers[risk_mask & ~customers['tweet_id'].isin(random_sample['tweet_id'])]
+    risk_sample_size = min(50, len(available_risk))
+    risk_sample = available_risk.sample(n=risk_sample_size, random_state=42)
     
     # 3. Hard/Short 50 tweets (vague, short, confusing)
-    short_mask = customers['text'].str.len() < 30
-    short_sample = customers[short_mask & ~customers['tweet_id'].isin(random_sample['tweet_id']) & ~customers['tweet_id'].isin(risk_sample['tweet_id'])].sample(min(50, short_mask.sum()), random_state=42)
+    short_vague_mask = customers['text'].str.len() < 40
+    available_short = customers[short_vague_mask & ~customers['tweet_id'].isin(random_sample['tweet_id']) & ~customers['tweet_id'].isin(risk_sample['tweet_id'])]
+    short_sample_size = min(50, len(available_short))
+    short_sample = available_short.sample(n=short_sample_size, random_state=42)
     
     # Combine them
     golden_set = pd.concat([random_sample, risk_sample, short_sample])
