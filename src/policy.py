@@ -1,6 +1,6 @@
 import re
 
-RISK_RE = re.compile(r'\b(?:hack\w*|stol\w*|steal\w*|fraud\w*|lawyer\w*|legal\w*|sue\w*|suing|unauthoriz\w*|compromis\w*|phish\w*|scam\w*|threat\w*)\b')
+RISK_RE = re.compile(r'\b(?:hack\w*|stol\w*|steal\w*|fraud\w*|lawyer\w*|legal\w*|sue\w*|unauthoriz\w*|compromis\w*|phish\w*|scam\w*|threat\w*)\b')
 PROFANITY_RE = re.compile(r'\b(?:fuck|shit|bitch|kill)\w*\b')
 DEAD_END_WORDS = ["can't", "cannot", "unable", "won't"]
 

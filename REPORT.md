@@ -43,12 +43,14 @@ Reproduce: `python scripts/evaluate.py`, `python scripts/run_baselines.py`, `pyt
 
 ### Reply quality (LLM judge, 20 replies)
 Groundedness 4.75/5 · Safety 3.85/5 · Helpfulness 3.85/5 · Grounding-verifier violations: 0.
-Calibration and operating-point artifacts: `eval/calibration_report.csv` (reliability buckets + ECE) and `eval/operating_curve.csv` (selective-prediction curve over risk thresholds). Retrieval-leakage audit: `scripts/leakage_audit.py`.
+Calibration and operating-point artifacts: `eval/calibration_report.csv` (reliability buckets) + `eval/calibration_report.json` (ECE value) and `eval/operating_curve.csv` (selective-prediction curve over risk thresholds). Retrieval-leakage audit: `scripts/leakage_audit.py` (finding disclosed in §4).
 
 ### Router disclosure
 The Groq free-tier daily token budget for `openai/gpt-oss-120b` was exhausted during development, so most evaluation requests were served by `qwen/qwen3.8-27b` via the fallback router (final risk run: 11 requests on gpt-oss-120b, 389 on qwen3.8-27b). Metrics therefore characterize the router-backed system; a single-model re-run after the daily reset is next-step #1. The intent-evaluation run was served 13 requests by openai/gpt-oss-120b and 187 by qwen/qwen3.8-27b.
 
 **Operating Point Phase Transition:** The selective-prediction curve (`eval/operating_curve.csv`) reveals a sharp mathematical cliff at threshold 0.50. At $\le 0.45$, the system auto-handles 0% of tickets (useless). At $\ge 0.55$, auto-handle jumps to 92.5%, but the risk miss rate nearly doubles to 31.25% (unsafe). Threshold 0.50 is the exact knife-edge that yields 61% auto-handle at an 18.75% miss rate, proving the threshold is a structural property of the data, not an arbitrary hyperparameter.
+
+**Reproduction artifacts:** The golden set, intent predictions, risk engine results, operating curve, calibration report (with ECE), and reply evaluations are all committed in `eval/`. The retrieval corpus (`data/retrieval/spotify_replies.csv`, 6.5MB) and sampled brand data (`data/sampled/spotifycares.csv`, 14MB) are also committed so evaluators can reproduce every headline number from a clean clone without downloading the full Kaggle dataset.
 
 ## 4. What is misleading about my headline number?
 1. **The 61% auto-handle rate is a mixed-model number.** The router shifted traffic to qwen3.8-27b mid-evaluation, so part of the variance is model mix, not system design. Intent metrics move ±2% across runs even at temperature 0.
