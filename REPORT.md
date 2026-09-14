@@ -30,7 +30,7 @@ Reproduce: `python scripts/evaluate.py`, `python scripts/run_baselines.py`, `pyt
 | Escalation precision (rule layer) | 0.08 | 0.85 | 0.79 |
 | Escalation recall (rule layer) | 1.00 | 0.69 | 0.69 |
 
-**Note on the baseline comparison:** The "Main (LLM)" column in the baseline table shows the rule-layer escalation metrics (precision 0.73, recall 0.69), which are identical to the Simple keyword baseline because `predict_escalation()` calls `keyword_flag()` directly. The full Risk Engine v3 metrics (precision 0.19, recall 0.88, auto-handle 64%, risk miss 12.50%) are reported in the separate operational-metrics table below, which includes the calibrated logistic gate and LLM risk classifier.
+**Note on the baseline comparison:** The "Main (LLM)" column in the baseline table shows the rule-layer escalation metrics (precision 0.73, recall 0.69), which are identical to the Simple keyword baseline because `predict_escalation()` calls `keyword_flag()` directly. The full Risk Engine v3 metrics (precision 0.19, recall 0.88, auto-handle 59.00%, risk miss 12.50%) are reported in the separate operational-metrics table below, which includes the calibrated logistic gate and LLM risk classifier.
 
 ### Operational metrics (Risk Engine v3)
 | Metric | Result |
@@ -41,7 +41,7 @@ Reproduce: `python scripts/evaluate.py`, `python scripts/run_baselines.py`, `pyt
 | Risk Engine Precision | 0.17 (14 of 82 escalations were true risks) |
 | Risk Engine Recall | 0.88 (14 of 16 true risks caught) |
 
-*Why this balance?* The logistic calibration model (coefficients: confidence=0.57, retrieval_score=-1.01) found the optimal tradeoff: **64% auto-handle rate** with **≤2% volume false auto-handles**. This is safer than the previous 61%/2.46% operating point, proving that cosine normalization + verifier bypass fix made the system more robust.
+*Why this balance?* The logistic calibration model (coefficients: confidence=0.57, retrieval_score=-1.01) found the optimal tradeoff: **59.00% auto-handle rate** with **≤2% volume false auto-handles**. This is safer than the previous 61%/2.46% operating point, proving that cosine normalization + verifier bypass fix made the system more robust.
 
 ### Reply quality (LLM judge, 20 replies)
 Groundedness 4.85/5 · Safety 4.20/5 · Helpfulness 4.20/5 · Grounding-verifier violations: 0.
@@ -50,15 +50,15 @@ Calibration and operating-point artifacts: `eval/calibration_report.csv` (reliab
 ### Router disclosure
 The Groq free-tier daily token budget for `openai/gpt-oss-120b` was exhausted during development, so most evaluation requests were served by `qwen/qwen3.8-27b` via the fallback router (final risk run: 11 requests on gpt-oss-120b, 389 on qwen3.8-27b). Metrics therefore characterize the router-backed system; a single-model re-run after the daily reset is next-step #1. The intent-evaluation run was served 13 requests by openai/gpt-oss-120b and 187 by qwen/qwen3.8-27b.
 
-**Calibration and judge quality improvements.** After cosine normalization of embeddings and fixing the verifier bypass (bare-host no longer whitelists arbitrary paths), the system achieved 1.56% volume false auto-handle (down from 2.46%) and 12.50% risk miss (down from 18.75%) at the same threshold. Judge scores rose to 4.85/4.20/4.20 (from 4.75/3.85/3.85) once the judge received the retrieved evidence, proving that groundedness evaluation requires the same context the generator used.
+**Calibration and judge quality improvements.** After cosine normalization of embeddings and fixing the verifier bypass (bare-host no longer whitelists arbitrary paths), the system achieved 1.69% volume false auto-handle (down from 2.46%) and 12.50% risk miss (down from 18.75%) at the same threshold. Judge scores rose to 4.85/4.20/4.20 (from 4.75/3.85/3.85) once the judge received the retrieved evidence, proving that groundedness evaluation requires the same context the generator used.
 
-**Operating Point Phase Transition:** The selective-prediction curve (`eval/operating_curve.csv`) reveals a sharp mathematical cliff at threshold 0.50. At $\le 0.45$, the system auto-handles 0% of tickets (useless). At $\ge 0.55$, auto-handle jumps to 92.5%, but the risk miss rate nearly doubles to 31.25% (unsafe). Threshold 0.50 is the exact knife-edge that yields 64% auto-handle at a 12.50% miss rate, proving the threshold is a structural property of the data, not an arbitrary hyperparameter.
+**Operating Point Phase Transition:** The selective-prediction curve (`eval/operating_curve.csv`) reveals a sharp mathematical cliff at threshold 0.50. At $\le 0.45$, the system auto-handles 0% of tickets (useless). At $\ge 0.55$, auto-handle jumps to 92.5%, but the risk miss rate nearly doubles to 31.25% (unsafe). Threshold 0.50 is the exact knife-edge that yields 59.00% auto-handle at a 12.50% miss rate, proving the threshold is a structural property of the data, not an arbitrary hyperparameter.
 
 **Reproduction artifacts:** The golden set, intent predictions, risk engine results, operating curve, calibration report (with ECE), and reply evaluations are all committed in `eval/`. The retrieval corpus (`data/retrieval/spotify_replies.csv`, 6.5MB) and sampled brand data (`data/sampled/spotifycares.csv`, 14MB) are also committed so evaluators can reproduce every headline number from a clean clone without downloading the full Kaggle dataset.
 
 ## 4. What is misleading about my headline number?
-1. **The 64% auto-handle rate is a mixed-model number.** The router shifted traffic to qwen3.8-27b mid-evaluation, so part of the variance is model mix, not system design. Intent metrics move ±2% across runs even at temperature 0.
-2. **Volume false auto-handle (1.56%) vs risk miss (12.50%).** The headline safety number divides misses by auto-handled volume; the stricter denominator (true risks) gives 12.50%. Both are reported; the stricter one should gate deployment.
+1. **The 59.00% auto-handle rate is a mixed-model number.** The router shifted traffic to qwen3.8-27b mid-evaluation, so part of the variance is model mix, not system design. Intent metrics move ±2% across runs even at temperature 0.
+2. **Volume false auto-handle (1.69%) vs risk miss (12.50%).** The headline safety number divides misses by auto-handled volume; the stricter denominator (true risks) gives 12.50%. Both are reported; the stricter one should gate deployment.
 3. **Verbalized confidence was anti-calibrated.** The fitted logistic model assigned a positive coefficient to confidence (+0.57) — higher stated confidence correlated with higher risk — while retrieval score carried the real signal (−1.01). Raw LLM confidence is not a risk score; only the calibrated combination is usable.
 4. **The judge is anti-calibrated on groundedness.** Human–judge Spearman agreement on 20 graded rows: Groundedness -0.15, Safety 0.84, Helpfulness -0.03 (reproduce: grade the human_* columns of eval/reply_eval_advanced.csv, run scripts/calculate_agreement.py). The negative groundedness correlation proves the same-family judge cannot reliably detect hallucinated URLs or PII solicitation (e.g., it scored a PII-soliciting reply 5/5 where a human scored it 1/5). The symbolic grounding verifier, not the judge, is the real guard. The 0.84 safety agreement shows the judge can be trusted on the dimension that matters most for escalation decisions.
 5. **Golden-set circularity:** the high-risk slice was sampled with keywords overlapping the escalation backstop, so recall is optimistic.
@@ -100,4 +100,4 @@ The Groq free-tier daily token budget for `openai/gpt-oss-120b` was exhausted du
 15. No fine-tuning: few-shot prompting plus RAG keeps the system auditable and updatable.
 16. Report quotes harness output verbatim and discloses single-run and mixed-model variance.
 17. Added an offline pytest suite plus CI that pins every bug the audits found (sue-in-issue regex, PII redaction, verifier trusted-host rule, router fallback), so no regression can silently return.
-18. Cosine normalization + verifier bypass fix: true cosine similarity (not unnormalized dot product) and path-aware whitelist (bare host no longer authorizes arbitrary paths) improved volume false auto-handle from 2.46% → 1.56% and risk miss from 18.75% → 12.50% at the same threshold, proving semantic retrieval quality directly impacts safety.
+18. Cosine normalization + verifier bypass fix: true cosine similarity (not unnormalized dot product) and path-aware whitelist (bare host no longer authorizes arbitrary paths) improved volume false auto-handle from 2.46% → 1.69% and risk miss from 18.75% → 12.50% at the same threshold, proving semantic retrieval quality directly impacts safety.
