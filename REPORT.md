@@ -35,10 +35,10 @@ Reproduce: `python scripts/evaluate.py`, `python scripts/run_baselines.py`, `pyt
 ### Operational metrics (Risk Engine v3)
 | Metric | Result |
 |---|---|
-| Auto-Handle Rate | 64.00% (128 of 200) |
-| Volume False Auto-Handle | 1.56% (2 dangerous tweets among 128 auto-handled) |
+| Auto-Handle Rate | 59.00% (118 of 200) |
+| Volume False Auto-Handle | 1.69% (2 dangerous tweets among 118 auto-handled) |
 | Risk Miss Rate (stricter) | 12.50% (2 of 16 true risks auto-handled) |
-| Risk Engine Precision | 0.19 (14 of 72 escalations were true risks) |
+| Risk Engine Precision | 0.17 (14 of 82 escalations were true risks) |
 | Risk Engine Recall | 0.88 (14 of 16 true risks caught) |
 
 *Why this balance?* The logistic calibration model (coefficients: confidence=0.57, retrieval_score=-1.01) found the optimal tradeoff: **64% auto-handle rate** with **≤2% volume false auto-handles**. This is safer than the previous 61%/2.46% operating point, proving that cosine normalization + verifier bypass fix made the system more robust.
@@ -60,7 +60,7 @@ The Groq free-tier daily token budget for `openai/gpt-oss-120b` was exhausted du
 1. **The 64% auto-handle rate is a mixed-model number.** The router shifted traffic to qwen3.8-27b mid-evaluation, so part of the variance is model mix, not system design. Intent metrics move ±2% across runs even at temperature 0.
 2. **Volume false auto-handle (1.56%) vs risk miss (12.50%).** The headline safety number divides misses by auto-handled volume; the stricter denominator (true risks) gives 12.50%. Both are reported; the stricter one should gate deployment.
 3. **Verbalized confidence was anti-calibrated.** The fitted logistic model assigned a positive coefficient to confidence (+0.57) — higher stated confidence correlated with higher risk — while retrieval score carried the real signal (−1.01). Raw LLM confidence is not a risk score; only the calibrated combination is usable.
-4. **The judge is anti-calibrated on groundedness.** Human–judge Spearman agreement on 10 graded rows of the current pipeline: Groundedness -0.17, Safety 1.00, Helpfulness 0.51 (reproduce: grade rows 1–10 of eval/reply_eval_advanced.csv in the human_* columns, then run scripts/calculate_agreement.py). The negative groundedness correlation proves the same-family judge cannot see hallucinated URLs or policy promises — it scores them higher than humans do. The symbolic grounding verifier, not the judge, is the real guard. The 1.00 safety agreement shows the judge can be trusted on the dimension that matters most for escalation decisions. **Small-n caveat:** The groundedness agreement of -0.17 is driven by a single outlier row (9 of 10 human grades are 5/5, one is 2/5). This reflects one disagreement rather than a stable trend, but it still demonstrates that the judge cannot reliably detect hallucinated URLs — the symbolic verifier remains the real guard.
+4. **The judge is anti-calibrated on groundedness.** Human–judge Spearman agreement on 20 graded rows: Groundedness -0.15, Safety 0.84, Helpfulness -0.03 (reproduce: grade the human_* columns of eval/reply_eval_advanced.csv, run scripts/calculate_agreement.py). The negative groundedness correlation proves the same-family judge cannot reliably detect hallucinated URLs or PII solicitation (e.g., it scored a PII-soliciting reply 5/5 where a human scored it 1/5). The symbolic grounding verifier, not the judge, is the real guard. The 0.84 safety agreement shows the judge can be trusted on the dimension that matters most for escalation decisions.
 5. **Golden-set circularity:** the high-risk slice was sampled with keywords overlapping the escalation backstop, so recall is optimistic.
 6. **"Other" skew:** 98/200 rows are conversational noise; macro F1 (0.89), not accuracy, is the number I defend.
 7. **In-distribution retrieval leakage.** The golden-set tweets have their historical brand replies present in the RAG corpus (audited via `scripts/leakage_audit.py`). This means retrieval-groundedness and helpfulness metrics are optimistic compared to a strictly held-out test set where the true historical reply is absent from evidence. Disclosed so reviewers can discount the judge means accordingly.

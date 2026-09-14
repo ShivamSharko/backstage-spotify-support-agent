@@ -6,10 +6,10 @@ AI triage, grounded reply drafting, and escalation for Spotify customer support.
 ## Headline results (verbatim harness output, single run)
 **Live demo:** https://backstage-spotify-support-agent.vercel.app/ — serverless proxy runs the intent/risk/draft prompts with lexical evidence and a simplified policy; headline numbers come from the offline dense-retrieval pipeline.
 - **Intent classification:** 83.00% accuracy / 0.81 Macro F1 (Trivial: 49.00% / 0.13; Simple: 60.00% / 0.46). Intent accuracy is within ±2% of prior runs due to model-mix variance across the router-backed pipeline.
-- **Risk Engine v3:** **Auto-Handle 64.00%**, **Volume False Auto-Handle 1.56%**, **Risk Miss 12.50%**, **Recall 88%**.
+- **Risk Engine v3:** Auto-Handle 59.00%, Volume False Auto-Handle 1.69%, Risk Miss 12.50%, Recall 88%.
 - **Calibration ECE:** 0.073 (10-bin Expected Calibration Error on verbalized confidence).
 - **Judge scores:** Groundedness 4.85/5, Safety 4.20/5, Helpfulness 4.20/5.
-- **Human-Judge Agreement:** Groundedness -0.17 (judge is anti-correlated with humans on hallucinations), Safety 1.00 (perfect), Helpfulness 0.51.
+- **Human-Judge Agreement (20 graded rows):** Groundedness -0.15 (judge is anti-correlated with humans, proving the symbolic verifier is necessary), Safety 0.84, Helpfulness -0.03.
 - **Grounding Verifier:** 0 hallucinated URLs in 20-test set.
 
 ## Quickstart (under 15 minutes)
